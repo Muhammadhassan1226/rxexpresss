@@ -9,6 +9,7 @@ import email from "../assets/icons/email.png";
 import eyecross from "../assets/icons/eyecross.png";
 import google from "../assets/icons/google.png";
 import home from "../assets/icons/home.png";
+import loginIcon from "../assets/icons/loginicon.png";
 import list from "../assets/icons/list.png";
 import lock from "../assets/icons/lock.png";
 import map from "../assets/icons/map.png";
@@ -31,6 +32,7 @@ export const images = {
   onboarding1,
   onboarding2,
   signupguy,
+
 };
 
 export const icons = {
@@ -59,6 +61,7 @@ export const icons = {
   star,
   target,
   to,
+  loginIcon
 };
 
 export const onboarding = [

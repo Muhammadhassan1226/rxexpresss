@@ -1,6 +1,7 @@
 import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
 import { icons, images } from "@/constants";
+import { router } from "expo-router";
 import { Link } from "expo-router";
 import { useState } from "react";
 import { Text, View, ScrollView, Image } from "react-native";
@@ -12,7 +13,9 @@ const Signup = () => {
     password: "",
   });
 
-  const SignupPress = () => {};
+  const SignupPress = () => {
+    router.navigate("/otp");
+  };
   return (
     <ScrollView className="flex-1 bg-white">
       <View className="flex-1 bg-white">
@@ -20,10 +23,10 @@ const Signup = () => {
           <Image source={images.signupguy} className="w-full h-[200px]  " />
           <Text className="text-white font-JakartaSemiBold text-2xl absolute bottom-5 left-5">
             Create Your
-            <Text className="text-danger-700">Account</Text>
+            <Text className="text-danger-700"> Account</Text>
           </Text>
         </View>
-        <View className="p-3">
+        <View className="p-3 px-6">
           <CustomInput
             label="Name"
             placeholder="Enter Your Name"
@@ -51,16 +54,16 @@ const Signup = () => {
 
           <CustomButton
             title="Signup"
-            className="mt-3"
+            className="mt-3 text-lg"
             onPress={SignupPress}
             textVariant="primary"
           />
 
           {/* OAuth */}
 
-          <Link href="/sign-in">
+          <Link className="mt-5" href="/sign-in">
             <Text>Already have an Account?</Text>
-            <Text className="text-primary-500">Login</Text>
+            <Text className="text-primary-500 text-lg"> Login</Text>
           </Link>
         </View>
       </View>
