@@ -14,11 +14,13 @@ const CustomInput = ({
   label,
   labelStyle,
   icon,
+  expoIcon,
   secureTextEntry = false,
   containerStyle,
   inputStyle,
   iconStyle,
   className,
+  keyboardType,
   ...props
 }: InputFieldProps) => {
   return (
@@ -33,10 +35,12 @@ const CustomInput = ({
           <View
             className={` flex justify-start items-center flex-row relative bg-neutral-100 rounded-full  border border-neutral-100 focus:border-primary-500 ${containerStyle}`}
           >
+            <View className="w-6 h-6 ml-4">{expoIcon}</View>
             {icon && (
               <Image source={icon} className={`w-6 h-6 ml-4 ${iconStyle}`} />
             )}
             <TextInput
+              keyboardType={keyboardType}
               className={` rounded-full p-4 font-JakartaSemiBold text-[15px] flex-1 ${inputStyle} text-left`}
               secureTextEntry={secureTextEntry}
               {...props}

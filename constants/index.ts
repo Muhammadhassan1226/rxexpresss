@@ -27,6 +27,14 @@ import to from "../assets/icons/to.png";
 import onboarding1 from "../assets/images/onboard.png";
 import onboarding2 from "../assets/images/onboard2.jpg";
 import signupguy from "../assets/images/Landingimagetwo.webp";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import Foundation from "@expo/vector-icons/Foundation";
+import Entypo from "@expo/vector-icons/Entypo";
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import Feather from '@expo/vector-icons/Feather';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import EvilIcons from '@expo/vector-icons/EvilIcons';
 
 export const images = {
   onboarding1,
@@ -61,7 +69,15 @@ export const icons = {
   star,
   target,
   to,
-  loginIcon
+  loginIcon,
+  AntDesign,
+  Ionicons,
+  Feather,
+  FontAwesome5,
+  Entypo,
+  Foundation,
+  FontAwesome,
+  EvilIcons
 };
 
 export const onboarding = [
