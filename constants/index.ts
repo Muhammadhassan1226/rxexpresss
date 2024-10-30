@@ -31,16 +31,15 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Foundation from "@expo/vector-icons/Foundation";
 import Entypo from "@expo/vector-icons/Entypo";
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
-import Feather from '@expo/vector-icons/Feather';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import EvilIcons from '@expo/vector-icons/EvilIcons';
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import Feather from "@expo/vector-icons/Feather";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import EvilIcons from "@expo/vector-icons/EvilIcons";
 
 export const images = {
   onboarding1,
   onboarding2,
   signupguy,
-
 };
 
 export const icons = {
@@ -77,7 +76,7 @@ export const icons = {
   Entypo,
   Foundation,
   FontAwesome,
-  EvilIcons
+  EvilIcons,
 };
 
 export const onboarding = [

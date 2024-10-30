@@ -1,5 +1,5 @@
 import { ButtonProps } from "@/types/type";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, ActivityIndicator } from "react-native";
 import { Text } from "react-native";
 import React from "react";
 
@@ -37,6 +37,7 @@ const CustomButton = ({
   title,
   bgVariant,
   textVariant,
+  isSubmitting,
   IconLeft,
   IconRight,
   className,
@@ -50,10 +51,18 @@ const CustomButton = ({
     {IconLeft && <IconLeft />}
     <Text
       className={`text-md text-lg font-bold ${getTextVariant(textVariant)}`}
-    >
-      {title}
-    </Text>
+      // eslint-disable-next-line prettier/prettier
+    >{title}</Text>
     {IconRight && <IconRight />}
+    {/* {isSubmitting ? (
+      <ActivityIndicator color="#fff" />
+    ) : (
+      <Text
+        className={`text-md text-lg font-bold ${getTextVariant(textVariant)}`}
+      >
+        {title}
+      </Text>
+    )} */}
   </TouchableOpacity>
 );
 

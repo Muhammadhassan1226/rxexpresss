@@ -1,35 +1,67 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import Api from "@/config/publicApi";
+import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export interface User {
-  _id: string;
-  username: string;
-  password: string;
-  email: string;
-  followers: [];
-  following: [];
-  profileImg: string;
-  bio?: string;
-  googleId: string;
-  _v: number;
-}
+export const userSignup = createAsyncThunk<string, any>(
+  "user/signup",
+  async (data, ThunkApi) => {
+    try {
+      const res = await Api.post("/api/Auth/register", data);
+      if (res.data.success) {
+        console.log("Success");
+        await AsyncStorage.setItem("_signup", JSON.stringify(data));
+        return res.data.message; // Ensure returning a string message
+      } else {
+        // Return the custom error message sent by the server
+        return ThunkApi.rejectWithValue(res.data.message);
+      }
+    } catch (error: any) {
+      // Check if error response contains custom error message
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        return ThunkApi.rejectWithValue(error.response.data.message);
+      } else {
+        // Fallback to a generic error message if the above does not exist
+        return ThunkApi.rejectWithValue(error.message);
+      }
+    }
+  },
+);
 
-interface UserState {
-  user: User | null;
-}
-
-const initialState: UserState = {
-  user: null,
+export type Signup = {
+  message: string;
 };
 
-export const authSlice = createSlice({
-  name: "user",
+const initialState: Signup = {
+  message: "",
+};
+
+export const SignupSlice = createSlice({
+  name: "signup",
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<User>) => {
-      state.user = action.payload;
+    resetState: (state) => {
+      state.message = "";
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(
+      userSignup.fulfilled,
+      (state, action: PayloadAction<string>) => {
+        state.message = action.payload;
+      },
+    );
+    builder.addCase(
+      userSignup.rejected,
+      (state, action: PayloadAction<any>) => {
+        state.message = action.payload as string;
+      },
+    );
   },
 });
 
-export default authSlice;
-export const { setUser } = authSlice.actions;
+export const { resetState } = SignupSlice.actions;
+export default SignupSlice.reducer;

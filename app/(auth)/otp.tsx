@@ -1,10 +1,10 @@
-import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { Image, SafeAreaView, Text, View } from "react-native";
 import React, { useState } from "react";
 import CustomButton from "@/components/CustomButton";
 import { icons } from "@/constants";
 import OtpTextInput from "react-native-text-input-otp";
 
-const otp = () => {
+const Otp = () => {
   const [otpInput, setotpInput] = useState("");
   const OtpSubmit = () => {};
   return (
@@ -47,6 +47,4 @@ const otp = () => {
   );
 };
 
-export default otp;
-
-const styles = StyleSheet.create({});
+export default Otp;

@@ -1,13 +1,13 @@
 import { InputFieldProps } from "@/types/type";
 import {
   KeyboardAvoidingView,
-  TouchableWithoutFeedback,
   View,
   Text,
   Image,
   TextInput,
   Platform,
   Keyboard,
+  Pressable,
 } from "react-native";
 
 const CustomInput = ({
@@ -27,7 +27,7 @@ const CustomInput = ({
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <Pressable onPress={Keyboard.dismiss}>
         <View className="my-2 w-full">
           <Text className={`font-JakartaSemiBold text-md ${labelStyle}`}>
             {label}
@@ -47,7 +47,7 @@ const CustomInput = ({
             />
           </View>
         </View>
-      </TouchableWithoutFeedback>
+      </Pressable>
     </KeyboardAvoidingView>
   );
 };
