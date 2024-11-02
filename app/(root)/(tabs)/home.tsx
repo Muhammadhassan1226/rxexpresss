@@ -5,7 +5,7 @@ import React from "react";
 const Home = () => {
   return (
     <SafeAreaView className="flex-1 items-center justify-center bg-white">
-      <Text>Home1</Text>
+      <Text>Home welcome</Text>
       <StatusBar />
     </SafeAreaView>
   );

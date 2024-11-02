@@ -4,7 +4,7 @@ import authslice from "./slice/authslice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const rootReducer = combineReducers({
-  signup: authslice,
+  auth: authslice,
 });
 
 const persistConfig = {

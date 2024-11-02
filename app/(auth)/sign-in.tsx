@@ -20,10 +20,10 @@ const Signin = () => {
       setSubmitting(true);
       dispatch(userLogin(values)).then((res) => {
         if (res && res.type === "user/login/fulfilled") {
-          window.location.replace("/otp");
+          window.location.replace("/home");
         }
       });
-      router.navigate("/otp");
+      router.navigate("/home");
     } catch (error: any) {
       console.log(error);
     } finally {

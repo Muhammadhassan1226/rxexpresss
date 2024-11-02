@@ -7,7 +7,7 @@ import { Text, View, ScrollView, Image } from "react-native";
 import { Formik, FormikHelpers } from "formik";
 import { SignupinitialValues, SignupSchema } from "@/schemas/signup";
 import { useAppDispatch } from "@/store/hooks";
-import { userSignup } from "@/store/slice/authslice";
+import { userSignup, setEmail } from "@/store/slice/authslice";
 const Signup = () => {
   const dispatch = useAppDispatch();
   const handleSignup = async (
@@ -20,6 +20,7 @@ const Signup = () => {
         if (res && res.type === "user/signup/fulfilled") {
           window.location.replace("/otp");
         }
+        dispatch(setEmail(values.email));
       });
       router.navigate("/otp");
     } catch (error: any) {
@@ -218,6 +219,10 @@ const Signup = () => {
               <Link className="my-5" href="/sign-in">
                 <Text>Already have an Account?</Text>
                 <Text className="text-primary-500 text-lg"> Login</Text>
+              </Link>
+              <Link className="my-5" href="/otp">
+                <Text>Already have an Account?</Text>
+                <Text className="text-primary-500 text-lg"> otp</Text>
               </Link>
             </View>
           )}

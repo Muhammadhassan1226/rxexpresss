@@ -2,8 +2,8 @@ import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
 import { icons, images } from "@/constants";
 import { useAppDispatch } from "@/store/hooks";
-import { reset_password } from "@/store/slice/authslice";
-import { Href, Link, router } from "expo-router";
+import { new_password, reset_password } from "@/store/slice/authslice";
+import { Link, router } from "expo-router";
 import { useState } from "react";
 import { Text, View, ScrollView, Image, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -12,19 +12,27 @@ const ForgotPassword = () => {
   const dispatch = useAppDispatch();
   const [form, setform] = useState({
     email: "",
+    code: "",
+    newpass: "",
   });
 
   const LoginPress = () => {
     try {
-      dispatch(reset_password({ email: form.email }))
+      dispatch(
+        new_password({
+          email: form.email,
+          code: form.code,
+          newPassword: form.newpass,
+        }),
+      )
         .unwrap()
         .then((res: any) => {
           if (res && res.type === "user/reset_request/fulfilled") {
-            window.location.replace("/Newpassword");
+            window.location.replace("/home");
           }
         });
-      Alert.alert("Request Accept");
-      router.push("/Newpassword" as Href);
+      Alert.alert("Code Accepted");
+      router.navigate("/home");
     } catch (error) {
       console.log(error);
     }
@@ -44,7 +52,7 @@ const ForgotPassword = () => {
         />
 
         <Text className="text-black text-center my-5 font-JakartaSemiBold text-2xl ">
-          Forgot
+          Enter New
           <Text className="text-danger-700">Password</Text>
         </Text>
         <CustomInput
@@ -55,8 +63,24 @@ const ForgotPassword = () => {
           labelStyle="mb-2"
           onChangeText={(value: string) => setform({ ...form, email: value })}
         />
+        <CustomInput
+          label="Code"
+          placeholder="Enter Code"
+          icon={icons.eyecross}
+          value={form.code}
+          labelStyle="mb-2"
+          onChangeText={(value: string) => setform({ ...form, code: value })}
+        />
+        <CustomInput
+          label="New Password"
+          placeholder="Enter New Secret"
+          icon={icons.lock}
+          value={form.newpass}
+          labelStyle="mb-2"
+          onChangeText={(value: string) => setform({ ...form, newpass: value })}
+        />
         <CustomButton
-          title="Forgot Password"
+          title="Go to Home"
           className="mt-3 text-lg"
           onPress={LoginPress}
           textVariant="primary"

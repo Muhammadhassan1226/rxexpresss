@@ -18,7 +18,7 @@ export const SignupSchema = yup.object().shape({
     .required("Confirm password is required"),
   phone: yup
     .string()
-    .matches(/^[0-9]{10}$/, "Phone number must be 10 digits")
+    .matches(/^[0-9]{11}$/, "Phone number must be 11 digits")
     .required("Phone number is required"),
   businessName: yup.string().required("Business name is required"),
   addrress: yup.string().required("Address is required"),

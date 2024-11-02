@@ -3,10 +3,27 @@ import React, { useState } from "react";
 import CustomButton from "@/components/CustomButton";
 import { icons } from "@/constants";
 import OtpTextInput from "react-native-text-input-otp";
-
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { verifyOtp } from "@/store/slice/authslice";
+import { router } from "expo-router";
 const Otp = () => {
-  const [otpInput, setotpInput] = useState("");
-  const OtpSubmit = () => {};
+  const dispatch = useAppDispatch();
+  const { email, loading } = useAppSelector((state) => state.auth);
+  const [otpInput, setOtpInput] = useState<string>("");
+  const OtpSubmit = async () => {
+    try {
+      dispatch(verifyOtp({ email, otp: otpInput }))
+        .unwrap()
+        .then((res: any) => {
+          if (res && res.type === "user/verifyOtp/fulfilled") {
+            window.location.replace("/sign-in");
+          }
+        });
+      router.navigate("/sign-in");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <SafeAreaView className="flex-1 bg-white px-5">
       <View className="flex-1 justify-center items-center">
@@ -22,8 +39,8 @@ const Otp = () => {
         <View className="my-8">
           <OtpTextInput
             otp={otpInput}
-            setOtp={setotpInput}
-            digits={5}
+            setOtp={setOtpInput}
+            digits={6}
             style={{
               borderRadius: 0,
               borderTopWidth: 0,
