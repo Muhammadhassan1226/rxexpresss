@@ -21,6 +21,7 @@ const CustomInput = ({
   iconStyle,
   className,
   keyboardType,
+  error,
   ...props
 }: InputFieldProps) => {
   return (
@@ -46,6 +47,7 @@ const CustomInput = ({
               {...props}
             />
           </View>
+          {error && <Text className="text-red-600 self-end">{error}</Text>}
         </View>
       </Pressable>
     </KeyboardAvoidingView>

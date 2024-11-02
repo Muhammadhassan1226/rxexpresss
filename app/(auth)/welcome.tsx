@@ -30,8 +30,8 @@ const Welcome = () => {
         }
         onIndexChanged={(Index) => setactiveIndex(Index)}
       >
-        {onboarding.map((item) => (
-          <View className="flex items-center justify-center p-5">
+        {onboarding.map((item, index) => (
+          <View key={index} className="flex items-center justify-center p-5">
             <Image
               source={item.image}
               resizeMode="contain"
@@ -55,7 +55,7 @@ const Welcome = () => {
         title={isLastSlide ? "Getting Started" : "Next"}
         className="w-11/12"
         textVariant="primary"
-        onPress={() => 
+        onPress={() =>
           isLastSlide
             ? router.replace("/(auth)/signup")
             : swiperef.current?.scrollBy(1)
