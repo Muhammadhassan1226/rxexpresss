@@ -1,26 +1,11 @@
 import axios from "axios";
 
-const Api = axios.create({
-  baseURL: "https://backend.rxexpresss.com/index.html",
+const PUBLIC_API = axios.create({
+  baseURL: "https://backend.rxexpresss.com/",
 });
 
-// Attach a token to each request
-Api.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    // Handle request error (e.g., when no token is available)
-    return Promise.reject(error);
-  },
-);
-
 // Add a response interceptor to handle errors globally
-Api.interceptors.response.use(
+PUBLIC_API.interceptors.response.use(
   (response) => {
     return response;
   },
@@ -29,4 +14,4 @@ Api.interceptors.response.use(
   },
 );
 
-export default Api;
+export default PUBLIC_API;

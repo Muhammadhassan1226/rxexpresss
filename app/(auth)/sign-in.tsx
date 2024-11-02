@@ -1,20 +1,34 @@
 import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
-import { icons, images } from "@/constants";
+import { icons } from "@/constants";
+import { LogininitialValues, LoginSchema } from "@/schemas/loginSchemas";
+import { useAppDispatch } from "@/store/hooks";
+import { userLogin } from "@/store/slice/authslice";
 import { Link, router } from "expo-router";
-import { useState } from "react";
-import { Text, View, ScrollView, Image } from "react-native";
+import { Formik, FormikHelpers } from "formik";
+import { Text, View, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Signin = () => {
-  const [form, setform] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+  const dispatch = useAppDispatch();
 
-  const LoginPress = () => {
-    router.navigate("/otp");
+  const handleLogin = async (
+    values: typeof LogininitialValues,
+    { setSubmitting }: FormikHelpers<typeof LogininitialValues>,
+  ) => {
+    try {
+      setSubmitting(true);
+      dispatch(userLogin(values)).then((res) => {
+        if (res && res.type === "user/login/fulfilled") {
+          window.location.replace("/otp");
+        }
+      });
+      router.navigate("/otp");
+    } catch (error: any) {
+      console.log(error);
+    } finally {
+      setSubmitting(false);
+    }
   };
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -28,29 +42,49 @@ const Signin = () => {
           Login
           <Text className="text-danger-700"> Account</Text>
         </Text>
-        <CustomInput
-          label="Email"
-          placeholder="Enter Your Email"
-          icon={icons.email}
-          value={form.email}
-          labelStyle="mb-2"
-          onChangeText={(value: string) => setform({ ...form, email: value })}
-        />
-        <CustomInput
-          label="Password"
-          placeholder="Secret Here"
-          icon={icons.lock}
-          value={form.password}
-          labelStyle="mb-2"
-          onChangeText={(value: string) => setform({ ...form, name: value })}
-        />
+        <Formik
+          initialValues={LogininitialValues}
+          validationSchema={LoginSchema}
+          onSubmit={handleLogin}
+        >
+          {({
+            handleChange,
+            handleSubmit,
+            values,
+            isSubmitting,
+            touched,
+            errors,
+          }) => (
+            <View>
+              <CustomInput
+                label="Email"
+                placeholder="Enter Your Email"
+                icon={icons.email}
+                value={values.email}
+                labelStyle="mb-2"
+                onChangeText={handleChange("email")}
+                error={errors.email}
+              />
+              <CustomInput
+                label="Password"
+                placeholder="Secret Here"
+                icon={icons.lock}
+                value={values.password}
+                labelStyle="mb-2"
+                onChangeText={handleChange("password")}
+                error={errors.password}
+              />
 
-        <CustomButton
-          title="Login"
-          className="mt-3 text-lg"
-          onPress={LoginPress}
-          textVariant="primary"
-        />
+              <CustomButton
+                title="Login"
+                className="mt-3 text-lg"
+                onPress={() => handleSubmit()}
+                textVariant="primary"
+                isSubmitting={isSubmitting}
+              />
+            </View>
+          )}
+        </Formik>
         {/* ForgetPassword */}
         <Link className="self-end" href="/forgot-password">
           <Text className="text-red-500 font-bold text-lg">

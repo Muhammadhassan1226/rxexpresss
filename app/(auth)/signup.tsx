@@ -62,6 +62,7 @@ const Signup = () => {
                 value={values.name}
                 labelStyle="mb-2"
                 onChangeText={handleChange("name")}
+                error={errors.name}
               />
 
               <CustomInput
@@ -73,6 +74,7 @@ const Signup = () => {
                 value={values.phone}
                 labelStyle="mb-2"
                 onChangeText={handleChange("phone")}
+                error={errors.phone}
               />
 
               <CustomInput
@@ -88,6 +90,7 @@ const Signup = () => {
                 value={values.email}
                 labelStyle="mb-2"
                 onChangeText={handleChange("email")}
+                error={errors.email}
               />
               <CustomInput
                 label="Password"
@@ -98,6 +101,7 @@ const Signup = () => {
                 value={values.password}
                 labelStyle="mb-2"
                 onChangeText={handleChange("password")}
+                error={errors.password}
               />
               <CustomInput
                 label="Confirm Password"
@@ -108,6 +112,7 @@ const Signup = () => {
                 value={values.confirmPassword}
                 labelStyle="mb-2"
                 onChangeText={handleChange("confirmPassword")}
+                error={errors.confirmPassword}
               />
               <CustomInput
                 label="Business Name"
@@ -118,6 +123,7 @@ const Signup = () => {
                 value={values.businessName}
                 labelStyle="mb-2"
                 onChangeText={handleChange("businessName")}
+                error={errors.businessName}
               />
               <CustomInput
                 label="Adress"
@@ -128,6 +134,7 @@ const Signup = () => {
                 value={values.addrress}
                 labelStyle="mb-2"
                 onChangeText={handleChange("addrress")}
+                error={errors.addrress}
               />
               <CustomInput
                 label="City"
@@ -138,6 +145,7 @@ const Signup = () => {
                 value={values.city}
                 labelStyle="mb-2"
                 onChangeText={handleChange("city")}
+                error={errors.city}
               />
               <CustomInput
                 label="Country"
@@ -146,6 +154,7 @@ const Signup = () => {
                 value={values.state}
                 labelStyle="mb-2"
                 onChangeText={handleChange("state")}
+                error={errors.state}
               />
 
               <CustomInput
@@ -158,6 +167,7 @@ const Signup = () => {
                 value={values.zipcode}
                 labelStyle="mb-2"
                 onChangeText={handleChange("zipcode")}
+                error={errors.zipcode}
               />
               <CustomInput
                 label="APT"
@@ -168,6 +178,7 @@ const Signup = () => {
                 value={values.apt}
                 labelStyle="mb-2"
                 onChangeText={handleChange("apt")}
+                error={errors.apt}
               />
               <CustomInput
                 label="Facality"
@@ -175,9 +186,10 @@ const Signup = () => {
                 expoIcon={
                   <icons.FontAwesome5 name="industry" size={24} color="black" />
                 }
-                value={values.zipcode}
+                value={values.facility}
                 labelStyle="mb-2"
-                onChangeText={handleChange("zipcode")}
+                onChangeText={handleChange("facility")}
+                error={errors.zipcode}
               />
               <CustomInput
                 label="Select your Role"
@@ -192,7 +204,9 @@ const Signup = () => {
                 value={values.doingBusinessAs}
                 labelStyle="mb-2"
                 onChangeText={handleChange("doingBusinessAs")}
+                error={errors.doingBusinessAs}
               />
+
               <CustomButton
                 title="Signup"
                 className="mt-3 text-lg"
