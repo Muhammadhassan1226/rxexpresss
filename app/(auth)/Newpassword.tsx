@@ -28,11 +28,11 @@ const ForgotPassword = () => {
         .unwrap()
         .then((res: any) => {
           if (res && res.type === "user/reset_request/fulfilled") {
-            window.location.replace("/home");
+            window.location.replace("/Dashboard");
           }
         });
       Alert.alert("Code Accepted");
-      router.navigate("/home");
+      router.navigate("/Dashboard");
     } catch (error) {
       console.log(error);
     }

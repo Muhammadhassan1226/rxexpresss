@@ -20,10 +20,10 @@ const Signin = () => {
       setSubmitting(true);
       dispatch(userLogin(values)).then((res) => {
         if (res && res.type === "user/login/fulfilled") {
-          window.location.replace("/home");
+          window.location.replace("/Dashboard");
         }
       });
-      router.navigate("/home");
+      router.push("/Dashboard");
     } catch (error: any) {
       console.log(error);
     } finally {
