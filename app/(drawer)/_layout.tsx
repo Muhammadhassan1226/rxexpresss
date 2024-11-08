@@ -5,10 +5,8 @@ import {
   Provider as PaperProvider,
   MD3LightTheme,
   Drawer as PaperDrawer,
-  Text,
-  Avatar,
 } from "react-native-paper";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
