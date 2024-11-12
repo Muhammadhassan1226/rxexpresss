@@ -9,8 +9,19 @@ import {
 import { StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-
+import { router } from "expo-router";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { userLogin } from "@/store/slice/authslice";
 function CustomDrawerContent(props: any) {
+  const { user, loading, error } = useAppSelector((state: any) => state.auth);
+
+  const handleSignOut = () => {
+    // Add your logout logic here
+    router.replace("/(auth)/sign-in");
+  };
+
+  console.log(user);
+  
   return (
     <DrawerContentScrollView {...props}>
       {/* <View style={styles.drawerHeader}>
@@ -73,6 +84,13 @@ function CustomDrawerContent(props: any) {
           )}
           label="Brooklyn"
           onPress={() => props.navigation.navigate("Brooklyn")}
+        />
+        <PaperDrawer.Item
+          icon={({ color, size }) => (
+            <MaterialCommunityIcons name="logout" color={color} size={size} />
+          )}
+          label="Sign Out"
+          onPress={handleSignOut}
         />
       </PaperDrawer.Section>
     </DrawerContentScrollView>
@@ -160,6 +178,14 @@ export default function Layout() {
               drawerLabel: "Brooklyn",
               title: "Brooklyn",
               headerTitle: "Brooklyn",
+            }}
+          />
+          <Drawer.Screen
+            name="sign-in"
+            options={{
+              drawerLabel: "sign-in",
+              title: "sign-in",
+              headerTitle: "sign-in",
             }}
           />
         </Drawer>

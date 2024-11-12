@@ -55,6 +55,7 @@ export const userLogin = createAsyncThunk<string, any>(
         await AsyncStorage.setItem("_login", JSON.stringify(data));
         await AsyncStorage.setItem("userEmail", data.email);
         ThunkApi.dispatch(setEmail(data.email));
+        ThunkApi.dispatch(setUser(res.data));
         return res.data.message;
       } else {
         console.log("Login Rejected", res.status);
@@ -154,6 +155,9 @@ export const authSlice = createSlice({
     setEmail: (state, action: PayloadAction<string>) => {
       state.email = action.payload;
     },
+    setUser: (state, action: PayloadAction<any>) => {
+      state.user = action.payload;
+    },
     clearAuth: (state) => {
       state.email = "";
       state.message = "";
@@ -251,5 +255,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { resetState, setEmail, clearAuth } = authSlice.actions;
+export const { resetState, setEmail, clearAuth, setUser } = authSlice.actions;
 export default authSlice.reducer;

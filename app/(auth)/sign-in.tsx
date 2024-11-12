@@ -21,6 +21,7 @@ const Signin = () => {
       dispatch(userLogin(values)).then((res) => {
         if (res && res.type === "user/login/fulfilled") {
           window.location.replace("/Dashboard");
+          console.log("response", res);
         }
       });
       router.push("/Dashboard");
