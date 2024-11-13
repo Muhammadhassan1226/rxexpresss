@@ -21,7 +21,7 @@ function CustomDrawerContent(props: any) {
   };
 
   console.log(user);
-  
+
   return (
     <DrawerContentScrollView {...props}>
       {/* <View style={styles.drawerHeader}>
@@ -55,7 +55,7 @@ function CustomDrawerContent(props: any) {
             <FontAwesome name="list-alt" size={size} color={color} />
           )}
           label="Order List"
-          onPress={() => props.navigation.navigate("Order")}
+          onPress={() => props.navigation.navigate("orderlist")}
         />
         <PaperDrawer.Item
           icon={({ color, size }) => (
@@ -112,6 +112,7 @@ export default function Layout() {
     <PaperProvider theme={theme}>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <Drawer
+          initialRouteName="Dashboard"
           drawerContent={(props) => <CustomDrawerContent {...props} />}
           screenOptions={{
             headerStyle: {
@@ -145,7 +146,7 @@ export default function Layout() {
             options={{
               drawerLabel: "orderlist",
               title: "orderlist",
-              headerTitle: "orderlist",
+              headerTitle: "Order List",
             }}
           />
           <Drawer.Screen

@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <SafeAreaView className="flex-1 px-6">
       <StatusBar />
-      <Text>Hi {user.userName}</Text>
+      <Text>Hi {user?.userName}</Text>
 
       <CardItem title="Order Created" orderNo={12} subTitle="Orders Created" />
       <CardItem title="Ready For Pickup" orderNo={9} subTitle="Waiting" />
