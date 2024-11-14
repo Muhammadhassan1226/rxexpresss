@@ -1,5 +1,6 @@
 import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
+import { LoadingScreen } from "@/components/LoadingScreen";
 import { icons } from "@/constants";
 import { LogininitialValues, LoginSchema } from "@/schemas/loginSchemas";
 import { useAppDispatch } from "@/store/hooks";
@@ -22,6 +23,9 @@ const Signin = () => {
         if (res && res.type === "user/login/fulfilled") {
           window.location.replace("/Dashboard");
           console.log("response", res);
+        }
+        if (res && res.type === "user/login/pending") {
+          return <LoadingScreen />;
         }
       });
       router.push("/Dashboard");

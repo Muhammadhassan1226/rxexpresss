@@ -22,3 +22,13 @@ declare interface InputFieldProps extends TextInputProps {
   className?: string;
   error?: string;
 }
+
+declare interface CardItemProps {
+  title: string;
+  orderNo: number;
+  subTitle: string;
+}
+
+declare interface ErrorMessageProps {
+  message: string;
+}

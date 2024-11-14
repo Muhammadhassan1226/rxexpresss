@@ -21,7 +21,6 @@ function CustomDrawerContent(props: any) {
   };
 
   console.log(user);
-  
   return (
     <DrawerContentScrollView {...props}>
       {/* <View style={styles.drawerHeader}>
