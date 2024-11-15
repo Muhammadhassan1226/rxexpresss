@@ -18,13 +18,13 @@ const Signin = () => {
   ) => {
     try {
       setSubmitting(true);
-      dispatch(userLogin(values)).then((res) => {
-        if (res && res.type === "user/login/fulfilled") {
-          window.location.replace("/Dashboard");
-          console.log("response", res);
-        }
-      });
-      router.push("/Dashboard");
+      const res = await dispatch(userLogin(values));
+      if (res && res.type === "user/login/fulfilled") {
+        router.replace("/Dashboard");
+      } else {
+        console.error("Login failed:", res);
+        console.log("Login failed. Please check your credentials.");
+      }
     } catch (error: any) {
       console.log(error);
     } finally {

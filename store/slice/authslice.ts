@@ -51,11 +51,11 @@ export const userLogin = createAsyncThunk<string, any>(
     try {
       const res = await PUBLIC_API.post("/api/Auth/login", data);
       if (res.status === 200) {
-        console.log("Login Success");
+        await ThunkApi.dispatch(setEmail(data.email));
+        await ThunkApi.dispatch(setUser(res.data));
         await AsyncStorage.setItem("_login", JSON.stringify(data));
         await AsyncStorage.setItem("userEmail", data.email);
-        ThunkApi.dispatch(setEmail(data.email));
-        ThunkApi.dispatch(setUser(res.data));
+        console.log("Login Success");
         return res.data.message;
       } else {
         console.log("Login Rejected", res.status);
