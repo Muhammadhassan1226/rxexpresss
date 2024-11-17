@@ -12,15 +12,18 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { router } from "expo-router";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { userLogin } from "@/store/slice/authslice";
+import { RootState } from "@/store";
 function CustomDrawerContent(props: any) {
-  const { user, loading, error } = useAppSelector((state: any) => state.auth);
+  // const auth = useAppSelector(
+  //   (state: RootState) => state.auth,
+  // );
 
   const handleSignOut = () => {
     // Add your logout logic here
     router.replace("/(auth)/sign-in");
   };
 
-  console.log(user);
+  console.log("User Data");
 
   return (
     <DrawerContentScrollView {...props}>

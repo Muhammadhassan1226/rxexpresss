@@ -2,16 +2,19 @@ import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
 import { icons } from "@/constants";
 import { LogininitialValues, LoginSchema } from "@/schemas/loginSchemas";
-import { useAppDispatch } from "@/store/hooks";
+import { RootState } from "@/store";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { userLogin } from "@/store/slice/authslice";
 import { Link, router } from "expo-router";
 import { Formik, FormikHelpers } from "formik";
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, Alert } from "react-native";
+import Spinner from "react-native-loading-spinner-overlay";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Signin = () => {
   const dispatch = useAppDispatch();
-
+  const loading = useAppSelector((state: RootState) => state.auth.loading);
+  console.log("Loading", loading);
   const handleLogin = async (
     values: typeof LogininitialValues,
     { setSubmitting }: FormikHelpers<typeof LogininitialValues>,
@@ -22,17 +25,21 @@ const Signin = () => {
       if (res && res.type === "user/login/fulfilled") {
         router.replace("/Dashboard");
       } else {
-        console.error("Login failed:", res);
-        console.log("Login failed. Please check your credentials.");
+        Alert.alert("Login Failed. Please try again");
       }
     } catch (error: any) {
-      console.log(error);
+      Alert.alert("Login Failed. Please try again");
     } finally {
       setSubmitting(false);
     }
   };
   return (
     <SafeAreaView className="flex-1 bg-white">
+      <Spinner
+        visible={loading}
+        textContent={"Loading..."}
+        textStyle={{ color: "white" }}
+      />
       <View className="justify-center flex-1 p-3 px-6 ">
         <Image
           source={icons.loginIcon}
