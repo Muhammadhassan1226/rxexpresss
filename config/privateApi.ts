@@ -1,23 +1,27 @@
 import axios from "axios";
-import { useAppSelector } from "@/store/hooks";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const PRIVATE_API = axios.create({
   baseURL: "https://backend.rxexpresss.com/",
 });
 
 // Attach a token to each request
 PRIVATE_API.interceptors.request.use(
-  (config) => {
-    const user = useAppSelector((state: any) => state.auth.user);
-    const token = user.token;
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+  async (config) => {
+    try {
+      const token = await AsyncStorage.getItem("token");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    } catch (error) {
+      console.error("Error fetching token:", error);
+      return Promise.reject(error);
     }
-    return config;
   },
   (error) => {
-    // Handle request error (e.g., when no token is available)
+    console.error("Request error:", error);
     return Promise.reject(error);
-  },
+  }
 );
 
 // Add a response interceptor to handle errors globally
@@ -26,8 +30,9 @@ PRIVATE_API.interceptors.response.use(
     return response;
   },
   (error) => {
+    console.error("API Response error:", error.response || error.message);
     return Promise.reject(error);
-  },
+  }
 );
 
 export default PRIVATE_API;

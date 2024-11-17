@@ -55,6 +55,7 @@ export const userLogin = createAsyncThunk<string, any>(
         await ThunkApi.dispatch(setUser(res.data));
         await AsyncStorage.setItem("_login", JSON.stringify(data));
         await AsyncStorage.setItem("userEmail", data.email);
+        await AsyncStorage.setItem("token", res.data.token);
         console.log("Login Success");
         return res.data.message;
       } else {
