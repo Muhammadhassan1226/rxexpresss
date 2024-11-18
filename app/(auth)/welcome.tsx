@@ -9,6 +9,7 @@ const Welcome = () => {
   const swiperef = useRef<Swiper>(null);
   const [activeIndex, setactiveIndex] = useState(0);
   const isLastSlide = activeIndex === onboarding.length - 1;
+
   return (
     <SafeAreaView className="flex h-full justify-between items-center bg-white">
       <TouchableOpacity
