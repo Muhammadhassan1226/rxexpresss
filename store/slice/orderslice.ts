@@ -1,4 +1,5 @@
 import { PRIVATE_API } from "@/config/";
+import { OrderListType } from "@/types/orderslice";
 import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // Define types
@@ -8,12 +9,12 @@ type PharmacyCountType = {
     pendingOrders: number;
     readyForPickupOrders: number;
 };
-
 export interface OrderState {
     pharmacyCount: PharmacyCountType;
     loading: boolean;
     error: null | string;
     message: string;
+    orders: OrderListType[]
 }
 
 const initialState: OrderState = {
@@ -26,6 +27,7 @@ const initialState: OrderState = {
     loading: false,
     error: null,
     message: "",
+    orders: []
 };
 
 // Get Order Count Thunk
@@ -55,6 +57,26 @@ export const getOrderCount = createAsyncThunk<
     }
 );
 
+export const getMyOrder = createAsyncThunk<OrderListType[], void, { rejectValue: string }>("api/Order/my-orders?page=1&pageSize=15",
+    async (_, { dispatch, rejectWithValue }) => {
+        try {
+            const res = await PRIVATE_API.get("api/Order/my-orders?page=1&pageSize=15");
+            if (res.status === 200) {
+                console.log("OrderList Count Success", res.data);
+                return res.data;
+            } else {
+                console.log("OrderList Count Rejected", res.status);
+                return rejectWithValue(res.data.message);
+            }
+        } catch (error: any) {
+            if (error.response?.data?.message) {
+                return rejectWithValue(error.response.data.message);
+            }
+            return rejectWithValue(error.message || "OrderList count failed");
+        }
+    }
+)
+
 export const orderSlice = createSlice({
     name: "order",
     initialState,
@@ -81,6 +103,25 @@ export const orderSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload as string;
             });
+
+        builder
+            .addCase(getMyOrder.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(
+                getMyOrder.fulfilled,
+                (state, action: PayloadAction<OrderListType[]>) => {
+                    state.loading = false;
+                    state.orders = action.payload;
+                    state.error = null;
+                }
+            )
+            .addCase(getMyOrder.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            });
+
     },
 });
 
