@@ -6,13 +6,14 @@ interface propsType {
   status: string;
   paymentStatus: string;
 }
+
 const OrderItem = ({ price, name, status, paymentStatus }: propsType) => {
   return (
-    <View className="flex flex-row justify-around py-4">
-      <Text style={[styles.textStyle]}>{price}</Text>
-      <Text style={[styles.textStyle]}>{name}</Text>
-      <Text style={[styles.textStyle]}>{status}</Text>
-      <Text style={[styles.textStyle]}>{paymentStatus}</Text>
+    <View style={styles.container}>
+      <Text style={[styles.textStyle, styles.column]}>{name}</Text>
+      <Text style={[styles.textStyle, styles.column]}>{status}</Text>
+      <Text style={[styles.textStyle, styles.column]}>{price}$</Text>
+      <Text style={[styles.textStyle, styles.column]}>{paymentStatus}</Text>
     </View>
   );
 };
@@ -20,7 +21,21 @@ const OrderItem = ({ price, name, status, paymentStatus }: propsType) => {
 export default OrderItem;
 
 const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    justifyContent: "space-between", // Distribute columns evenly
+    alignItems: "center", // Vertically align text
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderBottomWidth: 1, // Optional: To separate rows
+    borderColor: "#ddd", // Optional: Border color
+  },
   textStyle: {
     color: "#000",
+    fontSize: 14, // Adjust font size as needed
+  },
+  column: {
+    flex: 1, // Ensure each column takes equal space
+    textAlign: "center", // Align text in the center of its column
   },
 });

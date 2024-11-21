@@ -14,7 +14,11 @@ export interface OrderState {
     loading: boolean;
     error: null | string;
     message: string;
-    orders: OrderListType[]
+    orders: OrderListType[],
+    manhattanOrders: OrderListType[],
+    nasauOrders: OrderListType[],
+    queensOrders: OrderListType[],
+    brooklynOrders: OrderListType[],
 }
 
 const initialState: OrderState = {
@@ -27,7 +31,11 @@ const initialState: OrderState = {
     loading: false,
     error: null,
     message: "",
-    orders: []
+    orders: [],
+    manhattanOrders: [],
+    nasauOrders: [],
+    queensOrders: [],
+    brooklynOrders: [],
 };
 
 // Get Order Count Thunk
@@ -56,14 +64,35 @@ export const getOrderCount = createAsyncThunk<
         }
     }
 );
-
+// Create Order Thunk
+export const createOrder = createAsyncThunk<string, any>(
+    "/api/Order/create",
+    async (data, ThunkApi) => {
+        try {
+            const res = await PRIVATE_API.post("/api/Order/create", data);
+            if (res.status === 200) {
+                console.log("Create Order Success");
+                return res.data.message;
+            } else {
+                console.log("Create Order Rejected", res.status);
+                return ThunkApi.rejectWithValue(res.data.message);
+            }
+        } catch (error: any) {
+            if (error.response?.data?.message) {
+                return ThunkApi.rejectWithValue(error.response.data.message);
+            }
+            return ThunkApi.rejectWithValue(error.message || "Create Order failed");
+        }
+    },
+);
+//   Get My Order
 export const getMyOrder = createAsyncThunk<OrderListType[], void, { rejectValue: string }>("api/Order/my-orders?page=1&pageSize=15",
     async (_, { dispatch, rejectWithValue }) => {
         try {
             const res = await PRIVATE_API.get("api/Order/my-orders?page=1&pageSize=15");
             if (res.status === 200) {
                 console.log("OrderList Count Success", res.data);
-                return res.data;
+                return res.data.orders;
             } else {
                 console.log("OrderList Count Rejected", res.status);
                 return rejectWithValue(res.data.message);
@@ -76,6 +105,87 @@ export const getMyOrder = createAsyncThunk<OrderListType[], void, { rejectValue:
         }
     }
 )
+//   Get manhattan Order
+export const getManhattanOrders = createAsyncThunk<OrderListType[], void, { rejectValue: string }>("api/Order/manhattan?page=1&pageSize=15",
+    async (_, { dispatch, rejectWithValue }) => {
+        try {
+            const res = await PRIVATE_API.get("api/Order/manhattan?page=1&pageSize=15");
+            if (res.status === 200) {
+                console.log("manhattan Success", res.data);
+                return res.data.orders;
+            } else {
+                console.log("manhattan Count Rejected", res.status);
+                return rejectWithValue(res.data.message);
+            }
+        } catch (error: any) {
+            if (error.response?.data?.message) {
+                return rejectWithValue(error.response.data.message);
+            }
+            return rejectWithValue(error.message || "manhattan count failed");
+        }
+    }
+)
+// Get Nasaua Order
+export const getNasauOrders = createAsyncThunk<OrderListType[], void, { rejectValue: string }>("api/Order/Nasau?page=1&pageSize=15",
+    async (_, { dispatch, rejectWithValue }) => {
+        try {
+            const res = await PRIVATE_API.get("api/Order/Nasau?page=1&pageSize=15");
+            if (res.status === 200) {
+                console.log("Nasau Order Success", res.data);
+                return res.data.orders;
+            } else {
+                console.log("Nasau Order Rejected", res.status);
+                return rejectWithValue(res.data.message);
+            }
+        } catch (error: any) {
+            if (error.response?.data?.message) {
+                return rejectWithValue(error.response.data.message);
+            }
+            return rejectWithValue(error.message || "Nasau Order failed");
+        }
+    }
+)
+// Get Queen Order
+export const getQueensOrders = createAsyncThunk<OrderListType[], void, { rejectValue: string }>("api/Order/Queens?page=1&pageSize=15",
+    async (_, { dispatch, rejectWithValue }) => {
+        try {
+            const res = await PRIVATE_API.get("api/Order/Queens?page=1&pageSize=15");
+            if (res.status === 200) {
+                console.log("Queens Order Success", res.data);
+                return res.data.orders;
+            } else {
+                console.log("Queens Order Rejected", res.status);
+                return rejectWithValue(res.data.message);
+            }
+        } catch (error: any) {
+            if (error.response?.data?.message) {
+                return rejectWithValue(error.response.data.message);
+            }
+            return rejectWithValue(error.message || "Queens Order failed");
+        }
+    }
+)
+
+export const getBrooklynOrders = createAsyncThunk<OrderListType[], void, { rejectValue: string }>("api/Order/Brooklyn?page=1&pageSize=15",
+    async (_, { dispatch, rejectWithValue }) => {
+        try {
+            const res = await PRIVATE_API.get("api/Order/Brooklyn?page=1&pageSize=15");
+            if (res.status === 200) {
+                console.log("Brooklyn Order Success", res.data);
+                return res.data.orders;
+            } else {
+                console.log("Brooklyn Order Rejected", res.status);
+                return rejectWithValue(res.data.message);
+            }
+        } catch (error: any) {
+            if (error.response?.data?.message) {
+                return rejectWithValue(error.response.data.message);
+            }
+            return rejectWithValue(error.message || "Brooklyn Order failed");
+        }
+    }
+)
+
 
 export const orderSlice = createSlice({
     name: "order",
@@ -103,7 +213,7 @@ export const orderSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload as string;
             });
-
+        // Get My Order
         builder
             .addCase(getMyOrder.pending, (state) => {
                 state.loading = true;
@@ -118,6 +228,78 @@ export const orderSlice = createSlice({
                 }
             )
             .addCase(getMyOrder.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            });
+        // Manhattan Order
+        builder
+            .addCase(getManhattanOrders.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(
+                getManhattanOrders.fulfilled,
+                (state, action: PayloadAction<OrderListType[]>) => {
+                    state.loading = false;
+                    state.manhattanOrders = action.payload;
+                    state.error = null;
+                }
+            )
+            .addCase(getManhattanOrders.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            });
+        // Nasau Order
+        builder
+            .addCase(getNasauOrders.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(
+                getNasauOrders.fulfilled,
+                (state, action: PayloadAction<OrderListType[]>) => {
+                    state.loading = false;
+                    state.nasauOrders = action.payload;
+                    state.error = null;
+                }
+            )
+            .addCase(getNasauOrders.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            });
+        // Queens Order
+        builder
+            .addCase(getQueensOrders.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(
+                getQueensOrders.fulfilled,
+                (state, action: PayloadAction<OrderListType[]>) => {
+                    state.loading = false;
+                    state.queensOrders = action.payload;
+                    state.error = null;
+                }
+            )
+            .addCase(getQueensOrders.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            });
+        // Brooklyn Order
+        builder
+            .addCase(getBrooklynOrders.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(
+                getBrooklynOrders.fulfilled,
+                (state, action: PayloadAction<OrderListType[]>) => {
+                    state.loading = false;
+                    state.brooklynOrders = action.payload;
+                    state.error = null;
+                }
+            )
+            .addCase(getBrooklynOrders.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
             });
