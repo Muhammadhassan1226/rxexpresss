@@ -20,7 +20,7 @@ const Queens = () => {
   console.log("Loading", loading);
   const handleQueensOrder = async () => {
     try {
-      const res = await dispatch(getQueensOrders());
+      const res = await dispatch(getQueensOrders({}));
       if (res && res.type === "api/Order/Queens?page=1&pageSize=15/fulfilled") {
         console.log("SuccessFull getQueensOrders My Order");
       } else {
@@ -30,8 +30,17 @@ const Queens = () => {
       console.log("Fail getQueensOrders My order");
     }
   };
-  const handleSearch = () => {
-    console.log(search);
+  const handleSearch = async () => {
+    try {
+      const res = await dispatch(getQueensOrders({ search }));
+      if (res && res.type === "api/Order/Queens?page=1&pageSize=15/fulfilled") {
+        console.log("SuccessFull getQueensOrders My Order");
+      } else {
+        console.log("Fail getQueensOrders My order");
+      }
+    } catch (error: any) {
+      console.log("Fail getQueensOrders My order");
+    }
   };
   useEffect(() => {
     handleQueensOrder();

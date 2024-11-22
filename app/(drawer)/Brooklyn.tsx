@@ -1,10 +1,10 @@
 import { Text, StatusBar, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
-import { getBrooklynOrders, getQueensOrders } from "@/store/slice/orderslice";
+import { getBrooklynOrders } from "@/store/slice/orderslice";
 import OrderItem from "@/components/OrderItem";
 import OrderHeader from "@/components/OrderHeader";
 import SearchBar from "@/components/SearchBar";
@@ -13,18 +13,15 @@ import Spinner from "react-native-loading-spinner-overlay";
 const Brooklyn = () => {
   const isFocused = useIsFocused();
   const [search, setSearch] = useState("");
-  const { queensOrders, loading } = useAppSelector(
+  const { brooklynOrders, loading } = useAppSelector(
     (state: RootState) => state.order,
   );
   const dispatch = useAppDispatch();
   console.log("Loading", loading);
   const handleBrooklynOrder = async () => {
     try {
-      const res = await dispatch(getBrooklynOrders());
-      if (
-        res &&
-        res.type === "api/Order/Brooklyn?page=1&pageSize=15/fulfilled"
-      ) {
+      const res = await dispatch(getBrooklynOrders({}));
+      if (res && res.type === "api/Order/Brooklyn/fulfilled") {
         console.log("SuccessFull getBrooklynOrders My Order");
       } else {
         console.log("Fail getBrooklynOrders My order");
@@ -33,8 +30,18 @@ const Brooklyn = () => {
       console.log("Fail getBrooklynOrders My order");
     }
   };
-  const handleSearch = () => {
-    console.log(search);
+  const handleSearch = async () => {
+    try {
+      const res = await dispatch(getBrooklynOrders({ search }));
+      if (res && res.type === "api/Order/Brooklyn/fulfilled") {
+        console.log("SuccessFull getBrooklynOrders My Order");
+      } else {
+        console.log("Fail getBrooklynOrders My order");
+      }
+      setSearch("");
+    } catch (error: any) {
+      console.log("Fail getBrooklynOrders My order");
+    }
   };
   useEffect(() => {
     handleBrooklynOrder();
@@ -54,11 +61,11 @@ const Brooklyn = () => {
         onPress={handleSearch}
       />
       <OrderHeader />
-      {queensOrders.length == 0 && (
+      {brooklynOrders.length == 0 && (
         <Text className="text-center my-4">No record Found</Text>
       )}
       <FlatList
-        data={queensOrders}
+        data={brooklynOrders}
         keyExtractor={(item, index) => item.id?.toString() || index.toString()}
         renderItem={({ item, index }) => {
           return (
