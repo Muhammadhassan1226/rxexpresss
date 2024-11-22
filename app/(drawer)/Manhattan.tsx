@@ -19,7 +19,7 @@ const Manhattan = () => {
   console.log("Loading", loading);
   const handleMahattanOrder = async () => {
     try {
-      const res = await dispatch(getManhattanOrders());
+      const res = await dispatch(getManhattanOrders({}));
       if (
         res &&
         res.type === "api/Order/manhattan?page=1&pageSize=15/fulfilled"
@@ -32,8 +32,20 @@ const Manhattan = () => {
       console.log("Fail getManhattanOrders My order");
     }
   };
-  const handleSearch = () => {
-    console.log(search);
+  const handleSearch = async () => {
+    try {
+      const res = await dispatch(getManhattanOrders({ search }));
+      if (
+        res &&
+        res.type === "api/Order/manhattan?page=1&pageSize=15/fulfilled"
+      ) {
+        console.log("SuccessFull getManhattanOrders My Order");
+      } else {
+        console.log("Fail getManhattanOrders My order");
+      }
+    } catch (error: any) {
+      console.log("Fail getManhattanOrders My order");
+    }
   };
   useEffect(() => {
     handleMahattanOrder();

@@ -18,7 +18,8 @@ const OrderList = () => {
   console.log("Loading", loading);
   const handleGetMyOrder = async () => {
     try {
-      const res = await dispatch(getMyOrder());
+      const res = await dispatch(getMyOrder({}));
+      console.log("response", res);
       if (
         res &&
         res.type === "api/Order/my-orders?page=1&pageSize=15/fulfilled"
@@ -31,8 +32,21 @@ const OrderList = () => {
       console.log("Fail Get Get My order");
     }
   };
-  const handleSearch = () => {
-    console.log(search);
+  const handleSearch = async () => {
+    try {
+      const res = await dispatch(getMyOrder({ search }));
+      console.log("response", res);
+      if (
+        res &&
+        res.type === "api/Order/my-orders?page=1&pageSize=15/fulfilled"
+      ) {
+        console.log("SuccessFull Get My Order");
+      } else {
+        console.log("Fail Get My order");
+      }
+    } catch (error: any) {
+      console.log("Fail Get Get My order");
+    }
   };
   useEffect(() => {
     handleGetMyOrder();

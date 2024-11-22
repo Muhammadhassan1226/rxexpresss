@@ -20,7 +20,7 @@ const Nasau = () => {
   console.log("Loading", loading);
   const handleNasauOrder = async () => {
     try {
-      const res = await dispatch(getNasauOrders());
+      const res = await dispatch(getNasauOrders({}));
       if (res && res.type === "api/Order/Nasau?page=1&pageSize=15/fulfilled") {
         console.log("SuccessFull getNasauOrders My Order");
       } else {
@@ -30,8 +30,17 @@ const Nasau = () => {
       console.log("Fail getNasauOrders My order");
     }
   };
-  const handleSearch = () => {
-    console.log(search);
+  const handleSearch = async () => {
+    try {
+      const res = await dispatch(getNasauOrders({ search }));
+      if (res && res.type === "api/Order/Nasau?page=1&pageSize=15/fulfilled") {
+        console.log("SuccessFull getNasauOrders My Order");
+      } else {
+        console.log("Fail getNasauOrders My order");
+      }
+    } catch (error: any) {
+      console.log("Fail getNasauOrders My order");
+    }
   };
   useEffect(() => {
     handleNasauOrder();

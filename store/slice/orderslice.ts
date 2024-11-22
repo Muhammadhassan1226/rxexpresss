@@ -85,11 +85,21 @@ export const createOrder = createAsyncThunk<string, any>(
         }
     },
 );
-//   Get My Order
-export const getMyOrder = createAsyncThunk<OrderListType[], void, { rejectValue: string }>("api/Order/my-orders?page=1&pageSize=15",
-    async (_, { dispatch, rejectWithValue }) => {
+export const getMyOrder = createAsyncThunk<
+    OrderListType[],
+    { page?: number; pageSize?: number, search?: string },
+    { rejectValue: string }
+>(
+    "api/Order/my-orders",
+    async ({ page = 1, pageSize = 15, search }, { dispatch, rejectWithValue }) => {
         try {
-            const res = await PRIVATE_API.get("api/Order/my-orders?page=1&pageSize=15");
+            // Build query parameters dynamically
+            const params = new URLSearchParams();
+            if (page) params.append("page", page.toString());
+            if (pageSize) params.append("pageSize", pageSize.toString());
+            if (search) params.append("search", search.toString());
+            const res = await PRIVATE_API.get(`api/Order/my-orders?${params.toString()}`);
+
             if (res.status === 200) {
                 console.log("OrderList Count Success", res.data);
                 return res.data.orders;
@@ -104,32 +114,55 @@ export const getMyOrder = createAsyncThunk<OrderListType[], void, { rejectValue:
             return rejectWithValue(error.message || "OrderList count failed");
         }
     }
-)
-//   Get manhattan Order
-export const getManhattanOrders = createAsyncThunk<OrderListType[], void, { rejectValue: string }>("api/Order/manhattan?page=1&pageSize=15",
-    async (_, { dispatch, rejectWithValue }) => {
+);
+// Manhattan Order
+export const getManhattanOrders = createAsyncThunk<
+    OrderListType[],
+    { page?: number; pageSize?: number; search?: string },
+    { rejectValue: string }
+>(
+    "api/Order/manhattan",
+    async ({ page = 1, pageSize = 15, search }, { rejectWithValue }) => {
         try {
-            const res = await PRIVATE_API.get("api/Order/manhattan?page=1&pageSize=15");
+            // Dynamically construct query parameters
+            const params = new URLSearchParams();
+            if (page) params.append("page", page.toString());
+            if (pageSize) params.append("pageSize", pageSize.toString());
+            if (search) params.append("search", search.toString());
+            const res = await PRIVATE_API.get(`api/Order/manhattan?${params.toString()}`);
+
             if (res.status === 200) {
-                console.log("manhattan Success", res.data);
+                console.log("Manhattan Orders Success", res.data);
                 return res.data.orders;
             } else {
-                console.log("manhattan Count Rejected", res.status);
+                console.log("Manhattan Orders Rejected", res.status);
                 return rejectWithValue(res.data.message);
             }
         } catch (error: any) {
             if (error.response?.data?.message) {
                 return rejectWithValue(error.response.data.message);
             }
-            return rejectWithValue(error.message || "manhattan count failed");
+            return rejectWithValue(error.message || "Manhattan orders retrieval failed");
         }
     }
-)
+);
+
 // Get Nasaua Order
-export const getNasauOrders = createAsyncThunk<OrderListType[], void, { rejectValue: string }>("api/Order/Nasau?page=1&pageSize=15",
-    async (_, { dispatch, rejectWithValue }) => {
+export const getNasauOrders = createAsyncThunk<
+    OrderListType[],
+    { page?: number; pageSize?: number, search?: string },
+    { rejectValue: string }
+>(
+    "api/Order/Nasau",
+    async ({ page = 1, pageSize = 15, search }, { rejectWithValue }) => {
         try {
-            const res = await PRIVATE_API.get("api/Order/Nasau?page=1&pageSize=15");
+            // Dynamically construct query parameters
+            const params = new URLSearchParams();
+            if (page) params.append("page", page.toString());
+            if (pageSize) params.append("pageSize", pageSize.toString());
+            if (search) params.append("search", search.toString());
+            const res = await PRIVATE_API.get(`api/Order/Nasau?${params.toString()}`);
+
             if (res.status === 200) {
                 console.log("Nasau Order Success", res.data);
                 return res.data.orders;
@@ -144,12 +177,25 @@ export const getNasauOrders = createAsyncThunk<OrderListType[], void, { rejectVa
             return rejectWithValue(error.message || "Nasau Order failed");
         }
     }
-)
+);
+
 // Get Queen Order
-export const getQueensOrders = createAsyncThunk<OrderListType[], void, { rejectValue: string }>("api/Order/Queens?page=1&pageSize=15",
-    async (_, { dispatch, rejectWithValue }) => {
+export const getQueensOrders = createAsyncThunk<
+    OrderListType[],
+    { page?: number; pageSize?: number, search?: string },
+    { rejectValue: string }
+>(
+    "api/Order/Queens",
+    async ({ page = 1, pageSize = 15, search }, { rejectWithValue }) => {
         try {
-            const res = await PRIVATE_API.get("api/Order/Queens?page=1&pageSize=15");
+            // Dynamically build query parameters
+            const params = new URLSearchParams();
+            if (page) params.append("page", page.toString());
+            if (pageSize) params.append("pageSize", pageSize.toString());
+            if (search) params.append("search", search.toString());
+
+            const res = await PRIVATE_API.get(`api/Order/Queens?${params.toString()}`);
+
             if (res.status === 200) {
                 console.log("Queens Order Success", res.data);
                 return res.data.orders;
@@ -164,12 +210,24 @@ export const getQueensOrders = createAsyncThunk<OrderListType[], void, { rejectV
             return rejectWithValue(error.message || "Queens Order failed");
         }
     }
-)
-
-export const getBrooklynOrders = createAsyncThunk<OrderListType[], void, { rejectValue: string }>("api/Order/Brooklyn?page=1&pageSize=15",
-    async (_, { dispatch, rejectWithValue }) => {
+);
+// Brooklyn Orders
+export const getBrooklynOrders = createAsyncThunk<
+    OrderListType[],
+    { page?: number; pageSize?: number, search?: string },
+    { rejectValue: string }
+>(
+    "api/Order/Brooklyn",
+    async ({ page = 1, pageSize = 15, search }, { rejectWithValue }) => {
         try {
-            const res = await PRIVATE_API.get("api/Order/Brooklyn?page=1&pageSize=15");
+            // Dynamically build query parameters
+            const params = new URLSearchParams();
+            if (page) params.append("page", page.toString());
+            if (pageSize) params.append("pageSize", pageSize.toString());
+            if (search) params.append("search", search.toString());
+
+            const res = await PRIVATE_API.get(`api/Order/Brooklyn?${params.toString()}`);
+
             if (res.status === 200) {
                 console.log("Brooklyn Order Success", res.data);
                 return res.data.orders;
@@ -184,7 +242,8 @@ export const getBrooklynOrders = createAsyncThunk<OrderListType[], void, { rejec
             return rejectWithValue(error.message || "Brooklyn Order failed");
         }
     }
-)
+);
+
 
 
 export const orderSlice = createSlice({
