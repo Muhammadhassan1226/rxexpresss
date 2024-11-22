@@ -24,7 +24,7 @@ const Home = () => {
         console.log("Fail Get PharmacyCount");
       }
     } catch (error: any) {
-      console.log("Fail Get PharmacyCount");
+      console.log(error, "Fail Get PharmacyCount");
     }
   };
   useEffect(() => {

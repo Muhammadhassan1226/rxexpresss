@@ -76,7 +76,7 @@ const OrderList = () => {
         renderItem={({ item, index }) => {
           return (
             <OrderItem
-              name={item.name}
+              name={item.recipientName}
               price={item.rate}
               status={item.status}
               paymentStatus={item.paymentStatus}

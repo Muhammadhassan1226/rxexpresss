@@ -21,14 +21,20 @@ const Signin = () => {
   ) => {
     try {
       setSubmitting(true);
-      const res = await dispatch(userLogin(values));
+      const RemovingSpaces = {
+        ...values,
+        password: values.password.trim(),
+      };
+      const res = await dispatch(userLogin(RemovingSpaces));
+      console.log("values", values);
       if (res && res.type === "user/login/fulfilled") {
         router.replace("/Dashboard");
       } else {
         Alert.alert("Login Failed. Please try again");
       }
     } catch (error: any) {
-      Alert.alert("Login Failed. Please try again");
+      console.log("erorr", error);
+      Alert.alert(error);
     } finally {
       setSubmitting(false);
     }
@@ -103,7 +109,7 @@ const Signin = () => {
         {/* OAuth */}
 
         <Link className="mt-5" href="/signup">
-          <Text>Already have an Account?</Text>
+          <Text>Not have an Account?</Text>
           <Text className="text-primary-500 text-lg"> Signup</Text>
         </Link>
       </View>
