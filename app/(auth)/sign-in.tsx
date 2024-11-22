@@ -1,6 +1,6 @@
 import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
-import { icons } from "@/constants";
+import { icons, images } from "@/constants";
 import { LogininitialValues, LoginSchema } from "@/schemas/loginSchemas";
 import { RootState } from "@/store";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -46,12 +46,12 @@ const Signin = () => {
         textContent={"Loading..."}
         textStyle={{ color: "white" }}
       />
-      <View className="justify-center flex-1 p-3 px-6 ">
+      <View className="flex justify-center items-center">
+        <Image source={images.auth} className="h-72 w-64 mt-2 " />
         <Image
           source={icons.loginIcon}
           className="w-20 h-20 mt-5 self-center"
         />
-
         <Text className="text-black text-center my-5 font-JakartaSemiBold text-2xl ">
           Login
           <Text className="text-danger-700"> Account</Text>
@@ -88,30 +88,42 @@ const Signin = () => {
                 onChangeText={handleChange("password")}
                 error={errors.password}
               />
-
-              <CustomButton
-                title="Login"
-                className="mt-3 text-lg"
-                onPress={() => handleSubmit()}
-                textVariant="primary"
-                isSubmitting={isSubmitting}
-              />
+              <View>
+                <CustomButton
+                  title="Login"
+                  className="mt-3 text-lg"
+                  onPress={() => handleSubmit()}
+                  textVariant="primary"
+                  isSubmitting={isSubmitting}
+                />
+              </View>
             </View>
           )}
         </Formik>
         {/* ForgetPassword */}
-        <Link className="self-end" href="/forgot-password">
-          <Text className="text-red-500 font-bold text-lg">
-            {" "}
-            Forgot Password?
+      </View>
+      <View className="justify-center items-center flex-1 px-6 mt-0">
+        {/* Forgot Password Section */}
+        <View className="mt-10 justify-center items-center">
+          <Text className="text-amber-600 font-bold text-xl">
+            "Life is too short for forgettable passwords"
           </Text>
-        </Link>
-        {/* OAuth */}
+          <Link href="/forgot-password" className="mt-2">
+            <Text className="text-blue-600 text-base font-semibold">
+              Reset your password →
+            </Text>
+          </Link>
+        </View>
 
-        <Link className="mt-5" href="/signup">
-          <Text>Not have an Account?</Text>
-          <Text className="text-primary-500 text-lg"> Signup</Text>
-        </Link>
+        {/* Signup Section */}
+        <View className="mt-8 items-center">
+          <Text className="text-gray-600 text-base">New to our community?</Text>
+          <Link href="/signup" className="mt-2">
+            <Text className="text-primary-500 text-lg font-semibold">
+              Create your account today
+            </Text>
+          </Link>
+        </View>
       </View>
     </SafeAreaView>
   );
