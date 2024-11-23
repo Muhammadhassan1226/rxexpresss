@@ -37,7 +37,8 @@ const ForgotPassword = () => {
       >
         <Text className="text-black-500 font-bold text-lg">Back</Text>
       </Link>
-      <View className="justify-center flex-1 p-3 px-6 ">
+      <View className="justify-center items-center ">
+        <Image source={images.forgot} className="h-72 w-64 mt-2 " />
         <Image
           source={icons.loginIcon}
           className="w-20 h-20 mt-5 self-center"
@@ -45,22 +46,26 @@ const ForgotPassword = () => {
 
         <Text className="text-black text-center my-5 font-JakartaSemiBold text-2xl ">
           Forgot
-          <Text className="text-danger-700">Password</Text>
+          <Text className="text-danger-700 ">Password</Text>
         </Text>
-        <CustomInput
-          label="Email"
-          placeholder="Enter Your Email"
-          icon={icons.email}
-          value={form.email}
-          labelStyle="mb-2"
-          onChangeText={(value: string) => setform({ ...form, email: value })}
-        />
-        <CustomButton
-          title="Forgot Password"
-          className="mt-3 text-lg"
-          onPress={LoginPress}
-          textVariant="primary"
-        />
+        <View>
+          <CustomInput
+            label="Email"
+            placeholder="Enter Your Email"
+            icon={icons.email}
+            value={form.email}
+            labelStyle="mb-2"
+            onChangeText={(value: string) => setform({ ...form, email: value })}
+          />
+          <View>
+            <CustomButton
+              title="Forgot Password"
+              className="mt-3 text-lg"
+              onPress={LoginPress}
+              textVariant="primary"
+            />
+          </View>
+        </View>
       </View>
     </SafeAreaView>
   );

@@ -51,8 +51,8 @@ export const userLogin = createAsyncThunk<string, any>(
     try {
       const res = await PUBLIC_API.post("/api/Auth/login", data);
       if (res.status === 200) {
-        await ThunkApi.dispatch(setEmail(data.email));
-        await ThunkApi.dispatch(setUser(res.data));
+        ThunkApi.dispatch(setEmail(data.email));
+        ThunkApi.dispatch(setUser(res.data));
         await AsyncStorage.setItem("_login", JSON.stringify(data));
         await AsyncStorage.setItem("userEmail", data.email);
         await AsyncStorage.setItem("token", res.data.token);
@@ -190,7 +190,7 @@ export const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(userLogin.fulfilled, (state, action: PayloadAction<string>) => {
+      .addCase(userLogin.fulfilled, (state, action: PayloadAction<any>) => {
         state.loading = false;
         state.message = action.payload;
         state.error = null;

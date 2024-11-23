@@ -26,6 +26,8 @@ import target from "../assets/icons/target.png";
 import to from "../assets/icons/to.png";
 import onboarding1 from "../assets/images/onboard.png";
 import onboarding2 from "../assets/images/onboard2.jpg";
+import auth from "../assets/images/file.png";
+import forgot from "../assets/images/forgot.png";
 import signupguy from "../assets/images/Landingimagetwo.webp";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -40,6 +42,8 @@ export const images = {
   onboarding1,
   onboarding2,
   signupguy,
+  auth,
+  forgot,
 };
 
 export const icons = {

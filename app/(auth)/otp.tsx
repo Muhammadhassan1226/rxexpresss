@@ -1,4 +1,10 @@
-import { Image, SafeAreaView, Text, View } from "react-native";
+import {
+  Image,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useState } from "react";
 import CustomButton from "@/components/CustomButton";
 import { icons } from "@/constants";
@@ -26,6 +32,16 @@ const Otp = () => {
   };
   return (
     <SafeAreaView className="flex-1 bg-white px-5">
+      <TouchableOpacity
+        onPress={() => {
+          router.replace("/(auth)/sign-in");
+        }}
+        className="w-full flex justify-start items-start p-5 mt-4"
+      >
+        <Text className="text-black text-lg font-JakartaBold">
+          Back to Login
+        </Text>
+      </TouchableOpacity>
       <View className="flex-1 justify-center items-center">
         <Image
           source={icons.loginIcon}
