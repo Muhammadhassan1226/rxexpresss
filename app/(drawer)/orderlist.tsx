@@ -20,10 +20,7 @@ const OrderList = () => {
     try {
       const res = await dispatch(getMyOrder({}));
       console.log("response", res);
-      if (
-        res &&
-        res.type === "api/Order/my-orders?page=1&pageSize=15/fulfilled"
-      ) {
+      if (res && res.type === "api/Order/my-orders/fulfilled") {
         console.log("SuccessFull Get My Order");
       } else {
         console.log("Fail Get My order");
@@ -36,10 +33,7 @@ const OrderList = () => {
     try {
       const res = await dispatch(getMyOrder({ search }));
       console.log("response", res);
-      if (
-        res &&
-        res.type === "api/Order/my-orders?page=1&pageSize=15/fulfilled"
-      ) {
+      if (res && res.type === "api/Order/my-orders/fulfilled") {
         console.log("SuccessFull Get My Order");
       } else {
         console.log("Fail Get My order");
@@ -76,6 +70,7 @@ const OrderList = () => {
         renderItem={({ item, index }) => {
           return (
             <OrderItem
+              id={item.id}
               name={item.name}
               price={item.rate}
               status={item.status}

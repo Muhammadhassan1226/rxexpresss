@@ -10,20 +10,15 @@ import { StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { router } from "expo-router";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { userLogin } from "@/store/slice/authslice";
-import { RootState } from "@/store";
+import { useAppDispatch } from "@/store/hooks";
+import { clearAuth } from "@/store/slice/authslice";
 function CustomDrawerContent(props: any) {
-  // const auth = useAppSelector(
-  //   (state: RootState) => state.auth,
-  // );
-
+  const dispatch = useAppDispatch();
   const handleSignOut = () => {
+    dispatch(clearAuth());
     // Add your logout logic here
     router.replace("/(auth)/sign-in");
   };
-
-  console.log("User Data");
 
   return (
     <DrawerContentScrollView {...props}>
@@ -182,14 +177,6 @@ export default function Layout() {
               drawerLabel: "Brooklyn",
               title: "Brooklyn",
               headerTitle: "Brooklyn",
-            }}
-          />
-          <Drawer.Screen
-            name="sign-in"
-            options={{
-              drawerLabel: "sign-in",
-              title: "sign-in",
-              headerTitle: "sign-in",
             }}
           />
         </Drawer>

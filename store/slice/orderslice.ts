@@ -19,6 +19,7 @@ export interface OrderState {
     nasauOrders: OrderListType[],
     queensOrders: OrderListType[],
     brooklynOrders: OrderListType[],
+    orderDetails: OrderListType,
 }
 
 const initialState: OrderState = {
@@ -36,6 +37,21 @@ const initialState: OrderState = {
     nasauOrders: [],
     queensOrders: [],
     brooklynOrders: [],
+    orderDetails: {
+        id: 0,
+        recipientName: "",
+        phone: "",
+        address: "",
+        deliveryMethods: "",
+        dateToDeliver: "",
+        instructions: "",
+        status: "",
+        paymentStatus: "",
+        deliverySubtypeId: 0,
+        name: "",
+        rate: 0,
+        businessName: ""
+    }
 };
 
 // Get Order Count Thunk
@@ -85,6 +101,36 @@ export const createOrder = createAsyncThunk<string, any>(
         }
     },
 );
+export const getOrderDetails = createAsyncThunk<
+    OrderListType,
+    { id: number },
+    { rejectValue: string }
+>(
+    "api/Order/order-details",
+    async ({ id }, { dispatch, rejectWithValue }) => {
+        try {
+            // Build query parameters dynamically
+            const params = new URLSearchParams();
+
+
+            const res = await PRIVATE_API.get(`api/Order/order-details/${id.toString()}`);
+
+            if (res.status === 200) {
+                console.log("order-details Success", res.data);
+                return res.data;
+            } else {
+                console.log("order-details Rejected", res.status);
+                return rejectWithValue(res.data.message);
+            }
+        } catch (error: any) {
+            if (error.response?.data?.message) {
+                return rejectWithValue(error.response.data.message);
+            }
+            return rejectWithValue(error.message || "order-details failed");
+        }
+    }
+);
+// get My Order
 export const getMyOrder = createAsyncThunk<
     OrderListType[],
     { page?: number; pageSize?: number, search?: string },
@@ -359,6 +405,24 @@ export const orderSlice = createSlice({
                 }
             )
             .addCase(getBrooklynOrders.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            });
+        // Order Details
+        builder
+            .addCase(getOrderDetails.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(
+                getOrderDetails.fulfilled,
+                (state, action: PayloadAction<OrderListType>) => {
+                    state.loading = false;
+                    state.orderDetails = action.payload;
+                    state.error = null;
+                }
+            )
+            .addCase(getOrderDetails.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
             });
