@@ -18,7 +18,7 @@ const Home = () => {
   const handlePharmacyCount = async () => {
     try {
       const res = await dispatch(getOrderCount());
-      if (res && res.type === "user/login/fulfilled") {
+      if (res && res.type === "Order/pharmacy-order-count/fulfilled") {
         console.log("SuccessFull PharmacyCount");
       } else {
         console.log("Fail Get PharmacyCount");

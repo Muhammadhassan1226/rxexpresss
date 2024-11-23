@@ -1,20 +1,41 @@
-import { StyleSheet, Text, View } from "react-native";
+import { useAppDispatch } from "@/store/hooks";
+import { getOrderDetails } from "@/store/slice/orderslice";
+import { router } from "expo-router";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 interface propsType {
   price: string | number;
   name: string;
   status: string;
   paymentStatus: string;
+  id: number;
 }
 
-const OrderItem = ({ price, name, status, paymentStatus }: propsType) => {
+const OrderItem = ({ price, name, status, paymentStatus, id }: propsType) => {
+  const dispatch = useAppDispatch();
+  const handleOrderDetails = async () => {
+    try {
+      const res = await dispatch(getOrderDetails({ id }));
+      if (res && res.type === "api/Order/order-details/fulfilled") {
+        console.log("SuccessFull order-details My Order");
+        router.navigate("/(dynamic)/OrderDetails");
+      } else {
+        console.log("Fail order-details My order");
+      }
+    } catch (error: any) {
+      console.log("Fail order-details My order");
+    }
+  };
+
   return (
-    <View style={styles.container}>
-      <Text style={[styles.textStyle, styles.column]}>{name}</Text>
-      <Text style={[styles.textStyle, styles.column]}>{status}</Text>
-      <Text style={[styles.textStyle, styles.column]}>{price}$</Text>
-      <Text style={[styles.textStyle, styles.column]}>{paymentStatus}</Text>
-    </View>
+    <TouchableOpacity onPress={handleOrderDetails}>
+      <View style={styles.container}>
+        <Text style={[styles.textStyle, styles.column]}>{name}</Text>
+        <Text style={[styles.textStyle, styles.column]}>{status}</Text>
+        <Text style={[styles.textStyle, styles.column]}>{price}$</Text>
+        <Text style={[styles.textStyle, styles.column]}>{paymentStatus}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 
