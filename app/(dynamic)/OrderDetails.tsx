@@ -51,7 +51,7 @@ const orderDetails = () => {
         <CustomButton
           title={"Show Qr Code"}
           textVariant="primary"
-          onPress={() => setshowqr(true)}
+          onPress={() => setshowqr(!showqr)}
           className="mt-4"
         />
       </View>
