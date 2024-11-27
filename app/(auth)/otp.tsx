@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import CustomButton from "@/components/CustomButton";
-import { icons } from "@/constants";
+import { icons, images } from "@/constants";
 import OtpTextInput from "react-native-text-input-otp";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { verifyOtp } from "@/store/slice/authslice";
@@ -43,9 +43,10 @@ const Otp = () => {
         </Text>
       </TouchableOpacity>
       <View className="flex-1 justify-center items-center">
+        <Image source={images.otp} className="h-72 w-64 mt-2 " />
         <Image
           source={icons.loginIcon}
-          className="w-20 h-20 mt-5 self-center"
+          className="w-20 h-20 mt-2 self-center"
         />
 
         <Text className="text-black text-center my-5 font-JakartaSemiBold text-2xl ">

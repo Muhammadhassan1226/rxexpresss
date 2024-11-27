@@ -1,9 +1,10 @@
-import { Text, View } from "react-native";
+import { Text, View, Pressable } from "react-native";
 import { useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
 import React from "react";
 import QRCode from "react-native-qrcode-svg";
 import CustomButton from "@/components/CustomButton";
+import { router } from "expo-router";
 const orderDetails = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [showqr, setshowqr] = React.useState(false);
@@ -12,8 +13,25 @@ const orderDetails = () => {
   return (
     <>
       <View className="flex p-4 mt-10">
-        <Text className="text-center text-[15px] font-bold">Order Details</Text>
-        <View className="text-[5rem]">
+        <Pressable onPress={() => router.back()}>
+          <Text className="text-black-500 font-bold text-lg">Back</Text>
+        </Pressable>
+        {/* <Link
+          className="self-start ml-5 px-5 py-2 rounded border-2 border-blue-500"
+          href="/OrderDetails"
+        >
+          <Text className="text-black-500 font-bold text-lg">Back</Text>
+        </Link> */}
+        {/* <Link
+          className="self-start ml-5 px-5 py-2 rounded border-2 border-blue-500"
+          href="/orderlist"
+          as
+          child
+        >
+          <Text className="text-black-500 font-bold text-lg">Back</Text>
+        </Link> */}
+        <Text className="text-center text-lg font-bold">Order Details</Text>
+        <View className="text-md">
           <Text className="my-2">
             Order Id: {""} {""} {""} {orderDetails?.id}
           </Text>

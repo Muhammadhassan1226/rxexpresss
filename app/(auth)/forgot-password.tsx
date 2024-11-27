@@ -67,6 +67,30 @@ const ForgotPassword = () => {
           </View>
         </View>
       </View>
+      <View className="justify-center items-center flex-1 px-6 mt-0">
+        {/* Forgot Password Section */}
+        <View className="mt-10 justify-center items-center">
+          <Text className="text-amber-600 font-bold text-xl flex justify-center items-center text-center">
+            "I changed my password everywhere to incorrect. That way when I
+            forget it, it always reminds me, Your password is incorrect."
+          </Text>
+          <Link href="/sign-in" className="mt-2">
+            <Text className="text-blue-600 text-base font-semibold">
+              Remember your password →
+            </Text>
+          </Link>
+        </View>
+
+        {/* Signup Section */}
+        {/* <View className="mt-8 items-center">
+          <Text className="text-gray-600 text-base">New to our community?</Text>
+          <Link href="/signup" className="mt-2">
+            <Text className="text-primary-500 text-lg font-semibold">
+              Create your account today
+            </Text>
+          </Link>
+        </View> */}
+      </View>
     </SafeAreaView>
   );
 };

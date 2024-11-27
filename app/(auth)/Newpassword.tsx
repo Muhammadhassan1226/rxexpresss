@@ -4,6 +4,7 @@ import { icons, images } from "@/constants";
 import { useAppDispatch } from "@/store/hooks";
 import { new_password, reset_password } from "@/store/slice/authslice";
 import { Link, router } from "expo-router";
+import React from "react";
 import { useState } from "react";
 import { Text, View, ScrollView, Image, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";

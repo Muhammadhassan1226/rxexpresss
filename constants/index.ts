@@ -37,13 +37,14 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import Feather from "@expo/vector-icons/Feather";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
-
+import otp from "../assets/images/otp.png";
 export const images = {
   onboarding1,
   onboarding2,
   signupguy,
   auth,
   forgot,
+  otp,
 };
 
 export const icons = {

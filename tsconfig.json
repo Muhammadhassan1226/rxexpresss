@@ -3,6 +3,11 @@
   "compilerOptions": {
     "jsx": "react",
     "strict": true,
+    "types": [
+      "expo-router",
+      "react",
+      "react-native"
+    ],
     "paths": {
       "@/*": [
         "./*"
@@ -14,5 +19,9 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
   ]
+
 }
