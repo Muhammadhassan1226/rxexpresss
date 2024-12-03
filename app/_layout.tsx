@@ -92,6 +92,7 @@ export default function RootLayout() {
             <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
             <Stack.Screen name="(auth)" options={{ headerShown: false }} />
             <Stack.Screen name="(dynamic)" options={{ headerShown: false }} />
+            <Stack.Screen name="(admin)" options={{ headerShown: false }} />
             <Stack.Screen name="+not-found" />
           </Stack>
         </PersistGate>

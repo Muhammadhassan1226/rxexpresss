@@ -5,12 +5,12 @@ import { LogininitialValues, LoginSchema } from "@/schemas/loginSchemas";
 import { RootState } from "@/store";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { userLogin } from "@/store/slice/authslice";
-import { Link, router } from "expo-router";
+import { Href, Link, router } from "expo-router";
 import { Formik, FormikHelpers } from "formik";
 import { Text, View, Image, Alert } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
 import { SafeAreaView } from "react-native-safe-area-context";
-
+import React from "react";
 const Signin = () => {
   const dispatch = useAppDispatch();
   const loading = useAppSelector((state: RootState) => state.auth.loading);
@@ -25,12 +25,25 @@ const Signin = () => {
         ...values,
         password: values.password.trim(),
       };
+
       const res = await dispatch(userLogin(RemovingSpaces));
       console.log("values", values);
-      if (res && res.type === "user/login/fulfilled") {
-        router.replace("/Dashboard");
+
+      if (
+        res.payload &&
+        typeof res.payload === "object" &&
+        "role" in res.payload
+      ) {
+        const { role } = res.payload;
+        console.log("User Role:", role); // Debug log
+
+        if (role === "Admin") {
+          router.replace("/AdminDashboard");
+        } else {
+          router.replace("/Dashboard");
+        }
       } else {
-        Alert.alert("Login Failed. Please try again");
+        router.replace("/Dashboard"); // Default route if role not found
       }
     } catch (error: any) {
       console.log("erorr", error);

@@ -3,18 +3,20 @@ import { persistStore, persistReducer } from "redux-persist";
 import authslice from "./slice/authslice";
 import orderReducer from "./slice/orderslice"; // Import the reducer
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import adminSlice from "./slice/adminslice";
 
 // Combine all reducers
 const rootReducer = combineReducers({
   auth: authslice,
-  order: orderReducer, // Use the reducer from orderslice
+  order: orderReducer,
+  admin: adminSlice,
 });
 
 // Persist configuration
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
-  whitelist: ["auth", "order"], // Specify reducers to persist
+  whitelist: ["auth", "order", "admin"], // Specify reducers to persist
 };
 
 // Wrap rootReducer with persistReducer
