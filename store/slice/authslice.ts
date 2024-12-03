@@ -56,8 +56,9 @@ export const userLogin = createAsyncThunk<string, any>(
         await AsyncStorage.setItem("_login", JSON.stringify(data));
         await AsyncStorage.setItem("userEmail", data.email);
         await AsyncStorage.setItem("token", res.data.token);
+        await AsyncStorage.setItem("userRole", res.data.role); 
         console.log("Login Success");
-        return res.data.message;
+        return { message: res.data.message, role: res.data.role };
       } else {
         console.log("Login Rejected", res.status);
         return ThunkApi.rejectWithValue(res.data.message);
