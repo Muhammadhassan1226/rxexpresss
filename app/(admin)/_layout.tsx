@@ -141,10 +141,10 @@ export default function Layout() {
             }}
           />
           <Drawer.Screen
-            name="RegisterUsers"
+            name="AllRegisterUsers"
             options={{
-              drawerLabel: "RegisterUsers",
-              title: "RegisterUsers",
+              drawerLabel: "AllRegisterUsers",
+              title: "AllRegisterUsers",
               headerTitle: "All Registered Users",
             }}
           />

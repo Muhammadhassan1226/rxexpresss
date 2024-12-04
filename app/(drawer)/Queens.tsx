@@ -1,14 +1,14 @@
 import { Text, StatusBar, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
 import { getQueensOrders } from "@/store/slice/orderslice";
 import OrderItem from "@/components/OrderItem";
-import OrderHeader from "@/components/OrderHeader";
 import SearchBar from "@/components/SearchBar";
 import Spinner from "react-native-loading-spinner-overlay";
+import Header from "@/components/Header";
 
 const Queens = () => {
   const isFocused = useIsFocused();
@@ -59,7 +59,12 @@ const Queens = () => {
         onChangeText={(text) => setSearch(text)}
         onPress={handleSearch}
       />
-      <OrderHeader />
+      <Header
+        first="Recipient Name"
+        second="Status"
+        third="Price"
+        forth="Payment Status"
+      />
       {queensOrders.length == 0 && (
         <Text className="text-center my-4">No record Found</Text>
       )}
@@ -69,6 +74,7 @@ const Queens = () => {
         renderItem={({ item, index }) => {
           return (
             <OrderItem
+              id={item.id}
               name={item.name}
               price={item.rate}
               status={item.status}
