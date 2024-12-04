@@ -1,7 +1,6 @@
 import { Text, StatusBar, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect, useState } from "react";
-import OrderHeader from "@/components/OrderHeader";
 import OrderItem from "@/components/OrderItem";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
@@ -9,6 +8,7 @@ import { getMyOrder } from "@/store/slice/orderslice";
 import { useIsFocused } from "@react-navigation/native";
 import Spinner from "react-native-loading-spinner-overlay";
 import SearchBar from "@/components/SearchBar";
+import Header from "@/components/Header";
 
 const OrderList = () => {
   const isFocused = useIsFocused();
@@ -60,7 +60,12 @@ const OrderList = () => {
         onChangeText={(text) => setSearch(text)}
         onPress={handleSearch}
       />
-      <OrderHeader />
+      <Header
+        first="Recipient Name"
+        second="Status"
+        third="Price"
+        forth="Payment Status"
+      />
       {orders.length == 0 && (
         <Text className="text-center my-4">No record Found</Text>
       )}

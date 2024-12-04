@@ -1,36 +1,34 @@
 import CardItem from "@/components/CardItem";
 import { StatusBar } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-// import DetailTable from "./DetailTable";
-import { Text } from "react-native";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
 import { getCount } from "@/store/slice/adminslice";
 import { useEffect } from "react";
 import Spinner from "react-native-loading-spinner-overlay";
-import React from "react";
+import { useIsFocused } from "@react-navigation/native";
 const Admin = () => {
   const pharmacyCount = useAppSelector(
     (state: RootState) => state.admin.DashboardCount,
   );
+  const isFocused = useIsFocused(); // Detect if the page is in focus
   const dispatch = useAppDispatch();
   const loading = useAppSelector((state: RootState) => state.admin.loading);
-  console.log("Loading", loading);
   const handlePharmacyCount = async () => {
     try {
       const res = await dispatch(getCount());
-      if (res && res.type === "admin/pharmacy-order-count/fulfilled") {
-        console.log("SuccessFull PharmacyCount");
+      if (res && res.type === "api/SuperAdmin/DashboardCounts/fulfilled") {
+        console.log("SuccessFull SuperAdmin DashboardCounts");
       } else {
-        console.log("Fail Get PharmacyCount");
+        console.log("Fail Get DashboardCounts");
       }
     } catch (error: any) {
-      console.log(error, "Fail Get PharmacyCount");
+      console.log(error, "Fail Get DashboardCounts");
     }
   };
   useEffect(() => {
     handlePharmacyCount();
-  }, []);
+  }, [isFocused]);
 
   return (
     <SafeAreaView className="flex-1 px-6">

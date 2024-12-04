@@ -1,14 +1,14 @@
 import { Text, StatusBar, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
 import { RootState } from "@/store";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { getNasauOrders } from "@/store/slice/orderslice";
 import SearchBar from "@/components/SearchBar";
-import OrderHeader from "@/components/OrderHeader";
 import OrderItem from "@/components/OrderItem";
 import Spinner from "react-native-loading-spinner-overlay";
+import Header from "@/components/Header";
 
 const Nasau = () => {
   const isFocused = useIsFocused();
@@ -59,7 +59,12 @@ const Nasau = () => {
         onChangeText={(text) => setSearch(text)}
         onPress={handleSearch}
       />
-      <OrderHeader />
+      <Header
+        first="Recipient Name"
+        second="Status"
+        third="Price"
+        forth="Payment Status"
+      />
       {nasauOrders.length == 0 && (
         <Text className="text-center my-4">No record Found</Text>
       )}
@@ -69,6 +74,7 @@ const Nasau = () => {
         renderItem={({ item, index }) => {
           return (
             <OrderItem
+              id={item.id}
               name={item.name}
               price={item.rate}
               status={item.status}

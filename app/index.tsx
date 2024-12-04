@@ -4,9 +4,13 @@ import { Redirect } from "expo-router";
 
 const Index = () => {
   const user = useAppSelector((state: RootState) => state.auth.user);
-  console.log(user?.token);
+  console.log(user?.role);
   return user?.token ? (
-    <Redirect href={"/(drawer)/Dashboard"} />
+    user?.role === "Admin" ? (
+      <Redirect href={"/(admin)/AdminDashboard"} />
+    ) : (
+      <Redirect href={"/(drawer)/Dashboard"} />
+    )
   ) : (
     <Redirect href="/(auth)/sign-in" />
   );

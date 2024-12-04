@@ -5,12 +5,10 @@ import { LogininitialValues, LoginSchema } from "@/schemas/loginSchemas";
 import { RootState } from "@/store";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { userLogin } from "@/store/slice/authslice";
-import { Href, Link, router } from "expo-router";
+import { Link, router } from "expo-router";
 import { Formik, FormikHelpers } from "formik";
-import { Text, View, Image, Alert } from "react-native";
+import { Text, View, Image, Alert, ScrollView } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
-import { SafeAreaView } from "react-native-safe-area-context";
-import React from "react";
 const Signin = () => {
   const dispatch = useAppDispatch();
   const loading = useAppSelector((state: RootState) => state.auth.loading);
@@ -53,14 +51,14 @@ const Signin = () => {
     }
   };
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <ScrollView className="flex-1 px-5 bg-white">
       <Spinner
         visible={loading}
         textContent={"Loading..."}
         textStyle={{ color: "white" }}
       />
-      <View className="flex justify-center items-center">
-        <Image source={images.auth} className="h-72 w-64 mt-2 " />
+      <View className="flex">
+        <Image source={images.auth} className="h-72 w-64 mt-1 self-center " />
         <Image
           source={icons.loginIcon}
           className="w-20 h-20 mt-5 self-center"
@@ -131,14 +129,14 @@ const Signin = () => {
         {/* Signup Section */}
         <View className="mt-8 items-center">
           <Text className="text-gray-600 text-base">New to our community?</Text>
-          <Link href="/signup" className="mt-2">
+          <Link href="/signup" className="mt-2 mb-4">
             <Text className="text-primary-500 text-lg font-semibold">
               Create your account today
             </Text>
           </Link>
         </View>
       </View>
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 

@@ -2,7 +2,6 @@ import { useAppDispatch } from "@/store/hooks";
 import { getOrderDetails } from "@/store/slice/orderslice";
 import { router } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-
 interface propsType {
   price: string | number;
   name: string;

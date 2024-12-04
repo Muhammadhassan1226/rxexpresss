@@ -1,4 +1,4 @@
-interface Order {
+interface OrderType {
   id: number;
   recipientName: string;
   phone: string;
@@ -16,5 +16,7 @@ interface Order {
 
 interface OrderResponse {
   totalOrders: number;
-  orders: Order[];
+  orders: OrderType[];
 }
+
+export { OrderResponse };

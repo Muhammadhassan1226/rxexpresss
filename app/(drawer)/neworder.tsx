@@ -67,6 +67,7 @@ const Profile = () => {
               error={errors.dateToDeliver}
             />
             <Text className="font-bold ">Special Instructions</Text>
+            
             <TextInput
               editable
               multiline

@@ -6,9 +6,9 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
 import { getBrooklynOrders } from "@/store/slice/orderslice";
 import OrderItem from "@/components/OrderItem";
-import OrderHeader from "@/components/OrderHeader";
 import SearchBar from "@/components/SearchBar";
 import Spinner from "react-native-loading-spinner-overlay";
+import Header from "@/components/Header";
 
 const Brooklyn = () => {
   const isFocused = useIsFocused();
@@ -60,7 +60,13 @@ const Brooklyn = () => {
         onChangeText={(text) => setSearch(text)}
         onPress={handleSearch}
       />
-      <OrderHeader />
+
+      <Header
+        first="Recipient Name"
+        second="Status"
+        third="Price"
+        forth="Payment Status"
+      />
       {brooklynOrders.length == 0 && (
         <Text className="text-center my-4">No record Found</Text>
       )}
@@ -70,6 +76,7 @@ const Brooklyn = () => {
         renderItem={({ item, index }) => {
           return (
             <OrderItem
+              id={item.id}
               name={item.name}
               price={item.rate}
               status={item.status}

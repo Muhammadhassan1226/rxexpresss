@@ -1,14 +1,14 @@
 import { Text, StatusBar, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
 import { getManhattanOrders } from "@/store/slice/orderslice";
 import Spinner from "react-native-loading-spinner-overlay";
 import SearchBar from "@/components/SearchBar";
-import OrderHeader from "@/components/OrderHeader";
 import OrderItem from "@/components/OrderItem";
+import Header from "@/components/Header";
 const Manhattan = () => {
   const isFocused = useIsFocused();
   const [search, setSearch] = useState("");
@@ -66,7 +66,12 @@ const Manhattan = () => {
         onChangeText={(text) => setSearch(text)}
         onPress={handleSearch}
       />
-      <OrderHeader />
+      <Header
+        first="Recipient Name"
+        second="Status"
+        third="Price"
+        forth="Payment Status"
+      />
       {manhattanOrders.length == 0 && (
         <Text className="text-center my-4">No record Found</Text>
       )}
@@ -76,6 +81,7 @@ const Manhattan = () => {
         renderItem={({ item, index }) => {
           return (
             <OrderItem
+              id={item.id}
               name={item.name}
               price={item.rate}
               status={item.status}
