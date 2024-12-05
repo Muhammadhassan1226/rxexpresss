@@ -155,6 +155,133 @@ export const getOrder = createAsyncThunk<
   }
 );
 
+// get ManhattanOrders
+export const manhattanOrders = createAsyncThunk<
+  OrderResponse,
+  { page?: number; pageSize?: number, search?: string },
+  { rejectValue: string }
+>(
+  "SuperAdmin/GetManhattanOrders",
+  async ({ page = 1, pageSize = 15, search }, { dispatch, rejectWithValue }) => {
+    try {
+      // Build query parameters dynamically
+      const params = new URLSearchParams();
+      if (page) params.append("page", page.toString());
+      if (pageSize) params.append("pageSize", pageSize.toString());
+      if (search) params.append("search", search.toString());
+      const res = await PRIVATE_API.get(`api/SuperAdmin/GetManhattanOrders?${params.toString()}`);
+
+      if (res.status === 200) {
+        console.log("SuperAdmin/GetManhattanOrders Success", res.data);
+        return res.data;
+      } else {
+        console.log("SuperAdmin/GetManhattanOrders Rejected", res.status);
+        return rejectWithValue(res.data.message);
+      }
+    } catch (error: any) {
+      if (error.response?.data?.message) {
+        return rejectWithValue(error.response.data.message);
+      }
+      return rejectWithValue(error.message || "SuperAdmin/GetManhattanOrders failed");
+    }
+  }
+);
+
+// get NassauOrders
+export const nassauOrders = createAsyncThunk<
+  OrderResponse,
+  { page?: number; pageSize?: number, search?: string },
+  { rejectValue: string }
+>(
+  "SuperAdmin/GetNassauOrders",
+  async ({ page = 1, pageSize = 15, search }, { dispatch, rejectWithValue }) => {
+    try {
+      // Build query parameters dynamically
+      const params = new URLSearchParams();
+      if (page) params.append("page", page.toString());
+      if (pageSize) params.append("pageSize", pageSize.toString());
+      if (search) params.append("search", search.toString());
+      const res = await PRIVATE_API.get(`api/SuperAdmin/GetNassauOrders?${params.toString()}`);
+
+      if (res.status === 200) {
+        console.log("SuperAdmin/GetNassauOrders Success", res.data);
+        return res.data;
+      } else {
+        console.log("SuperAdmin/GetNassauOrders Rejected", res.status);
+        return rejectWithValue(res.data.message);
+      }
+    } catch (error: any) {
+      if (error.response?.data?.message) {
+        return rejectWithValue(error.response.data.message);
+      }
+      return rejectWithValue(error.message || "SuperAdmin/GetNassauOrders failed");
+    }
+  }
+);
+// get QueensOrders
+export const queensOrders = createAsyncThunk<
+  OrderResponse,
+  { page?: number; pageSize?: number, search?: string },
+  { rejectValue: string }
+>(
+  "SuperAdmin/GetQueensOrders",
+  async ({ page = 1, pageSize = 15, search }, { dispatch, rejectWithValue }) => {
+    try {
+      // Build query parameters dynamically
+      const params = new URLSearchParams();
+      if (page) params.append("page", page.toString());
+      if (pageSize) params.append("pageSize", pageSize.toString());
+      if (search) params.append("search", search.toString());
+      const res = await PRIVATE_API.get(`api/SuperAdmin/GetQueensOrders?${params.toString()}`);
+
+      if (res.status === 200) {
+        console.log("SuperAdmin/GetQueensOrders Success", res.data);
+        return res.data;
+      } else {
+        console.log("SuperAdmin/GetQueensOrders Rejected", res.status);
+        return rejectWithValue(res.data.message);
+      }
+    } catch (error: any) {
+      if (error.response?.data?.message) {
+        return rejectWithValue(error.response.data.message);
+      }
+      return rejectWithValue(error.message || "SuperAdmin/GetQueensOrders failed");
+    }
+  }
+);
+
+// get BrooklynOrders
+export const brooklynOrders = createAsyncThunk<
+  OrderResponse,
+  { page?: number; pageSize?: number, search?: string },
+  { rejectValue: string }
+>(
+  "SuperAdmin/GetBrooklynOrders",
+  async ({ page = 1, pageSize = 15, search }, { dispatch, rejectWithValue }) => {
+    try {
+      // Build query parameters dynamically
+      const params = new URLSearchParams();
+      if (page) params.append("page", page.toString());
+      if (pageSize) params.append("pageSize", pageSize.toString());
+      if (search) params.append("search", search.toString());
+      const res = await PRIVATE_API.get(`api/SuperAdmin/GetBrooklynOrders?${params.toString()}`);
+
+      if (res.status === 200) {
+        console.log("SuperAdmin/GetBrooklynOrders Success", res.data);
+        return res.data;
+      } else {
+        console.log("SuperAdmin/GetBrooklynOrders Rejected", res.status);
+        return rejectWithValue(res.data.message);
+      }
+    } catch (error: any) {
+      if (error.response?.data?.message) {
+        return rejectWithValue(error.response.data.message);
+      }
+      return rejectWithValue(error.message || "SuperAdmin/GetBrooklynOrders failed");
+    }
+  }
+);
+
 export const adminSlice = createSlice({
   name: "admin",
   initialState,
@@ -204,8 +331,6 @@ export const adminSlice = createSlice({
         state.error = null;
       })
       .addCase(getOrder.fulfilled, (state, action) => {
-        state.loading = false;
-        state.error = null;
         const { page } = action.meta.arg;
 
         state.loading = false;
@@ -228,6 +353,69 @@ export const adminSlice = createSlice({
         state.orders.totalOrders = action.payload.totalOrders; // Update total count
       })
       .addCase(getOrder.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      });
+
+    // GetManhattanOrders
+    builder
+      .addCase(manhattanOrders.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(manhattanOrders.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.ManhattanOrders = action.payload;
+      })
+      .addCase(manhattanOrders.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      });
+
+    // GetNassauOrders
+    builder
+      .addCase(nassauOrders.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(nassauOrders.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.NassuOrders = action.payload;
+      })
+      .addCase(nassauOrders.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      });
+    // GetQueensOrders
+    builder
+      .addCase(queensOrders.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(queensOrders.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.QueensOrders = action.payload;
+      })
+      .addCase(queensOrders.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      });
+
+    // GetBrooklynOrders
+    builder
+      .addCase(brooklynOrders.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(brooklynOrders.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.BrooklynOrders = action.payload;
+      })
+      .addCase(brooklynOrders.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

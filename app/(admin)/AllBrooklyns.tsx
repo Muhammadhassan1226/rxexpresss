@@ -8,12 +8,12 @@ import Spinner from "react-native-loading-spinner-overlay";
 import OrderItem from "@/components/OrderItem";
 import SearchBar from "@/components/SearchBar";
 import Header from "@/components/Header";
-import { getOrder, nassauOrders } from "@/store/slice/adminslice";
+import { brooklynOrders } from "@/store/slice/adminslice";
 
-const AllNassu = () => {
+const AllBrooklyns = () => {
   const isFocused = useIsFocused();
   const dispatch = useAppDispatch();
-  const { NassuOrders, loading } = useAppSelector(
+  const { BrooklynOrders, loading } = useAppSelector(
     (state: RootState) => state.admin,
   );
   const [page, setPage] = useState(1);
@@ -21,7 +21,7 @@ const AllNassu = () => {
   const [search, setSearch] = useState("");
   const [isFetchingMore, setIsFetchingMore] = useState(false);
 
-  // Fetch NassuOrders for the current page
+  // Fetch BrooklynOrders for the current page
   const handleFetchOrders = async (reset = false) => {
     if (loading || isFetchingMore) return;
 
@@ -29,7 +29,7 @@ const AllNassu = () => {
 
     try {
       await dispatch(
-        nassauOrders({
+        brooklynOrders({
           search,
           page: currentPage,
           pageSize,
@@ -42,7 +42,7 @@ const AllNassu = () => {
         setPage((prev) => prev + 1); // Increment page
       }
     } catch (error) {
-      console.error("Error fetching NassuOrders:", error);
+      console.error("Error fetching BrooklynOrders:", error);
     }
   };
 
@@ -58,7 +58,10 @@ const AllNassu = () => {
 
   // Handle load more
   const loadMoreOrders = async () => {
-    if (isFetchingMore || NassuOrders.orders.length >= NassuOrders.totalOrders)
+    if (
+      isFetchingMore ||
+      BrooklynOrders.orders.length >= BrooklynOrders.totalOrders
+    )
       return;
 
     setIsFetchingMore(true); // Start fetching
@@ -75,7 +78,7 @@ const AllNassu = () => {
       />
       <StatusBar />
       <Text className="font-bold text-center text-xl pb-4">
-        All Nassau Orders
+        All Brooklyns Orders
       </Text>
       <SearchBar
         value={search}
@@ -89,7 +92,7 @@ const AllNassu = () => {
         forth="Payment Status"
       />
       <FlatList
-        data={NassuOrders.orders}
+        data={BrooklynOrders.orders}
         keyExtractor={(item) => item.id.toString()}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
@@ -118,4 +121,4 @@ const AllNassu = () => {
   );
 };
 
-export default AllNassu;
+export default AllBrooklyns;
