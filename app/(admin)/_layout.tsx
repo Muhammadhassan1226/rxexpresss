@@ -1,6 +1,5 @@
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
-import React from "react";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import {
   Provider as PaperProvider,
@@ -9,7 +8,6 @@ import {
 } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { router } from "expo-router";
 import { useAppDispatch } from "@/store/hooks";
 import { clearAuth } from "@/store/slice/authslice";
@@ -90,7 +88,7 @@ function CustomDrawerContent(props: any) {
             <MaterialCommunityIcons name="origin" color={color} size={size} />
           )}
           label="All Brooklynns"
-          onPress={() => props.navigation.navigate("AllBrooklynns")}
+          onPress={() => props.navigation.navigate("AllBrooklyns")}
         />
         <PaperDrawer.Item
           icon={({ color, size }) => (
@@ -162,6 +160,30 @@ export default function Layout() {
               drawerLabel: "AllManhattan",
               title: "AllManhattan",
               headerTitle: "AllManhattan",
+            }}
+          />
+          <Drawer.Screen
+            name="AllNassu"
+            options={{
+              drawerLabel: "AllNassu",
+              title: "All Nassua",
+              headerTitle: "All Nassua",
+            }}
+          />
+          <Drawer.Screen
+            name="AllQueens"
+            options={{
+              drawerLabel: "AllQueens",
+              title: "All Queens",
+              headerTitle: "All Queens",
+            }}
+          />
+          <Drawer.Screen
+            name="AllBrooklyns"
+            options={{
+              drawerLabel: "AllBrooklyns",
+              title: "All Brooklyns",
+              headerTitle: "All Brooklyns",
             }}
           />
         </Drawer>
