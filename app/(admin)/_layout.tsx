@@ -92,6 +92,38 @@ function CustomDrawerContent(props: any) {
         />
         <PaperDrawer.Item
           icon={({ color, size }) => (
+            <MaterialCommunityIcons name="origin" color={color} size={size} />
+          )}
+          label="All Orders without Delivered"
+          onPress={() => props.navigation.navigate("AllOrderswithoutDelivered")}
+        />
+        <PaperDrawer.Item
+          icon={({ color, size }) => (
+            <MaterialCommunityIcons
+              name="account-group"
+              color={color}
+              size={size}
+            />
+          )}
+          label="Deliverey Users"
+          onPress={() => props.navigation.navigate("Deliveryusers")}
+        />
+        <PaperDrawer.Item
+          icon={({ color, size }) => (
+            <MaterialCommunityIcons name="origin" color={color} size={size} />
+          )}
+          label="Assigned Orders (Admin)"
+          onPress={() => props.navigation.navigate("Assignedorders")}
+        />
+        <PaperDrawer.Item
+          icon={({ color, size }) => (
+            <MaterialCommunityIcons name="origin" color={color} size={size} />
+          )}
+          label="Signature Orders (Admin)"
+          onPress={() => props.navigation.navigate("Signaturebyadmin")}
+        />
+        <PaperDrawer.Item
+          icon={({ color, size }) => (
             <MaterialCommunityIcons name="logout" color={color} size={size} />
           )}
           label="Sign Out"
@@ -184,6 +216,38 @@ export default function Layout() {
               drawerLabel: "AllBrooklyns",
               title: "All Brooklyns",
               headerTitle: "All Brooklyns",
+            }}
+          />
+          <Drawer.Screen
+            name="AllOrderswithoutDelivered"
+            options={{
+              drawerLabel: "AllOrderswithoutDelivered",
+              title: "All Orders without Delivered",
+              headerTitle: "AllOrderswithoutDelivered",
+            }}
+          />
+          <Drawer.Screen
+            name="Deliverey User"
+            options={{
+              drawerLabel: "DelivereyUser",
+              title: "Deliverey User",
+              headerTitle: "DelivereyUser",
+            }}
+          />
+          <Drawer.Screen
+            name="Assigned Orders"
+            options={{
+              drawerLabel: "Assigned Orders",
+              title: "Assigned Orders",
+              headerTitle: "Assigned Orders",
+            }}
+          />
+          <Drawer.Screen
+            name="Signaturebyadmin"
+            options={{
+              drawerLabel: "Signature Orders",
+              title: "Signature Orders",
+              headerTitle: "Signature Orders",
             }}
           />
         </Drawer>
