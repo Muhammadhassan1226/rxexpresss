@@ -124,6 +124,13 @@ function CustomDrawerContent(props: any) {
         />
         <PaperDrawer.Item
           icon={({ color, size }) => (
+            <MaterialCommunityIcons name="origin" color={color} size={size} />
+          )}
+          label="Assigned Orders"
+          onPress={() => props.navigation.navigate("AssignedOrderss")}
+        />
+        <PaperDrawer.Item
+          icon={({ color, size }) => (
             <MaterialCommunityIcons name="logout" color={color} size={size} />
           )}
           label="Sign Out"
@@ -248,6 +255,14 @@ export default function Layout() {
               drawerLabel: "Signature Orders",
               title: "Signature Orders",
               headerTitle: "Signature Orders",
+            }}
+          />
+          <Drawer.Screen
+            name="Assigned Orders(Non-Admin)"
+            options={{
+              drawerLabel: "Assigned Orders(Non-Admin)",
+              title: "Assigned Orders(Non-Admin)",
+              headerTitle: "Assigned Orders(Non-Admin)",
             }}
           />
         </Drawer>
