@@ -3,7 +3,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
-import { getUsers } from "@/store/slice/adminslice";
+import { Deliveryusers, getUsers } from "@/store/slice/adminslice";
 import Spinner from "react-native-loading-spinner-overlay";
 import Header from "@/components/Header";
 import UserItem from "@/components/UserItem";
@@ -19,18 +19,19 @@ interface UserData {
 }
 
 const User = () => {
-  const users = useAppSelector((state: RootState) => state.admin.users) || [];
+  const users =
+    useAppSelector((state: RootState) => state.admin.Deliveryusers) || [];
   const loading = useAppSelector((state: RootState) => state.admin.loading);
   const dispatch = useAppDispatch();
   const isFocused = useIsFocused();
 
   const handleUserOrder = async () => {
     try {
-      const res = await dispatch(getUsers());
-      if (res?.type === "admin/users-count/fulfilled") {
-        console.log("Successfully Fetched All Users");
+      const res = await dispatch(Deliveryusers());
+      if (res?.type === "admin/Delivery-users/fulfilled") {
+        console.log("Successfully Fetched All Delivery Users");
       } else {
-        console.log("Failed to Fetch All Users");
+        console.log("Failed to Fetch Delivery Users");
       }
     } catch (error) {
       console.log("Error Fetching Users:", error);
@@ -51,7 +52,7 @@ const User = () => {
         textStyle={{ color: "white" }}
       />
       <StatusBar />
-      <Text className="font-bold text-center text-xl pb-4">All Users</Text>
+      <Text className="font-bold text-center text-xl pb-4">Delivery Users</Text>
       <Header
         first="Name"
         second="Phone"

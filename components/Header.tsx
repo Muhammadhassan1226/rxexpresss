@@ -7,14 +7,16 @@ interface PropsType {
   second?: string;
   third?: string;
   forth?: string;
+  fifth?: string;
 }
-const Header = ({ style, first, second, third, forth }: PropsType) => {
+const Header = ({ style, first, second, third, forth, fifth }: PropsType) => {
   return (
     <View style={styles.container} className="py-4 mt-4 bg-black">
       <Text style={[styles.textStyle, styles.column, style]}>{first}</Text>
       <Text style={[styles.textStyle, styles.column, style]}>{second}</Text>
       <Text style={[styles.textStyle, styles.column, style]}>{third}</Text>
       <Text style={[styles.textStyle, styles.column, style]}>{forth}</Text>
+      <Text style={[styles.textStyle, styles.column, style]}>{fifth}</Text>
     </View>
   );
 };

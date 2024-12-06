@@ -4,15 +4,17 @@ interface propsType {
   name: string;
   phone: string;
   state: string;
+  email: string;
 }
 
-const UserItem = ({ businessName, name, phone, state }: propsType) => {
+const UserItem = ({ businessName, name, phone, state, email }: propsType) => {
   return (
     <View style={styles.container}>
       <Text style={[styles.textStyle, styles.column]}>{name}</Text>
       <Text style={[styles.textStyle, styles.column]}>{phone}</Text>
       <Text style={[styles.textStyle, styles.column]}>{businessName}$</Text>
       <Text style={[styles.textStyle, styles.column]}>{state}</Text>
+      <Text style={[styles.textStyle, styles.column]}>{email}</Text>
     </View>
   );
 };
