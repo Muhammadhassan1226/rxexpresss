@@ -5,15 +5,15 @@ import { Redirect } from "expo-router";
 const Index = () => {
   const user = useAppSelector((state: RootState) => state.auth.user);
   console.log(user?.role);
-  return user?.token ? (
-    user?.role === "Admin" ? (
-      <Redirect href={"/(admin)/AdminDashboard"} />
-    ) : (
-      <Redirect href={"/(drawer)/Dashboard"} />
-    )
-  ) : (
-    <Redirect href="/(auth)/sign-in" />
-  );
+  if (user?.role === "Admin") {
+    return <Redirect href={"/(admin)/AdminDashboard"} />;
+  } else if (user?.role === "Delivery") {
+    return <Redirect href={"/(delivery)/DeliveryDashboard"} />;
+  } else if (user?.role === "PharmacyUser") {
+    return <Redirect href={"/(drawer)/Dashboard"} />;
+  } else {
+    return <Redirect href="/(auth)/sign-in" />;
+  }
 };
 
 export default Index;

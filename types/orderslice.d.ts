@@ -14,7 +14,33 @@ type OrderListType = {
     businessName: string
 }
 
+type OrderDetailsType = {
+
+    id: nummber,
+    recipientName: string,
+    phone: string,
+    address: string,
+    deliveryMethods: string,
+    dateToDeliver: string,
+    instructions: string,
+    status: string,
+    paymentStatus: string,
+    userId: number,
+    user: null | object,
+    deliverySubtypeId: number,
+    isNew: boolean,
+    signatureImagePath: string,
+    deliverySubtype: {
+        id: number,
+        name: string,
+        rate: number,
+        orders: OrderListType[]
+    },
+    registerId: number,
+    register: null
+}
 
 
 
-export { OrderListType }
+
+export { OrderListType, OrderDetailsType }

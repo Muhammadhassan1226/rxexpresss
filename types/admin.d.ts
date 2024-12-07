@@ -12,6 +12,7 @@ interface OrderType {
   name: string;
   rate: number;
   businessName: string;
+  signatureImageUrl?: string;
 }
 
 interface OrderResponse {

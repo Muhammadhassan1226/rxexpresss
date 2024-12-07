@@ -5,23 +5,23 @@ import { useIsFocused } from "@react-navigation/native";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
 import Spinner from "react-native-loading-spinner-overlay";
-import OrderItem from "@/components/OrderItem";
 import SearchBar from "@/components/SearchBar";
 import Header from "@/components/Header";
-import { nassauOrders } from "@/store/slice/adminslice";
+import { getAssignedOrder } from "@/store/slice/deliveryslice";
+import OrderDeliveryItem from "@/components/OrderDeliveryItem";
 
-const AllNassu = () => {
+const AssignedOrders = () => {
   const isFocused = useIsFocused();
   const dispatch = useAppDispatch();
-  const { NassuOrders, loading } = useAppSelector(
-    (state: RootState) => state.admin,
+  const { orders, loading } = useAppSelector(
+    (state: RootState) => state.delivery,
   );
   const [page, setPage] = useState(1);
   const [pageSize] = useState(15); // Number of items per page
   const [search, setSearch] = useState("");
   const [isFetchingMore, setIsFetchingMore] = useState(false);
 
-  // Fetch NassuOrders for the current page
+  // Fetch orders for the current page
   const handleFetchOrders = async (reset = false) => {
     if (loading || isFetchingMore) return;
 
@@ -29,7 +29,7 @@ const AllNassu = () => {
 
     try {
       await dispatch(
-        nassauOrders({
+        getAssignedOrder({
           search,
           page: currentPage,
           pageSize,
@@ -42,7 +42,7 @@ const AllNassu = () => {
         setPage((prev) => prev + 1); // Increment page
       }
     } catch (error) {
-      console.error("Error fetching NassuOrders:", error);
+      console.error("Error fetching orders:", error);
     }
   };
 
@@ -58,8 +58,7 @@ const AllNassu = () => {
 
   // Handle load more
   const loadMoreOrders = async () => {
-    if (isFetchingMore || NassuOrders.orders.length >= NassuOrders.totalOrders)
-      return;
+    if (isFetchingMore || orders.orders.length >= orders.totalOrders) return;
 
     setIsFetchingMore(true); // Start fetching
     await handleFetchOrders();
@@ -75,7 +74,7 @@ const AllNassu = () => {
       />
       <StatusBar />
       <Text className="font-bold text-center text-xl pb-4">
-        All Nassau Orders
+        All Delivery Orders
       </Text>
       <SearchBar
         value={search}
@@ -89,11 +88,11 @@ const AllNassu = () => {
         forth="Payment Status"
       />
       <FlatList
-        data={NassuOrders.orders}
+        data={orders.orders}
         keyExtractor={(item) => item.id.toString()}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
-          <OrderItem
+          <OrderDeliveryItem
             id={item.id}
             name={item.name}
             price={item.rate}
@@ -118,4 +117,4 @@ const AllNassu = () => {
   );
 };
 
-export default AllNassu;
+export default AssignedOrders;
