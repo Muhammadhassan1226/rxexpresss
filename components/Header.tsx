@@ -16,7 +16,9 @@ const Header = ({ style, first, second, third, forth, fifth }: PropsType) => {
       <Text style={[styles.textStyle, styles.column, style]}>{second}</Text>
       <Text style={[styles.textStyle, styles.column, style]}>{third}</Text>
       <Text style={[styles.textStyle, styles.column, style]}>{forth}</Text>
-      <Text style={[styles.textStyle, styles.column, style]}>{fifth}</Text>
+      {fifth && (
+        <Text style={[styles.textStyle, styles.column, style]}>{fifth}</Text>
+      )}
     </View>
   );
 };

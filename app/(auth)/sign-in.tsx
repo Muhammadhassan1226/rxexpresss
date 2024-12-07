@@ -37,6 +37,8 @@ const Signin = () => {
 
         if (role === "Admin") {
           router.replace("/AdminDashboard");
+        } else if (role === "Delivery") {
+          router.replace("/DeliveryDashboard");
         } else {
           router.replace("/Dashboard");
         }

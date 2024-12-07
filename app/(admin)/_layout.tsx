@@ -234,17 +234,17 @@ export default function Layout() {
             }}
           />
           <Drawer.Screen
-            name="Deliverey User"
+            name="Deliveryusers"
             options={{
-              drawerLabel: "DelivereyUser",
+              drawerLabel: "Deliveryusers",
               title: "Deliverey User",
               headerTitle: "DelivereyUser",
             }}
           />
           <Drawer.Screen
-            name="Assigned Orders"
+            name="Assignedorders"
             options={{
-              drawerLabel: "Assigned Orders",
+              drawerLabel: "Assignedorders",
               title: "Assigned Orders",
               headerTitle: "Assigned Orders",
             }}
