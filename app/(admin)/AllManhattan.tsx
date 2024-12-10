@@ -85,10 +85,11 @@ const AllManhattan = () => {
         onPress={handleSearch}
       />
       <Header
-        first="Recipient Name"
-        second="Status"
-        third="Price"
+        first="ID"
+        second="Recipient Name"
+        third="Status"
         forth="Payment Status"
+        fifth="Payment Status"
       />
       <FlatList
         data={ManhattanOrders.orders}
@@ -97,7 +98,7 @@ const AllManhattan = () => {
         renderItem={({ item }) => (
           <OrderItem
             id={item.id}
-            name={item.name}
+            name={item.recipientName}
             price={item.rate}
             status={item.status}
             paymentStatus={item.paymentStatus}

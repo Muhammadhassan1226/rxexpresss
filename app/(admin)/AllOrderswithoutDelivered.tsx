@@ -87,10 +87,11 @@ const AllOrderswithoutdelivered2 = () => {
         onPress={handleSearch}
       />
       <Header
-        first="Recipient Name"
-        second="Status"
-        third="Price"
+        first="ID"
+        second="Recipient Name"
+        third="Status"
         forth="Payment Status"
+        fifth="Payment Status"
       />
       <FlatList
         data={orders?.orders || []}
