@@ -47,6 +47,11 @@ export interface admindashboard {
   SignatureOrders: OrderResponse;
 }
 
+interface AssignOrderPayload {
+  orderId: number;
+  registerId: number;
+}
+
 const initialState: admindashboard = {
   DashboardCount: {
     registerUserCount: "0",
@@ -501,6 +506,33 @@ export const SignatureOrders = createAsyncThunk<
   },
 );
 
+export const assignOrderToDelivery = createAsyncThunk<
+  void,
+  AssignOrderPayload,
+  { rejectValue: string }
+>(
+  "admin/assign-order-delivery",
+  async ({ orderId, registerId }, { rejectWithValue }) => {
+    try {
+      const response = await PRIVATE_API.post(
+        "api/SuperAdmin/assignorderstodeliveryboys",
+        [{ orderId, registerId }],
+      );
+
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        return rejectWithValue(response.data.message);
+      }
+    } catch (error: any) {
+      if (error.response?.data?.message) {
+        return rejectWithValue(error.response.data.message);
+      }
+      return rejectWithValue(error.message || "Failed to assign order");
+    }
+  },
+);
+
 export const adminSlice = createSlice({
   name: "admin",
   initialState,
@@ -549,29 +581,32 @@ export const adminSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
+      // In adminSlice.ts, update the getOrder.fulfilled case:
       .addCase(getOrder.fulfilled, (state, action) => {
         const { page } = action.meta.arg;
-
         state.loading = false;
         state.error = null;
 
         if (page === 1) {
-          // Replace orders on the first page
-          state.orders.orders = action.payload.orders;
+          // For first page, create a new orders object
+          state.orders = {
+            totalOrders: action.payload.totalOrders,
+            orders: [...action.payload.orders],
+          };
         } else {
-          // Append new orders for subsequent pages
-          state.orders.orders = [
-            ...state.orders.orders,
-            ...action.payload.orders.filter(
-              (newOrder) =>
-                !state.orders.orders.some(
-                  (existingOrder) => existingOrder.id === newOrder.id,
-                ),
-            ),
-          ];
-        }
+          // For subsequent pages, properly merge orders
+          const existingIds = new Set(
+            state.orders.orders.map((order) => order.id),
+          );
+          const newUniqueOrders = action.payload.orders.filter(
+            (order) => !existingIds.has(order.id),
+          );
 
-        state.orders.totalOrders = action.payload.totalOrders; // Update total count
+          state.orders = {
+            totalOrders: action.payload.totalOrders,
+            orders: [...state.orders.orders, ...newUniqueOrders],
+          };
+        }
       })
       .addCase(getOrder.rejected, (state, action) => {
         state.loading = false;

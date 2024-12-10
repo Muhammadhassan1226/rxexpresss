@@ -18,26 +18,34 @@ const AllOrders = () => {
   const [pageSize] = useState(15); // Number of items per page
   const [search, setSearch] = useState("");
   const [isFetchingMore, setIsFetchingMore] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
 
   // Fetch orders for the current page
   const handleFetchOrders = async (reset = false) => {
-    if (loading || isFetchingMore) return;
+    if ((loading && !isFetchingMore) || (!reset && !hasMore)) return;
 
     const currentPage = reset ? 1 : page;
 
     try {
-      await dispatch(
+      const result = await dispatch(
         getOrder({
           search,
           page: currentPage,
           pageSize,
         }),
-      );
+      ).unwrap();
+
+      // Update hasMore flag
+      const totalItems = reset
+        ? result.orders.length
+        : orders.orders.length + result.orders.length;
+      setHasMore(totalItems < result.totalOrders);
 
       if (reset) {
-        setPage(2); // Reset pagination
-      } else {
-        setPage((prev) => prev + 1); // Increment page
+        setPage(2);
+      } else if (result.orders.length > 0) {
+        setPage((prev) => prev + 1);
       }
     } catch (error) {
       console.error("Error fetching orders:", error);
@@ -45,28 +53,44 @@ const AllOrders = () => {
   };
 
   // Handle initial fetch or reset on focus
+  // Update useEffect to properly handle initial loading
   useEffect(() => {
-    handleFetchOrders(true);
+    if (isFocused) {
+      setIsInitialLoading(true);
+      setHasMore(true);
+      handleFetchOrders(true).finally(() => {
+        setIsInitialLoading(false);
+      });
+    }
   }, [isFocused]);
 
   // Handle search
   const handleSearch = () => {
-    handleFetchOrders(true); // Reset and fetch new data
+    setIsInitialLoading(true);
+    setHasMore(true);
+    handleFetchOrders(true).finally(() => {
+      setIsInitialLoading(false);
+    });
   };
 
   // Handle load more
   const loadMoreOrders = async () => {
-    if (isFetchingMore || orders.orders.length >= orders.totalOrders) return;
-
-    setIsFetchingMore(true); // Start fetching
-    await handleFetchOrders();
-    setIsFetchingMore(false); // Fetching done
+    if (
+      !isFetchingMore &&
+      hasMore &&
+      !isInitialLoading &&
+      orders.orders.length > 0
+    ) {
+      setIsFetchingMore(true);
+      await handleFetchOrders(false);
+      setIsFetchingMore(false);
+    }
   };
 
   return (
     <SafeAreaView className="flex-1 px-4 bg-white">
       <Spinner
-        visible={loading}
+        visible={isInitialLoading && loading}
         textContent={"Loading..."}
         textStyle={{ color: "white" }}
       />
@@ -80,10 +104,11 @@ const AllOrders = () => {
         onPress={handleSearch}
       />
       <Header
-        first="Recipient Name"
-        second="Status"
-        third="Price"
+        first="ID"
+        second="Recipient Name"
+        third="Status"
         forth="Payment Status"
+        fifth="Payment Status"
       />
       <FlatList
         data={orders.orders}
@@ -92,21 +117,21 @@ const AllOrders = () => {
         renderItem={({ item }) => (
           <OrderItem
             id={item.id}
-            name={item.name}
+            name={item.recipientName}
             price={item.rate}
             status={item.status}
             paymentStatus={item.paymentStatus}
           />
         )}
         ListEmptyComponent={
-          !loading ? (
+          !isInitialLoading && !loading ? (
             <Text className="text-center my-4">No records found</Text>
           ) : null
         }
         onEndReached={loadMoreOrders}
-        onEndReachedThreshold={0.1} // Trigger closer to the bottom
+        onEndReachedThreshold={0.5}
         ListFooterComponent={
-          isFetchingMore ? (
+          isFetchingMore && hasMore ? (
             <ActivityIndicator size="large" color="#0000ff" />
           ) : null
         }

@@ -29,6 +29,7 @@ const OrderItem = ({ price, name, status, paymentStatus, id }: propsType) => {
   return (
     <TouchableOpacity onPress={handleOrderDetails}>
       <View style={styles.container}>
+        <Text style={[styles.textStyle, styles.column]}>{id}</Text>
         <Text style={[styles.textStyle, styles.column]}>{name}</Text>
         <Text style={[styles.textStyle, styles.column]}>{status}</Text>
         <Text style={[styles.textStyle, styles.column]}>{price}$</Text>
