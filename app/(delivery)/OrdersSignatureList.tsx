@@ -9,6 +9,7 @@ import SearchBar from "@/components/SearchBar";
 import Header from "@/components/Header";
 import { getAssignedOrderSignaure } from "@/store/slice/deliveryslice";
 import OrderDeliveryItem from "@/components/OrderDeliveryItem";
+import Signaturelist from "@/components/signaturelist";
 
 const OrdersSignatureList = () => {
   const isFocused = useIsFocused();
@@ -101,7 +102,7 @@ const OrdersSignatureList = () => {
         keyExtractor={(item) => item.id.toString()}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
-          <OrderDeliveryItem
+          <Signaturelist
             id={item.id}
             name={item.name}
             price={item.rate}
