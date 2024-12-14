@@ -1,142 +1,68 @@
-import { Text, View, Pressable } from "react-native";
+import { Text, View, Pressable, StyleSheet } from "react-native";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
-import React, { useState, useRef } from "react";
+import { useRef, useState } from "react";
 import CustomButton from "@/components/CustomButton";
 import { router } from "expo-router";
 import { Picker } from "@react-native-picker/picker";
-// import { Canvas } from "@react-native-community/art";
-import SignatureCapture from "react-native-signature-capture";
-import {
-  GestureHandlerRootView,
-  PanGestureHandler,
-} from "react-native-gesture-handler";
-import Svg, { Path } from "react-native-svg";
 import {
   updateOrderStatusDelivery,
   saveOrderSignature,
 } from "@/store/slice/deliveryslice";
-
-const SignaturePad = ({ onSignature }: any) => {
-  const [path, setPath] = useState<any>("");
-  const [currentPoints, setCurrentPoints] = useState<any>([]);
-
-  const onGestureEvent = (event: any) => {
-    const { x, y } = event.nativeEvent;
-    const newPoints = [...currentPoints, { x, y }];
-    setCurrentPoints(newPoints);
-
-    // Create SVG path
-    const pathData = newPoints.reduce((acc, point, index) => {
-      if (index === 0) return `M ${point.x} ${point.y}`;
-      return `${acc} L ${point.x} ${point.y}`;
-    }, "");
-
-    setPath(pathData);
-    onSignature(pathData);
-  };
-
-  const clearSignature = () => {
-    setPath("");
-    setCurrentPoints([]);
-    onSignature("");
-  };
-
-  return (
-    <View
-      style={{
-        height: 200,
-        borderWidth: 1,
-        borderColor: "#ddd",
-        backgroundColor: "white",
-      }}
-    >
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <PanGestureHandler onGestureEvent={onGestureEvent}>
-          <View style={{ flex: 1 }}>
-            <Svg
-              height="100%"
-              width="100%"
-              style={{ backgroundColor: "transparent" }}
-            >
-              <Path d={path} stroke="black" strokeWidth="2" fill="none" />
-            </Svg>
-          </View>
-        </PanGestureHandler>
-      </GestureHandlerRootView>
-      <CustomButton
-        title="Clear"
-        textVariant="secondary"
-        onPress={clearSignature}
-        className="absolute bottom-2 right-2"
-      />
-    </View>
-  );
-};
+import SignatureScreen, {
+  SignatureViewRef,
+} from "react-native-signature-canvas";
+import { Button } from "react-native";
 
 const AssignOrdersDetails = () => {
   const dispatch = useAppDispatch();
+  const [selectedType, setselectedType] = useState("");
+  const [imageData, setImageData] = useState<string>("");
   const { orderAssignDetails } = useAppSelector(
     (state: RootState) => state.delivery,
   );
-  const [selectedType, setselectedType] = useState("");
-  const [signature, setSignature] = useState("");
-
-  const handleSignature = (signaturePath: any) => {
-    setSignature(signaturePath);
-  };
-
-  const signatureRef = useRef<SignatureCapture | null>(null);
-
-  // Define the save function
-  const saveSign = (): void => {
-    signatureRef.current?.saveImage();
-  };
-
-  // Define the reset function
-  const resetSign = (): void => {
-    signatureRef.current?.resetImage();
-    setSignature("");
-  };
-
-  // Define the save event handler with proper typing
-  const _onSaveEvent = (result: { encoded: string }): void => {
-    setSignature(result.encoded);
-  };
-
+  // Submit the function
   const onSubmit = async () => {
     try {
-      if (selectedType === "Delivered" && !signature) {
-        alert("Please provide a signature for delivery confirmation");
-        return;
-      }
-
-      await dispatch(
-        updateOrderStatusDelivery({
-          orderId: orderAssignDetails.id,
-          newStatus: selectedType,
-        }),
-      );
-
-      if (selectedType === "Delivered" && signature) {
-        await dispatch(
+      if (imageData !== "") {
+        const hello = await dispatch(
           saveOrderSignature({
             orderId: orderAssignDetails.id,
-            signature: signature, // This will be SVG path data
+            signature: imageData,
           }),
         );
+        console.log("Successfully saved signature");
+      } else {
+        await dispatch(
+          updateOrderStatusDelivery({
+            orderId: orderAssignDetails.id,
+            newStatus: selectedType,
+          }),
+        );
+        console.log("Successfully updated status");
       }
-
-      console.log("Successfully updated status and saved signature");
-      router.back();
+      // router.back();
     } catch (error) {
       console.log("Error____", error);
       alert("Failed to update order status");
     }
   };
+  // Refernce Signature
+  const ref = useRef<SignatureViewRef>(null);
+  // Handle signature
+  const handleSignature = async (signature: any) => {
+    ref.current?.readSignature();
+    console.log("Image 64", imageData);
+  };
+  // Clear the signature
+  const handleClear = () => {
+    ref.current?.clearSignature();
+    setImageData("");
+    console.log("clear success!");
+  };
 
   return (
-    <View className="flex p-4 mt-10">
+    <View className="flex-1 p-4 mt-10 bg-success-400">
       <Pressable onPress={() => router.back()}>
         <Text className="text-black-500 font-bold text-lg">Back</Text>
       </Pressable>
@@ -171,6 +97,7 @@ const AssignOrdersDetails = () => {
         <Text className="my-2">
           Payment: {""} {""} {""} {orderAssignDetails?.paymentStatus}
         </Text>
+        {/* Update status */}
         <View className="">
           <Text className="my-2">Update Status:</Text>
           <Picker
@@ -183,62 +110,22 @@ const AssignOrdersDetails = () => {
             <Picker.Item label="Delivered" value="Delivered" />
           </Picker>
         </View>
-
-        {selectedType === "Delivered" && (
-          <View style={{ flex: 1, marginTop: 15 }}>
-            <Text className="my-2">Signature:</Text>
-            <SignatureCapture
-              style={{
-                flex: 1,
-                height: 200,
-                borderColor: "#000033",
-                borderWidth: 1,
-              }}
-              ref={signatureRef}
-              onSaveEvent={_onSaveEvent}
-              saveImageFileInExtStorage={false}
-              showNativeButtons={false}
-              showTitleLabel={false}
-              viewMode={"portrait"}
-            />
-            <View className="flex-row justify-end space-x-2 mt-2">
-              <CustomButton
-                title="Reset"
-                textVariant="secondary"
-                onPress={resetSign}
-                className="px-4"
-              />
-              <CustomButton
-                title="Save"
-                textVariant="primary"
-                onPress={saveSign}
-                className="px-4"
-              />
-            </View>
-          </View>
-        )}
-      </View>
-
-      <View className="">
-        <Text className="my-2">Update Status:</Text>
-        <Picker
-          className="w-8"
-          selectedValue={selectedType}
-          onValueChange={(text) => setselectedType(text)}
-        >
-          <Picker.Item label="Ready for pickup" value="Ready for pickup" />
-          <Picker.Item label="Out For Delivery" value="Out For Delivery" />
-          <Picker.Item label="Delivered" value="Delivered" />
-        </Picker>
-      </View>
-
-      {selectedType === "Delivered" && (
-        <View className="mt-4">
-          <Text className="my-2">Signature:</Text>
-          <SignaturePad onSignature={handleSignature} />
+        {/* Signature */}
+        <View style={{ height: 200 }}>
+          <SignatureScreen
+            ref={ref}
+            onOK={(img) => setImageData(img)}
+            descriptionText="Sign"
+            clearText="Clear"
+            confirmText="Save"
+            imageType="image/png"
+          />
         </View>
-      )}
-
+        <View style={styles.row}>
+          <Button title="Clear" onPress={handleClear} />
+          <Button title="Confirm" onPress={handleSignature} />
+        </View>
+      </View>
       <CustomButton
         title="Submit"
         textVariant="primary"
@@ -250,3 +137,20 @@ const AssignOrdersDetails = () => {
 };
 
 export default AssignOrdersDetails;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    height: 250,
+    padding: 10,
+  },
+  row: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+    alignItems: "center",
+  },
+});

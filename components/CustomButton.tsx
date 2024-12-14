@@ -1,7 +1,6 @@
 import { ButtonProps } from "@/types/type";
-import { TouchableOpacity, ActivityIndicator } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { Text } from "react-native";
-import React from "react";
 
 const getbgVariantStye = (variant: ButtonProps["bgVariant"]) => {
   switch (variant) {
@@ -52,7 +51,9 @@ const CustomButton = ({
     <Text
       className={`text-md text-lg font-bold ${getTextVariant(textVariant)}`}
       // eslint-disable-next-line prettier/prettier
-    >{title}</Text>
+    >
+      {title}
+    </Text>
     {IconRight && <IconRight />}
     {/* {isSubmitting ? (
       <ActivityIndicator color="#fff" />
