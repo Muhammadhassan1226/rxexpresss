@@ -25,13 +25,14 @@ const AssignOrdersDetails = () => {
   const onSubmit = async () => {
     try {
       if (imageData !== "") {
-        const hello = await dispatch(
+        await dispatch(
           saveOrderSignature({
             orderId: orderAssignDetails.id,
             signature: imageData,
           }),
         );
         console.log("Successfully saved signature");
+        router.back();
       } else {
         await dispatch(
           updateOrderStatusDelivery({
@@ -41,7 +42,7 @@ const AssignOrdersDetails = () => {
         );
         console.log("Successfully updated status");
       }
-      // router.back();
+      router.back();
     } catch (error) {
       console.log("Error____", error);
       alert("Failed to update order status");
