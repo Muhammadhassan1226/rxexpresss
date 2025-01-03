@@ -179,6 +179,14 @@ export default function Layout() {
               headerTitle: "Brooklyn",
             }}
           />
+          <Drawer.Screen
+            name="notification"
+            options={{
+              drawerLabel: "notification",
+              title: "notification",
+              headerTitle: "notification",
+            }}
+          />
         </Drawer>
       </GestureHandlerRootView>
     </PaperProvider>

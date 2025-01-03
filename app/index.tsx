@@ -12,7 +12,7 @@ const Index = () => {
   } else if (user?.role === "PharmacyUser") {
     return <Redirect href={"/(drawer)/Dashboard"} />;
   } else {
-    return <Redirect href="/(auth)/sign-in" />;
+    return <Redirect href="/(drawer)/notification" />;
   }
 };
 
