@@ -1,4 +1,5 @@
-import { useAppDispatch } from "@/store/hooks";
+import { RootState } from "@/store";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { getOrderDetails } from "@/store/slice/orderslice";
 import { router } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -11,18 +12,21 @@ interface propsType {
 }
 
 const OrderItem = ({ price, name, status, paymentStatus, id }: propsType) => {
+  const user = useAppSelector((state: RootState) => state.auth.user);
   const dispatch = useAppDispatch();
   const handleOrderDetails = async () => {
-    try {
-      const res = await dispatch(getOrderDetails({ id }));
-      if (res && res.type === "api/Order/order-details/fulfilled") {
-        console.log("SuccessFull order-details My Order");
-        router.navigate("/(dynamic)/OrderDetails");
-      } else {
+    if (user?.role !== "Admin") {
+      try {
+        const res = await dispatch(getOrderDetails({ id }));
+        if (res && res.type === "api/Order/order-details/fulfilled") {
+          console.log("SuccessFull order-details My Order");
+          router.navigate("/(dynamic)/OrderDetails");
+        } else {
+          console.log("Fail order-details My order");
+        }
+      } catch (error: any) {
         console.log("Fail order-details My order");
       }
-    } catch (error: any) {
-      console.log("Fail order-details My order");
     }
   };
 

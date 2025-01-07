@@ -29,6 +29,7 @@ const Assignedord = () => {
   const [isFetchingMore, setIsFetchingMore] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [lastContentOffset, setLastContentOffset] = useState(0);
 
   const fetchOrders = useCallback(
     async (pageNum: number, shouldReset = false) => {
@@ -41,14 +42,12 @@ const Assignedord = () => {
           }),
         ).unwrap();
 
-        // Check if we've reached the end of the data
         const totalReceived = shouldReset
           ? result.orders.length
           : (orders?.orders?.length || 0) + result.orders.length;
 
         setHasMore(totalReceived < (result.totalOrders || 0));
 
-        // Update page only if we received data
         if (result.orders.length > 0) {
           setPage(pageNum + 1);
         }
@@ -62,7 +61,6 @@ const Assignedord = () => {
     [dispatch, search, pageSize, orders?.orders?.length],
   );
 
-  // Initial load and refresh
   useEffect(() => {
     if (isFocused) {
       setIsInitialLoad(true);
@@ -72,7 +70,6 @@ const Assignedord = () => {
     }
   }, [isFocused, search]);
 
-  // Handle search
   const handleSearch = useCallback(() => {
     setIsInitialLoad(true);
     setHasMore(true);
@@ -80,7 +77,6 @@ const Assignedord = () => {
     fetchOrders(1, true);
   }, [fetchOrders]);
 
-  // Handle load more
   const loadMoreOrders = useCallback(async () => {
     if (
       isFetchingMore ||
@@ -105,13 +101,23 @@ const Assignedord = () => {
   ]);
 
   const renderFooter = () => {
-    if (!isFetchingMore) return null;
+    if (isFetchingMore) {
+      return (
+        <View style={{ paddingVertical: 20 }}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      );
+    }
 
-    return (
-      <View style={{ paddingVertical: 20 }}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+    if (!hasMore) {
+      return (
+        <Text style={{ textAlign: "center", paddingVertical: 10 }}>
+          No more data to load
+        </Text>
+      );
+    }
+
+    return null;
   };
 
   return (
@@ -158,10 +164,15 @@ const Assignedord = () => {
             <Text className="text-center my-4">No records found</Text>
           ) : null
         }
-        onEndReached={loadMoreOrders}
-        onEndReachedThreshold={0.5}
+        onEndReached={({ distanceFromEnd }) => {
+          if (distanceFromEnd > 0) loadMoreOrders();
+        }}
+        onEndReachedThreshold={0.1}
         ListFooterComponent={renderFooter}
-        // Disable scroll while loading initial data
+        onScroll={(event) => {
+          const currentOffset = event.nativeEvent.contentOffset.y;
+          setLastContentOffset(currentOffset);
+        }}
         scrollEnabled={!isInitialLoad}
       />
     </SafeAreaView>

@@ -4,15 +4,42 @@ import { icons, images } from "@/constants";
 import { LogininitialValues, LoginSchema } from "@/schemas/loginSchemas";
 import { RootState } from "@/store";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { userLogin } from "@/store/slice/authslice";
+import { setPushNotificationToken, userLogin } from "@/store/slice/authslice";
 import { Link, router } from "expo-router";
 import { Formik, FormikHelpers } from "formik";
+import * as Device from "expo-device";
+import * as Notifications from "expo-notifications";
+import Constants from "expo-constants";
 import { Text, View, Image, Alert, ScrollView } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
+import { useEffect } from "react";
+import { registerForPushNotificationsAsync } from "@/config";
+import { Platform } from "react-native";
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 const Signin = () => {
   const dispatch = useAppDispatch();
-  const loading = useAppSelector((state: RootState) => state.auth.loading);
-  console.log("Loading", loading);
+  const { loading, notificationToken } = useAppSelector(
+    (state: RootState) => state.auth,
+  );
+
+  useEffect(() => {
+    if (notificationToken == "") {
+      registerForPushNotificationsAsync().then(
+        (token) => token && dispatch(setPushNotificationToken(token)),
+      );
+    }
+    if (Platform.OS === "android") {
+      Notifications.getNotificationChannelsAsync().then((value) =>
+        console.log(value ?? []),
+      );
+    }
+  });
   const handleLogin = async (
     values: typeof LogininitialValues,
     { setSubmitting }: FormikHelpers<typeof LogininitialValues>,
@@ -67,7 +94,7 @@ const Signin = () => {
         />
         <Text className="text-black text-center my-5 font-JakartaSemiBold text-2xl ">
           Login
-          <Text className="text-danger-700"> Account</Text>
+          <Text className="text-danger-700">Account</Text>
         </Text>
         <Formik
           initialValues={LogininitialValues}

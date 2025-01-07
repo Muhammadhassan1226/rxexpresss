@@ -17,7 +17,8 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
-  whitelist: ["auth", "order", "admin", "delivery"], // Specify reducers to persist
+  whitelist: ["auth"], // Specify reducers to persist
+  blacklist: ["order", "admin", "delivery"]
 };
 
 // Wrap rootReducer with persistReducer
@@ -28,6 +29,7 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
+      immutableCheck: false,
       serializableCheck: false, // Disable serializable checks for redux-persist
     }),
 });

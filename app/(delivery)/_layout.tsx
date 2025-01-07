@@ -8,8 +8,10 @@ import {
 } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import * as Notifications from "expo-notifications";
 import { useAppDispatch } from "@/store/hooks";
 import { clearAuth } from "@/store/slice/authslice";
+import { useEffect, useRef } from "react";
 function CustomDrawerContent(props: any) {
   const dispatch = useAppDispatch();
   const handleSignOut = () => {
@@ -74,6 +76,29 @@ const theme = {
 };
 
 export default function Layout() {
+  //@ts-ignore
+  const notificationListener = useRef<Notifications.EventSubscription>();
+  //@ts-ignore
+  const responseListener = useRef<Notifications.EventSubscription>();
+  useEffect(() => {
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((notification) => {
+        console.log(notification);
+      });
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener((response) => {
+        console.log(response);
+      });
+
+    return () => {
+      notificationListener.current &&
+        Notifications.removeNotificationSubscription(
+          notificationListener.current,
+        );
+      responseListener.current &&
+        Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
   return (
     <PaperProvider theme={theme}>
       <GestureHandlerRootView style={{ flex: 1 }}>

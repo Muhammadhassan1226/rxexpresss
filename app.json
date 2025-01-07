@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Ryde",
-    "slug": "Ryde",
+    "slug": "ryde",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/appicon.png",
@@ -17,7 +17,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.Ryde"
     },
     "web": {
       "bundler": "metro",
@@ -37,6 +38,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "e7ced247-d557-49f2-b922-d3647a136505"
+      }
+    },
+    "owner": "umerf"
   }
 }

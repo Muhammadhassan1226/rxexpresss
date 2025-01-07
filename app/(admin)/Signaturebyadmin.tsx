@@ -5,7 +5,6 @@ import { useIsFocused } from "@react-navigation/native";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
 import Spinner from "react-native-loading-spinner-overlay";
-import OrderItem from "@/components/OrderItem";
 import SearchBar from "@/components/SearchBar";
 import Header from "@/components/Header";
 import { SignatureOrders } from "@/store/slice/adminslice";
@@ -17,33 +16,41 @@ const Signature = () => {
   const { SignatureOrders: orders, loading } = useAppSelector(
     (state: RootState) => state.admin,
   );
+
   const [page, setPage] = useState(1);
   const [pageSize] = useState(15); // Number of items per page
   const [search, setSearch] = useState("");
   const [isFetchingMore, setIsFetchingMore] = useState(false);
+  const [hasMoreData, setHasMoreData] = useState(true); // To track if more data is available
 
-  // Fetch NassuOrders for the current page
+  // Fetch SignatureOrders for the current page
   const handleFetchOrders = async (reset = false) => {
-    if (loading || isFetchingMore) return;
+    if (loading || isFetchingMore || !hasMoreData) return;
 
     const currentPage = reset ? 1 : page;
 
     try {
-      await dispatch(
+      const result = await dispatch(
         SignatureOrders({
           search,
           page: currentPage,
           pageSize,
         }),
-      );
+      ).unwrap();
+
+      // Check if there is more data to load
+      if (result.orders.length < pageSize || result.orders.length === 0) {
+        setHasMoreData(false);
+      }
 
       if (reset) {
         setPage(2); // Reset pagination
+        setHasMoreData(true); // Reset hasMoreData when performing a fresh fetch
       } else {
         setPage((prev) => prev + 1); // Increment page
       }
     } catch (error) {
-      console.error("Error fetching Assigned:", error);
+      console.error("Error fetching Signature Orders:", error);
     }
   };
 
@@ -60,9 +67,10 @@ const Signature = () => {
   // Handle load more
   const loadMoreOrders = async () => {
     if (
-      isFetchingMore ||
-      !orders?.orders ||
-      orders.orders.length >= (orders.totalOrders || 0)
+      isFetchingMore || // Avoid multiple simultaneous requests
+      !hasMoreData || // Stop fetching if no more data
+      !orders?.orders || // Ensure orders are defined
+      orders.orders.length >= (orders.totalOrders || 0) // All data fetched
     )
       return;
 
@@ -116,6 +124,8 @@ const Signature = () => {
         ListFooterComponent={
           isFetchingMore ? (
             <ActivityIndicator size="large" color="#0000ff" />
+          ) : !hasMoreData ? (
+            <Text className="text-center my-4">No more data to load</Text>
           ) : null
         }
       />
