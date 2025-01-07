@@ -5,9 +5,11 @@ import { Formik } from "formik";
 import { OrderinitialValues, OrderSchema } from "@/schemas/order";
 import { Picker } from "@react-native-picker/picker";
 import CustomButton from "@/components/CustomButton";
+import { CreateOrderPushNotification } from "@/config";
 
 const Profile = () => {
-  const orderSubmit = () => {
+  const orderSubmit = async () => {
+    await CreateOrderPushNotification();
     console.log("orderSubmit");
   };
 
@@ -67,7 +69,7 @@ const Profile = () => {
               error={errors.dateToDeliver}
             />
             <Text className="font-bold ">Special Instructions</Text>
-            
+
             <TextInput
               editable
               multiline

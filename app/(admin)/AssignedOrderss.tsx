@@ -10,16 +10,18 @@ import {
 } from "react-native";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
-import { Deliveryusers, getOrder } from "@/store/slice/adminslice";
+import {
+  AllOrdersWithoutDelivered,
+  Deliveryusers,
+} from "@/store/slice/adminslice";
 import { assignOrderToDelivery } from "@/store/slice/adminslice";
+import { schedulePushNotification } from "@/config";
 
-interface AssignOrderDropdownProps {
+interface AssignOrderssProps {
   onAssignSuccess?: () => void;
 }
 
-const AssignOrderDropdown: React.FC<AssignOrderDropdownProps> = ({
-  onAssignSuccess,
-}) => {
+const AssignOrderss: React.FC<AssignOrderssProps> = ({ onAssignSuccess }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<number | null>(null);
   const [orderModalVisible, setOrderModalVisible] = useState(false);
@@ -41,7 +43,7 @@ const AssignOrderDropdown: React.FC<AssignOrderDropdownProps> = ({
     try {
       await Promise.all([
         dispatch(Deliveryusers()),
-        dispatch(getOrder({ page: 1, pageSize: 50 })), // Adjust page size as needed
+        dispatch(AllOrdersWithoutDelivered({ page: 1, pageSize: 50 })), // Adjust page size as needed
       ]);
     } catch (error) {
       Alert.alert("Error", "Failed to load initial data");
@@ -61,7 +63,7 @@ const AssignOrderDropdown: React.FC<AssignOrderDropdownProps> = ({
           registerId: deliveryUserId,
         }),
       ).unwrap();
-
+      await schedulePushNotification();
       Alert.alert("Success", "Order assigned successfully");
       setModalVisible(false);
       setOrderModalVisible(false);
@@ -272,4 +274,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AssignOrderDropdown;
+export default AssignOrderss;

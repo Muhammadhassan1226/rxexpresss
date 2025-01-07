@@ -9,6 +9,7 @@ interface AuthState {
   loading: boolean;
   error: string | null;
   user: any | null;
+  notificationToken: string;
 }
 
 const initialState: AuthState = {
@@ -17,6 +18,7 @@ const initialState: AuthState = {
   loading: false,
   error: null,
   user: null,
+  notificationToken: ""
 };
 
 // Signup Thunk
@@ -44,19 +46,25 @@ export const userSignup = createAsyncThunk<string, any>(
   },
 );
 
+// Define the input data type and response type for better TypeScript support
+interface LoginData {
+  email: string;
+  password: string;
+}
 // Login Thunk
-export const userLogin = createAsyncThunk<string, any>(
+export const userLogin = createAsyncThunk<string, LoginData>(
   "user/login",
+  //@ts-ignore
   async (data, ThunkApi) => {
     try {
       const res = await PUBLIC_API.post("/api/Auth/login", data);
       if (res.status === 200) {
-        ThunkApi.dispatch(setEmail(data.email));
-        ThunkApi.dispatch(setUser(res.data));
+        ThunkApi.dispatch(setEmail(data?.email));
+        ThunkApi.dispatch(setUser(res?.data));
         await AsyncStorage.setItem("_login", JSON.stringify(data));
         await AsyncStorage.setItem("userEmail", data.email);
         await AsyncStorage.setItem("token", res.data.token);
-        await AsyncStorage.setItem("userRole", res.data.role); 
+        await AsyncStorage.setItem("userRole", res.data.role);
         console.log("Login Success");
         return { message: res.data.message, role: res.data.role };
       } else {
@@ -160,12 +168,16 @@ export const authSlice = createSlice({
     setUser: (state, action: PayloadAction<any>) => {
       state.user = action.payload;
     },
+    setPushNotificationToken: (state, action: PayloadAction<any>) => {
+      state.notificationToken = action.payload;
+    },
     clearAuth: (state) => {
       state.email = "";
       state.message = "";
       state.loading = false;
       state.error = null;
       state.user = null;
+      state.notificationToken = ""
     },
   },
   extraReducers: (builder) => {
@@ -257,5 +269,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { resetState, setEmail, clearAuth, setUser } = authSlice.actions;
+export const { resetState, setEmail, clearAuth, setUser, setPushNotificationToken } = authSlice.actions;
 export default authSlice.reducer;
