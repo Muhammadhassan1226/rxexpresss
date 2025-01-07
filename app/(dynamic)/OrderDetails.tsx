@@ -76,7 +76,20 @@ const orderDetails = () => {
 
           <View className="flex items-center justify-center mt-20 w-full">
             {showqr ? (
-              <QRCode value={JSON.stringify(orderDetails)} size={280} />
+              <View className="flex flex-row">
+                <View>
+                  <Text className="my-2">
+                    Order Id: {""} {""} {""} {orderDetails?.id}
+                  </Text>
+                  <Text className="my-2">
+                    Recipient Name: {""} {""} {""} {orderDetails?.recipientName}
+                  </Text>
+                  <Text className="my-2 w-40 text-left">
+                    Address: {""} {""} {""} {orderDetails?.address}
+                  </Text>
+                </View>
+                <QRCode value={JSON.stringify(orderDetails)} size={180} />
+              </View>
             ) : (
               ""
             )}
