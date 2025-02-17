@@ -107,7 +107,10 @@ const AssignOrderss: React.FC<AssignOrderssProps> = ({ onAssignSuccess }) => {
   );
 
   return (
-    <View>
+    <View className="flex-1 px-5 justify-center">
+      <Text className="my-5 text-xl font-bold text-center">
+        Assign Order to delivery boy
+      </Text>
       <TouchableOpacity
         style={styles.assignButton}
         onPress={() => setOrderModalVisible(true)}

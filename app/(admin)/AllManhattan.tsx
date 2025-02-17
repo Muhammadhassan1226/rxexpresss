@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { Text, StatusBar, FlatList, ActivityIndicator } from "react-native";
+import {
+  Text,
+  StatusBar,
+  FlatList,
+  ActivityIndicator,
+  ScrollView,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useIsFocused } from "@react-navigation/native";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -84,39 +90,48 @@ const AllManhattan = () => {
         onChangeText={setSearch}
         onPress={handleSearch}
       />
-      <Header
-        first="ID"
-        second="Recipient Name"
-        third="Status"
-        forth="Payment Status"
-        fifth="Payment Status"
-      />
-      <FlatList
-        data={ManhattanOrders.orders}
-        keyExtractor={(item) => item.id.toString()}
-        showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => (
-          <OrderItem
-            id={item.id}
-            name={item.recipientName}
-            price={item.rate}
-            status={item.status}
-            paymentStatus={item.paymentStatus}
-          />
-        )}
-        ListEmptyComponent={
-          !loading ? (
-            <Text className="text-center my-4">No records found</Text>
-          ) : null
-        }
-        onEndReached={loadMoreOrders}
-        onEndReachedThreshold={0.1} // Trigger closer to the bottom
-        ListFooterComponent={
-          isFetchingMore ? (
-            <ActivityIndicator size="large" color="#0000ff" />
-          ) : null
-        }
-      />
+      <ScrollView
+        className="mt-5"
+        horizontal
+        showsHorizontalScrollIndicator={false}
+      >
+        <FlatList
+          data={ManhattanOrders.orders}
+          ListHeaderComponent={() => <Header />}
+          keyExtractor={(item) => item.id.toString()}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <OrderItem
+              id={item.id}
+              recipientName={item.recipientName}
+              phone={item.phone}
+              address={item.address}
+              deliveryMethods={item.deliveryMethods}
+              dateToDeliver={item.dateToDeliver}
+              instructions={item.instructions}
+              status={item.status}
+              paymentStatus={item.paymentStatus}
+              deliverySubtypeId={item.deliverySubtypeId}
+              name={item.name}
+              rate={item.rate}
+              businessName={item.businessName}
+              signatureImageUrl={item.signatureImageUrl}
+            />
+          )}
+          ListEmptyComponent={
+            !loading ? (
+              <Text className="text-center my-4">No records found</Text>
+            ) : null
+          }
+          onEndReached={loadMoreOrders}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={
+            isFetchingMore ? (
+              <ActivityIndicator size="large" color="#0000ff" />
+            ) : null
+          }
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 };

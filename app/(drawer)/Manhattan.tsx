@@ -1,4 +1,4 @@
-import { Text, StatusBar, FlatList } from "react-native";
+import { Text, StatusBar, FlatList, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
@@ -66,30 +66,42 @@ const Manhattan = () => {
         onChangeText={(text) => setSearch(text)}
         onPress={handleSearch}
       />
-      <Header
-        first="Recipient Name"
-        second="Status"
-        third="Price"
-        forth="Payment Status"
-      />
-      {manhattanOrders.length == 0 && (
-        <Text className="text-center my-4">No record Found</Text>
-      )}
-      <FlatList
-        data={manhattanOrders}
-        keyExtractor={(item, index) => item.id?.toString() || index.toString()}
-        renderItem={({ item, index }) => {
-          return (
+
+      <ScrollView
+        className="mt-5"
+        horizontal
+        showsHorizontalScrollIndicator={false}
+      >
+        <FlatList
+          data={manhattanOrders}
+          ListHeaderComponent={() => <Header />}
+          keyExtractor={(item) => item.id.toString()}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item }) => (
             <OrderItem
               id={item.id}
-              name={item.name}
-              price={item.rate}
+              recipientName={item.recipientName}
+              phone={item.phone}
+              address={item.address}
+              deliveryMethods={item.deliveryMethods}
+              dateToDeliver={item.dateToDeliver}
+              instructions={item.instructions}
               status={item.status}
               paymentStatus={item.paymentStatus}
+              deliverySubtypeId={item.deliverySubtypeId}
+              name={item.name}
+              rate={item.rate}
+              businessName={item.businessName}
             />
-          );
-        }}
-      />
+          )}
+          ListEmptyComponent={
+            !loading ? (
+              <Text className="text-center my-4">No records found</Text>
+            ) : null
+          }
+          onEndReachedThreshold={0.5}
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 };

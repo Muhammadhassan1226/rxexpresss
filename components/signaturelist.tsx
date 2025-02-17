@@ -38,7 +38,18 @@ const Signaturelist = ({
         <Text style={[styles.textStyle, styles.column]}>{name}</Text>
         <Text style={[styles.textStyle, styles.column]}>{status}</Text>
         <Text style={[styles.textStyle, styles.column]}>{price}$</Text>
-        <Text style={[styles.textStyle, styles.column]}>{paymentStatus}</Text>
+        <Text
+          style={[
+            styles.textStyle,
+            styles.column,
+            {
+              color: "#fff",
+              backgroundColor: paymentStatus == "Paid" ? "green" : "red",
+            },
+          ]}
+        >
+          {paymentStatus}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -59,6 +70,7 @@ const styles = StyleSheet.create({
   textStyle: {
     color: "#000",
     fontSize: 14, // Adjust font size as needed
+    fontWeight: "700",
   },
   column: {
     flex: 1, // Ensure each column takes equal space

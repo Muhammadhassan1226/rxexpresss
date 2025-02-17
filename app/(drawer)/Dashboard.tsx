@@ -8,6 +8,7 @@ import { RootState } from "@/store";
 import { getOrderCount } from "@/store/slice/orderslice";
 import { useEffect } from "react";
 import Spinner from "react-native-loading-spinner-overlay";
+import { icons } from "@/constants";
 const Home = () => {
   const pharmacyCount = useAppSelector(
     (state: RootState) => state.order.pharmacyCount,
@@ -41,18 +42,47 @@ const Home = () => {
       <StatusBar />
       <Text>Hi {pharmacyCount?.pharmacy}</Text>
       <CardItem
+        color="green"
+        icon={
+          <icons.Feather
+            className=""
+            name="check-square"
+            size={30}
+            color={"#fff"}
+          />
+        }
         title="Order Created"
         orderNo={pharmacyCount?.totalOrders}
         subTitle="Orders Created"
       />
       <CardItem
+        color="orange"
+        icon={
+          <icons.Feather
+            className=""
+            name="check-square"
+            size={30}
+            color={"#fff"}
+          />
+        }
         title="Ready For Pickup"
         orderNo={pharmacyCount?.readyForPickupOrders}
         subTitle="Waiting"
       />
       <CardItem
+        color="red"
+        icon={
+          <icons.Feather
+            className=""
+            name="check-square"
+            size={30}
+            color={"#fff"}
+          />
+        }
         title="Pending"
-        orderNo={pharmacyCount?.pendingOrders}
+        orderNo={
+          pharmacyCount?.pendingOrders ? pharmacyCount?.pendingOrders : 0
+        }
         subTitle="Pending"
       />
       {/* <DetailTable /> */}

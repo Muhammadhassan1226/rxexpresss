@@ -1,20 +1,48 @@
 import { StyleSheet, Text, View } from "react-native";
+
 interface propsType {
   businessName: string | number;
   name: string;
   phone: string;
   state: string;
   email: string;
+  doingBussinessAs: string;
+  address: string;
+  city: string;
+  zipcode: string | number;
+  apt?: string;
+  facility: string | null;
+  role?: string | null;
 }
 
-const UserItem = ({ businessName, name, phone, state, email }: propsType) => {
+const UserItem = ({
+  businessName,
+  name,
+  phone,
+  state,
+  email,
+  doingBussinessAs,
+  address,
+  city,
+  zipcode,
+  apt,
+  facility,
+  role,
+}: propsType) => {
   return (
     <View style={styles.container}>
-      <Text style={[styles.textStyle, styles.column]}>{name}</Text>
-      <Text style={[styles.textStyle, styles.column]}>{phone}</Text>
-      <Text style={[styles.textStyle, styles.column]}>{businessName}$</Text>
-      <Text style={[styles.textStyle, styles.column]}>{state}</Text>
-      <Text style={[styles.textStyle, styles.column]}>{email}</Text>
+      <Text style={styles.column}>{name}</Text>
+      <Text style={styles.column}>{phone}</Text>
+      <Text style={styles.column}>{businessName}</Text>
+      <Text style={styles.column}>{state}</Text>
+      <Text style={styles.column}>{email}</Text>
+      <Text style={styles.column}>{doingBussinessAs}</Text>
+      <Text style={styles.column}>{address}</Text>
+      <Text style={styles.column}>{city}</Text>
+      <Text style={styles.column}>{zipcode}</Text>
+      <Text style={styles.column}>{apt}</Text>
+      <Text style={styles.column}>{facility}</Text>
+      <Text style={styles.column}>{role}</Text>
     </View>
   );
 };
@@ -24,19 +52,17 @@ export default UserItem;
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    justifyContent: "space-between", // Distribute columns evenly
-    alignItems: "center", // Vertically align text
+    alignItems: "center",
     paddingVertical: 8,
     paddingHorizontal: 16,
-    borderBottomWidth: 1, // Optional: To separate rows
-    borderColor: "#ddd", // Optional: Border color
-  },
-  textStyle: {
-    color: "#000",
-    fontSize: 14, // Adjust font size as needed
+    borderBottomWidth: 1,
+    borderColor: "#ddd",
   },
   column: {
-    flex: 1, // Ensure each column takes equal space
-    textAlign: "center", // Align text in the center of its column
+    width: "10.3%", // Ensures 12 columns fit equally within 100% of the row
+    paddingHorizontal: 4, // Optional: Add padding for spacing
+    textAlign: "center", // Center text within the column
+    fontSize: 14,
+    color: "#000",
   },
 });

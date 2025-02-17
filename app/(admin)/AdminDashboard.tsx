@@ -1,10 +1,10 @@
 import CardItem from "@/components/CardItem";
-import { StatusBar } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ScrollView, StatusBar } from "react-native";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
 import { getCount } from "@/store/slice/adminslice";
 import { useEffect } from "react";
+import { icons } from "@/constants";
 import Spinner from "react-native-loading-spinner-overlay";
 import { useIsFocused } from "@react-navigation/native";
 const Admin = () => {
@@ -31,7 +31,7 @@ const Admin = () => {
   }, [isFocused]);
 
   return (
-    <SafeAreaView className="flex-1 px-6">
+    <ScrollView showsVerticalScrollIndicator={false} className="flex-1 px-6">
       <Spinner
         visible={loading}
         textContent={"Loading..."}
@@ -41,40 +41,104 @@ const Admin = () => {
       <CardItem
         title="All Orders"
         orderNo={pharmacyCount?.allOrdersCount}
-        subTitle="All Orders"
+        subTitle="Total Orders"
+        color="green"
+        icon={
+          <icons.Feather
+            className=""
+            name="check-square"
+            size={30}
+            color={"#fff"}
+          />
+        }
       />
       <CardItem
-        title="Delivery Count"
+        title="Delivery Users"
         orderNo={pharmacyCount?.deliveryUserCount}
-        subTitle="Delivery Count"
+        subTitle="Delivery Users"
+        color="orange"
+        icon={
+          <icons.FontAwesome
+            className=""
+            name="users"
+            size={30}
+            color={"#fff"}
+          />
+        }
       />
       <CardItem
         title="Orders Delivered"
         orderNo={pharmacyCount?.ordersDelivered}
         subTitle="Orders Delivered"
+        color="lightgreen"
+        icon={
+          <icons.Feather
+            className=""
+            name="check-square"
+            size={30}
+            color={"#fff"}
+          />
+        }
       />
       <CardItem
-        title="Orders out for Delivery"
+        title="Out for Delivery"
         orderNo={pharmacyCount?.ordersOutForDelivery}
         subTitle="Orders out for Delivery"
+        color="red"
+        icon={
+          <icons.Foundation
+            className=""
+            name="graph-bar"
+            size={30}
+            color={"#fff"}
+          />
+        }
+      />
+
+      <CardItem
+        title="Pharmacy Users"
+        orderNo={pharmacyCount?.pharmacyUserCount}
+        subTitle="Pharmacy Users"
+        color="orange"
+        icon={
+          <icons.FontAwesome
+            className=""
+            name="users"
+            size={30}
+            color={"#fff"}
+          />
+        }
       />
       <CardItem
-        title="Orders Ready for Delivery"
+        title="Ready for Pickup"
         orderNo={pharmacyCount?.ordersReadyForPickup}
         subTitle="Orders Ready for Delivery"
+        color="gray"
+        icon={
+          <icons.Foundation
+            className=""
+            name="graph-bar"
+            size={30}
+            color={"#fff"}
+          />
+        }
       />
       <CardItem
-        title="Pharmacy User Count"
-        orderNo={pharmacyCount?.pharmacyUserCount}
-        subTitle="Pharmacy User Count"
-      />
-      <CardItem
-        title="Register User Count"
+        title="Register Users"
         orderNo={pharmacyCount?.registerUserCount}
-        subTitle="Register User Count"
+        subTitle="Register Users"
+        color="green"
+        icon={
+          <icons.FontAwesome
+            className=""
+            name="users"
+            size={30}
+            color={"#fff"}
+          />
+        }
       />
       {/* <DetailTable /> */}
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 

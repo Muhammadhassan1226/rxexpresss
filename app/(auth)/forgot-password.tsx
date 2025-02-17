@@ -30,15 +30,15 @@ const ForgotPassword = () => {
     }
   };
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 px-5 bg-white">
       <Link
-        className="self-start ml-5 px-5 py-2 rounded border-2 border-blue-500"
+        className="self-start  px-5 py-2 rounded border-2 border-blue-500"
         href="/sign-in"
       >
         <Text className="text-black-500 font-bold text-lg">Back</Text>
       </Link>
-      <View className="justify-center items-center ">
-        <Image source={images.forgot} className="h-72 w-64 mt-2 " />
+      <View>
+        <Image source={images.forgot} className="h-72 self-center w-64 mt-2 " />
         <Image
           source={icons.loginIcon}
           className="w-20 h-20 mt-5 self-center"
@@ -67,29 +67,15 @@ const ForgotPassword = () => {
           </View>
         </View>
       </View>
-      <View className="justify-center items-center flex-1 px-6 mt-0">
+      <View className=" flex-1 px-6 mt-0">
         {/* Forgot Password Section */}
-        <View className="mt-10 justify-center items-center">
-          <Text className="text-amber-600 font-bold text-xl flex justify-center items-center text-center">
-            "I changed my password everywhere to incorrect. That way when I
-            forget it, it always reminds me, Your password is incorrect."
-          </Text>
-          <Link href="/sign-in" className="mt-2">
+        <View className="mt-4 justify-center items-center">
+          <Link href="/sign-in">
             <Text className="text-blue-600 text-base font-semibold">
               Remember your password →
             </Text>
           </Link>
         </View>
-
-        {/* Signup Section */}
-        {/* <View className="mt-8 items-center">
-          <Text className="text-gray-600 text-base">New to our community?</Text>
-          <Link href="/signup" className="mt-2">
-            <Text className="text-primary-500 text-lg font-semibold">
-              Create your account today
-            </Text>
-          </Link>
-        </View> */}
       </View>
     </SafeAreaView>
   );
