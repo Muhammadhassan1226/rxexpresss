@@ -94,7 +94,7 @@ const Signin = () => {
         />
         <Text className="text-black text-center my-5 font-JakartaSemiBold text-2xl ">
           Login
-          <Text className="text-danger-700">Account</Text>
+          <Text className="text-danger-700"> Account</Text>
         </Text>
         <Formik
           initialValues={LogininitialValues}
@@ -145,9 +145,6 @@ const Signin = () => {
       <View className="justify-center items-center flex-1 px-6 mt-0">
         {/* Forgot Password Section */}
         <View className="mt-10 justify-center items-center">
-          <Text className="text-amber-600 font-bold text-xl">
-            "Life is too short for forgettable passwords"
-          </Text>
           <Link href="/forgot-password" className="mt-2">
             <Text className="text-blue-600 text-base font-semibold">
               Reset your password →

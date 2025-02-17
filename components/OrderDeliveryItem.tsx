@@ -1,23 +1,30 @@
-import { useAppDispatch } from "@/store/hooks";
+import { RootState } from "@/store";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { getAssignOrderDetails } from "@/store/slice/deliveryslice";
+import { getOrderDetails } from "@/store/slice/orderslice";
+import { OrderType } from "@/types/admin";
 import { router } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-interface propsType {
-  price: string | number;
-  name: string;
-  status: string;
-  paymentStatus: string;
-  id: number;
-}
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const OrderDeliveryItem = ({
-  price,
-  name,
+  id,
+  recipientName,
+  phone,
+  address,
+  deliveryMethods,
+  dateToDeliver,
+  instructions,
   status,
   paymentStatus,
-  id,
-}: propsType) => {
+  deliverySubtypeId,
+  name,
+  rate,
+  businessName,
+  signatureImageUrl,
+}: OrderType) => {
+  const user = useAppSelector((state: RootState) => state.auth.user);
   const dispatch = useAppDispatch();
+
   const handleOrderDetails = async () => {
     try {
       const res = await dispatch(getAssignOrderDetails({ id }));
@@ -35,10 +42,37 @@ const OrderDeliveryItem = ({
   return (
     <TouchableOpacity onPress={handleOrderDetails}>
       <View style={styles.container}>
-        <Text style={[styles.textStyle, styles.column]}>{name}</Text>
-        <Text style={[styles.textStyle, styles.column]}>{status}</Text>
-        <Text style={[styles.textStyle, styles.column]}>{price}$</Text>
+        <Text style={[styles.textStyle, styles.column]}>{id}</Text>
+        <Text style={[styles.textStyle, styles.column]}>{recipientName}</Text>
+        <Text style={[styles.textStyle, styles.column]}>{phone}</Text>
+        <Text style={[styles.textStyle, styles.column]}>{address}</Text>
+        <Text style={[styles.textStyle, styles.column]}>{deliveryMethods}</Text>
+        <Text style={[styles.textStyle, styles.column]}>{dateToDeliver}</Text>
+        <Text style={[styles.textStyle, styles.column]}>{instructions}</Text>
+        <Text
+          style={[
+            styles.textStyle,
+            styles.column,
+            { backgroundColor: status == "Delivered" ? "green" : "#fff" },
+          ]}
+        >
+          {status}
+        </Text>
         <Text style={[styles.textStyle, styles.column]}>{paymentStatus}</Text>
+        <Text style={[styles.textStyle, styles.column]}>
+          {deliverySubtypeId}
+        </Text>
+        <Text style={[styles.textStyle, styles.column]}>{name}</Text>
+        <Text style={[styles.textStyle, styles.column]}>{rate}$</Text>
+        <Text style={[styles.textStyle, styles.column]}>{businessName}</Text>
+        {signatureImageUrl && (
+          <Image
+            style={{ width: 90, height: 90 }}
+            source={{
+              uri: "https://backend.rxexpresss.com" + signatureImageUrl,
+            }}
+          />
+        )}
       </View>
     </TouchableOpacity>
   );
@@ -49,19 +83,19 @@ export default OrderDeliveryItem;
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    justifyContent: "space-between", // Distribute columns evenly
-    alignItems: "center", // Vertically align text
+    alignItems: "center",
     paddingVertical: 8,
     paddingHorizontal: 16,
-    borderBottomWidth: 1, // Optional: To separate rows
-    borderColor: "#ddd", // Optional: Border color
+    borderBottomWidth: 1,
+    borderColor: "#ddd",
   },
   textStyle: {
     color: "#000",
-    fontSize: 14, // Adjust font size as needed
+    fontSize: 14,
   },
   column: {
-    flex: 1, // Ensure each column takes equal space
-    textAlign: "center", // Align text in the center of its column
+    width: "7.14%", // Ensures 14 columns fit equally within the row (100% ÷ 14)
+    textAlign: "center",
+    paddingHorizontal: 4, // Adds spacing inside the column
   },
 });

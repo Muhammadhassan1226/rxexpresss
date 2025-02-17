@@ -30,17 +30,6 @@ function CustomDrawerContent(props: any) {
 
   return (
     <DrawerContentScrollView {...props}>
-      {/* <View style={styles.drawerHeader}>
-        <Avatar.Image
-          size={64}
-          source={require("../assets/neworder-placeholder.png")}
-        />
-        <View style={styles.userInfo}>
-          <Text variant="titleMedium">John Doe</Text>
-          <Text variant="bodySmall">john@example.com</Text>
-        </View>
-      </View> */}
-
       <PaperDrawer.Section>
         <PaperDrawer.Item
           icon={({ color, size }) => (
@@ -135,7 +124,7 @@ function CustomDrawerContent(props: any) {
           icon={({ color, size }) => (
             <MaterialCommunityIcons name="origin" color={color} size={size} />
           )}
-          label="Assigned Orders"
+          label="Registeration"
           onPress={() => props.navigation.navigate("AssignedOrderss")}
         />
         <PaperDrawer.Item

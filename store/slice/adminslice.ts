@@ -383,7 +383,7 @@ export const AllOrdersWithoutDelivered = createAsyncThunk<
       }
       return rejectWithValue(
         error.message ||
-          "SuperAdmin/GetAllPharmacyOrdersWithoutDelivered failed",
+        "SuperAdmin/GetAllPharmacyOrdersWithoutDelivered failed",
       );
     }
   },
@@ -454,7 +454,7 @@ export const AssignedOrders = createAsyncThunk<
       }
       return rejectWithValue(
         error.message ||
-          "SuperAdmin/GetAllPharmacyOrdersWithoutDelivered failed",
+        "SuperAdmin/GetAllPharmacyOrdersWithoutDelivered failed",
       );
     }
   },

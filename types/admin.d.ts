@@ -7,7 +7,7 @@ interface OrderType {
   dateToDeliver: string;
   instructions: string;
   status: string;
-  paymentStatus: "Cash On Delivery" | "Paid";
+  paymentStatus: "Cash On Delivery" | "Paid" | string;
   deliverySubtypeId: number;
   name: string;
   rate: number;
@@ -20,4 +20,4 @@ interface OrderResponse {
   orders: OrderType[];
 }
 
-export { OrderResponse };
+export { OrderResponse, OrderType };

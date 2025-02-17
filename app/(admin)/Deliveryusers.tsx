@@ -1,4 +1,4 @@
-import { Text, StatusBar, FlatList } from "react-native";
+import { Text, StatusBar, FlatList, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -8,6 +8,7 @@ import Spinner from "react-native-loading-spinner-overlay";
 import Header from "@/components/Header";
 import UserItem from "@/components/UserItem";
 import { useIsFocused } from "@react-navigation/native";
+import OrderItem from "@/components/OrderItem";
 
 interface UserData {
   id?: number;
@@ -53,35 +54,52 @@ const User = () => {
       />
       <StatusBar />
       <Text className="font-bold text-center text-xl pb-4">Delivery Users</Text>
-      <Header
-        first="Name"
-        second="Phone"
-        third="Business Name"
-        forth="State"
-        fifth="Email"
-      />
-      {Array.isArray(users) && users.length === 0 ? (
-        <Text className="text-center my-4">No records found</Text>
-      ) : (
-        <FlatList<UserData>
-          data={users}
-          keyExtractor={(item, index) =>
-            item.id?.toString() || index.toString()
-          }
-          renderItem={({ item }) => (
-            <UserItem
-              name={item.name}
-              businessName={item.businessName}
-              phone={item.phone}
-              state={item.state}
-              email={item.email}
-            />
-          )}
-          ListEmptyComponent={() => (
-            <Text className="text-center my-4">No records found</Text>
-          )}
-        />
-      )}
+      <ScrollView showsHorizontalScrollIndicator={false} horizontal>
+        {Array.isArray(users) && users.length === 0 ? (
+          <Text className="text-center my-4">No records found</Text>
+        ) : (
+          <FlatList
+            ListHeaderComponent={() => (
+              <Header
+                id="Name"
+                recipientName="Phone"
+                phone="Business Name"
+                address="State"
+                deliveryMethods="Email"
+                dateToDeliver="Doing Business As"
+                instructions="Address"
+                status="City"
+                paymentStatus="Zipcode"
+                deliverySubtypeId="Apt"
+              />
+            )}
+            showsVerticalScrollIndicator={false}
+            data={users}
+            keyExtractor={(item, index) =>
+              item.id?.toString() || index.toString()
+            }
+            renderItem={({ item }) => (
+              <UserItem
+                name={item.name}
+                businessName={item.businessName}
+                phone={item.phone}
+                state={item.state}
+                email={item.email}
+                doingBussinessAs={item.doingBusinessAs}
+                address={item.addrress}
+                city={item.city}
+                zipcode={item.zipcode}
+                apt={item.apt}
+                facility={item.facility}
+                role={item.role}
+              />
+            )}
+            ListEmptyComponent={() => (
+              <Text className="text-center my-4">No records found</Text>
+            )}
+          />
+        )}
+      </ScrollView>
     </SafeAreaView>
   );
 };
