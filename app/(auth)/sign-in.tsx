@@ -127,6 +127,7 @@ const Signin = () => {
                 labelStyle="mb-2"
                 onChangeText={handleChange("password")}
                 error={errors.password}
+                secureTextEntry
               />
               <View>
                 <CustomButton
