@@ -1,5 +1,5 @@
 import { PRIVATE_API } from "@/config/";
-import { OrderListType } from "@/types/orderslice";
+import { OrderListType, DeliverySubtype } from "@/types/orderslice";
 import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // Define types
@@ -17,6 +17,7 @@ export interface OrderState {
     orders: OrderListType[],
     manhattanOrders: OrderListType[],
     nasauOrders: OrderListType[],
+    deliverySubtypes: DeliverySubtype[],
     queensOrders: OrderListType[],
     brooklynOrders: OrderListType[],
     orderDetails: OrderListType,
@@ -35,6 +36,7 @@ const initialState: OrderState = {
     orders: [],
     manhattanOrders: [],
     nasauOrders: [],
+    deliverySubtypes: [],
     queensOrders: [],
     brooklynOrders: [],
     orderDetails: {
@@ -84,11 +86,12 @@ export const getOrderCount = createAsyncThunk<
 export const createOrder = createAsyncThunk<string, any>(
     "/api/Order/create",
     async (data, ThunkApi) => {
+        console.log("data", data);
         try {
-            const res = await PRIVATE_API.post("/api/Order/create", data);
+            const res = await PRIVATE_API.post("/api/Order/CreateOrderMob", data);
             if (res.status === 200) {
                 console.log("Create Order Success");
-                return res.data.message;
+                return res.data;
             } else {
                 console.log("Create Order Rejected", res.status);
                 return ThunkApi.rejectWithValue(res.data.message);
@@ -290,6 +293,34 @@ export const getBrooklynOrders = createAsyncThunk<
     }
 );
 
+// get delivery subtype
+export const getDeliverySubtype = createAsyncThunk<
+    DeliverySubtype[],
+    { page?: number; pageSize?: number, search?: string },
+    { rejectValue: string }
+>(
+    "api/DeliverySubtype/GetDeliverySubtypes",
+    async ({ }, { rejectWithValue }) => {
+        try {
+
+            const res = await PRIVATE_API.get("/api/DeliverySubtype/GetDeliverySubtypes");
+
+            if (res.status === 200) {
+                console.log("Delivery Subtype Success", res.data);
+                return res.data;
+            } else {
+                console.log("Delivery Subtype Rejected", res.status);
+                return rejectWithValue(res.data.message);
+            }
+        } catch (error: any) {
+            if (error.response?.data?.message) {
+                return rejectWithValue(error.response.data.message);
+            }
+            return rejectWithValue(error.message || "Brooklyn Order failed");
+        }
+    }
+);
+
 
 
 export const orderSlice = createSlice({
@@ -423,6 +454,24 @@ export const orderSlice = createSlice({
                 }
             )
             .addCase(getOrderDetails.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            });
+        // Get Delivery Subtype
+        builder
+            .addCase(getDeliverySubtype.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(
+                getDeliverySubtype.fulfilled,
+                (state, action: PayloadAction<DeliverySubtype[]>) => {
+                    state.loading = false;
+                    state.deliverySubtypes = action.payload;
+                    state.error = null;
+                }
+            )
+            .addCase(getDeliverySubtype.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
             });

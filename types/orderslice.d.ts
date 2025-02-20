@@ -14,6 +14,13 @@ type OrderListType = {
     businessName: string
 }
 
+type DeliverySubtype = {
+    id: number,
+    name: string,
+    rate: number,
+    orders: OrderListType[]
+}
+
 type OrderDetailsType = {
 
     id: nummber,
@@ -43,4 +50,4 @@ type OrderDetailsType = {
 
 
 
-export { OrderListType, OrderDetailsType }
+export { OrderListType, OrderDetailsType, DeliverySubtype }
