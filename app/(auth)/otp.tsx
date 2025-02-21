@@ -18,14 +18,12 @@ const Otp = () => {
   const [otpInput, setOtpInput] = useState<string>("");
   const OtpSubmit = async () => {
     try {
-      dispatch(verifyOtp({ email, otp: otpInput }))
-        .unwrap()
-        .then((res: any) => {
-          if (res && res.type === "user/verifyOtp/fulfilled") {
-            window.location.replace("/sign-in");
-          }
-        });
-      router.navigate("/sign-in");
+      const res = await dispatch(verifyOtp({ email, otp: otpInput }));
+      console.log("OTP Response____", res);
+
+      if (res && res.type === "user/verifyOtp/fulfilled") {
+        router.replace("/sign-in");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -67,6 +65,7 @@ const Otp = () => {
             }}
             fontStyle={{ fontSize: 20, fontWeight: "bold" }}
             focusedStyle={{ borderColor: "#5cb85c", borderBottomWidth: 2 }}
+            autoFocus={true}
           />
         </View>
 

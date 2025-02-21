@@ -13,7 +13,7 @@ export const OrderSchema = yup.object().shape({
         .matches(/^[0-9]{11}$/, "Phone number must be 11 digits")
         .required("Phone number is required"),
 
-    addrress: yup.string().required("Address is required"),
+    address: yup.string().required("Address is required"),
     deliveryMethods: yup.string().required("Please enter the delivery Methods"),
     instructions: yup.string().required("Please enter the spectial instruction"),
     paymentMethod: yup.string().required("Please select the payement method")
@@ -24,12 +24,13 @@ export const OrderinitialValues = {
     recipientName: "",
     phone: "",
     address: "",
-    deliveryMethods: "",
-    dateToDeliver: "",
+    deliveryMethods: "Online Signature",
+    dateToDeliver: new Date(),
     instructions: "",
-    status: "",
-    paymentStatus: "",
+    status: "Ready For Pickup",
     userId: 0,
-    deliverySubtypeId: 0,
-    paymentMethod: ""
+    deliverySubtypeId: "",
+    paymentMethod: "COD",
+    paymentStatus: "COD",
+    amount: 0
 };

@@ -47,5 +47,5 @@ export const SignupinitialValues = {
   zipcode: "",
   apt: "",
   facility: "",
-  role: "User",
+  role: "PharmacyUser",
 };

@@ -3,7 +3,7 @@ import CustomInput from "@/components/CustomInput";
 import { icons, images } from "@/constants";
 import { router } from "expo-router";
 import { Link } from "expo-router";
-import { Text, View, ScrollView, Image } from "react-native";
+import { Text, View, ScrollView, Image, Alert } from "react-native";
 import { Formik, FormikHelpers } from "formik";
 import { SignupinitialValues, SignupSchema } from "@/schemas/signup";
 import { useAppDispatch } from "@/store/hooks";
@@ -14,25 +14,28 @@ const Signup = () => {
     values: typeof SignupinitialValues,
     { setSubmitting }: FormikHelpers<typeof SignupinitialValues>,
   ) => {
+    console.log("SignUp Value__________________", values);
     try {
       setSubmitting(true);
-      dispatch(userSignup(values)).then((res) => {
-        if (res && res.type === "user/signup/fulfilled") {
-          window.location.replace("/otp");
-        }
-        dispatch(setEmail(values.email));
-      });
-      router.navigate("/otp");
+      const res = await dispatch(userSignup(values));
+      console.log("Response__________", res);
+
+      if (res && res.type === "user/signup/fulfilled") {
+        router.navigate("/otp");
+        //@ts-ignore
+        Alert.alert("Successfully", res?.payload);
+      }
+      dispatch(setEmail(values.email));
     } catch (error: any) {
-      console.log(error);
+      console.log("Error_______________", error);
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <ScrollView className="flex-1 bg-white">
-      <View className="flex-1 bg-white">
+    <View className="flex-1 bg-white">
+      <ScrollView>
         <View className="relative flex-1 w-full">
           <Image source={images.signupguy} className="w-full h-[200px]  " />
           <Text className="text-white font-JakartaSemiBold text-2xl absolute bottom-5 left-5">
@@ -53,7 +56,7 @@ const Signup = () => {
             touched,
             errors,
           }) => (
-            <View className="p-3 px-6">
+            <View className="py-3 px-6">
               <CustomInput
                 label="Name"
                 placeholder="Your Name Here"
@@ -95,7 +98,7 @@ const Signup = () => {
               />
               <CustomInput
                 label="Password"
-                placeholder="Secret Here"
+                placeholder="Password"
                 expoIcon={
                   <icons.FontAwesome name="lock" size={24} color="black" />
                 }
@@ -103,10 +106,11 @@ const Signup = () => {
                 labelStyle="mb-2"
                 onChangeText={handleChange("password")}
                 error={errors.password}
+                secureTextEntry
               />
               <CustomInput
                 label="Confirm Password"
-                placeholder="Secret Here"
+                placeholder="Confirm Password"
                 expoIcon={
                   <icons.FontAwesome name="lock" size={24} color="black" />
                 }
@@ -114,6 +118,7 @@ const Signup = () => {
                 labelStyle="mb-2"
                 onChangeText={handleChange("confirmPassword")}
                 error={errors.confirmPassword}
+                secureTextEntry
               />
               <CustomInput
                 label="Business Name"
@@ -193,8 +198,8 @@ const Signup = () => {
                 error={errors.zipcode}
               />
               <CustomInput
-                label="Select your Role"
-                placeholder="Select your Role"
+                label="Doing Business As"
+                placeholder="Doing Business As"
                 expoIcon={
                   <icons.Foundation
                     name="torso-business"
@@ -227,8 +232,8 @@ const Signup = () => {
             </View>
           )}
         </Formik>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 

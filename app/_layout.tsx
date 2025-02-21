@@ -8,12 +8,16 @@ import { store, persistor } from "@/store";
 import { PersistGate } from "redux-persist/integration/react";
 import NetInfo from "@react-native-community/netinfo";
 import { View, Text } from "react-native";
+import "../global.css";
+import { StripeProvider } from "@stripe/stripe-react-native";
+// import CustomSplashScreen from "@/components/CustomSplashScreen";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [isConnected, setIsConnected] = useState(true);
+  const [showSplash, setShowSplash] = useState(true);
 
   const [loaded] = useFonts({
     "Jakarta-Bold": require("../assets/fonts/PlusJakartaSans-Bold.ttf"),
@@ -85,19 +89,29 @@ export default function RootLayout() {
 
   return (
     <>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <NetworkBanner />
-          <Stack>
-            <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
-            <Stack.Screen name="(delivery)" options={{ headerShown: false }} />
-            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-            <Stack.Screen name="(dynamic)" options={{ headerShown: false }} />
-            <Stack.Screen name="(admin)" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" />
-          </Stack>
-        </PersistGate>
-      </Provider>
+      {/* {showSplash ?
+        <CustomSplashScreen onFinish={() => setShowSplash(false)} />
+        : */}
+      <StripeProvider publishableKey="pk_live_51QoJ5JHmc4XSvVjLEoP3YmsJzXLcXv4qtZA4Iq7bUiBuHJrIv8L9u4t0jtnMdjxTd8ilr8QueSDVfOC9TgueIZsC008HZa0xTS">
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <NetworkBanner />
+
+            <Stack>
+              <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
+              <Stack.Screen
+                name="(delivery)"
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+              <Stack.Screen name="(dynamic)" options={{ headerShown: false }} />
+              <Stack.Screen name="(admin)" options={{ headerShown: false }} />
+              <Stack.Screen name="+not-found" />
+            </Stack>
+          </PersistGate>
+        </Provider>
+      </StripeProvider>
+      {/* } */}
     </>
   );
 }
