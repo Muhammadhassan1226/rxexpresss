@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "RxExpresss",
-    "slug": "rxexpresss",
+    "name": "RxExpress",
+    "slug": "rxexpress",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/rx_icon.png",
@@ -45,6 +45,7 @@
           "backgroundColor": "#5893d4"
         }
       ]
+
     ],
     "experiments": {
       "typedRoutes": true
@@ -54,8 +55,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "4a2bb382-5824-4afe-a5eb-d1d859e37e24"
+        "projectId": "a91a9190-7edb-4672-bd4d-659362a5351f"
       }
-    }
+    },
+    "owner": "umer_78600"
   }
 }

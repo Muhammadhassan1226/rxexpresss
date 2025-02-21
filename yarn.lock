@@ -4552,6 +4552,13 @@ expo-blur@~14.0.2:
   resolved "https://registry.npmjs.org/expo-blur/-/expo-blur-14.0.3.tgz"
   integrity sha512-BL3xnqBJbYm3Hg9t/HjNjdeY7N/q8eK5tsLYxswWG1yElISWZmMvrXYekl7XaVCPfyFyz8vQeaxd7q74ZY3Wrw==
 
+expo-camera@~16.0.17:
+  version "16.0.17"
+  resolved "https://registry.npmjs.org/expo-camera/-/expo-camera-16.0.17.tgz"
+  integrity sha512-V7yBcjQSx65ySKEN8NpCPaFQRL6haGW/hNFvlRuD3+e98sxwQQtcni/EkfTUmZDw81OuURO1c6vTr2oI33WM4Q==
+  dependencies:
+    invariant "^2.2.4"
+
 expo-constants@*, expo-constants@~17.0.4, expo-constants@~17.0.5, expo-constants@~17.0.7:
   version "17.0.7"
   resolved "https://registry.npmjs.org/expo-constants/-/expo-constants-17.0.7.tgz"
@@ -7490,7 +7497,7 @@ prompts@^2.0.1, prompts@^2.2.1, prompts@^2.3.2, prompts@^2.4.2:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.5.10, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.0, prop-types@^15.8.1:
+prop-types@^15.5.10, prop-types@^15.7.2, prop-types@^15.8.0, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -7670,13 +7677,6 @@ react-is@^17.0.1:
   version "17.0.2"
   resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
-
-react-native-camera@^4.2.1:
-  version "4.2.1"
-  resolved "https://registry.npmjs.org/react-native-camera/-/react-native-camera-4.2.1.tgz"
-  integrity sha512-+Vkql24PFYQfsPRznJCvPwJQfyzCnjlcww/iZ4Ej80bgivKjL9eU0IMQIXp4yi6XCrKi4voWXxIDPMupQZKeIQ==
-  dependencies:
-    prop-types "^15.6.2"
 
 react-native-css-interop@0.1.22:
   version "0.1.22"

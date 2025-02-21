@@ -1,7 +1,5 @@
-import React from "react";
 import { View, Text, Alert } from "react-native";
-import { RNCamera } from "react-native-camera";
-
+import { CameraView } from "expo-camera";
 interface QRData {
   data: string;
 }
@@ -18,18 +16,13 @@ const Qrcode = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <RNCamera
-        style={{ flex: 1 }}
-        onBarCodeRead={handleBarcodeScan}
-        type={RNCamera.Constants.Type.back}
-        captureAudio={false}
-      >
+      <CameraView style={{ flex: 1 }} onBarcodeScanned={handleBarcodeScan}>
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
           <Text style={{ fontSize: 18, color: "white" }}>Scan the QR Code</Text>
         </View>
-      </RNCamera>
+      </CameraView>
     </View>
   );
 };
