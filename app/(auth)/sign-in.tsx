@@ -25,24 +25,24 @@ Notifications.setNotificationHandler({
 const Signin = () => {
   const dispatch = useAppDispatch();
   const { loading, notificationToken } = useAppSelector(
-    (state: RootState) => state.auth,
+    (state: RootState) => state.auth
   );
 
   useEffect(() => {
     if (notificationToken == "") {
       registerForPushNotificationsAsync().then(
-        (token) => token && dispatch(setPushNotificationToken(token)),
+        (token) => token && dispatch(setPushNotificationToken(token))
       );
     }
     if (Platform.OS === "android") {
       Notifications.getNotificationChannelsAsync().then((value) =>
-        console.log(value ?? []),
+        console.log(value ?? [])
       );
     }
   });
   const handleLogin = async (
     values: typeof LogininitialValues,
-    { setSubmitting }: FormikHelpers<typeof LogininitialValues>,
+    { setSubmitting }: FormikHelpers<typeof LogininitialValues>
   ) => {
     try {
       setSubmitting(true);

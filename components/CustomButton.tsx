@@ -13,7 +13,7 @@ const getbgVariantStye = (variant: ButtonProps["bgVariant"]) => {
     case "outline":
       return "bg-transparent-500 border-neutral-300 border-[0.5px]";
     default:
-      return "bg-primary-500";
+      return "bg-[#0286FF]";
   }
 };
 
@@ -44,7 +44,9 @@ const CustomButton = ({
 }: ButtonProps) => (
   <TouchableOpacity
     onPress={onPress}
-    className={`flex w-full rounded-full justify-center p-3 flex-row items-center shadow-md shadow-neutral-400/70 ${getbgVariantStye(bgVariant)} ${className}`}
+    className={`flex w-full rounded-full justify-center p-3 flex-row items-center shadow-md shadow-neutral-400/70 ${getbgVariantStye(
+      bgVariant
+    )} ${className}`}
     {...props}
   >
     {IconLeft && <IconLeft />}
