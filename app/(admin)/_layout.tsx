@@ -144,7 +144,7 @@ const theme = {
   ...MD3LightTheme,
   colors: {
     ...MD3LightTheme.colors,
-    primary: "#0286FF",
+    primary: "#5893d4",
     secondary: "#03dac6",
   },
 };
@@ -167,7 +167,7 @@ export default function Layout() {
     return () => {
       notificationListener.current &&
         Notifications.removeNotificationSubscription(
-          notificationListener.current,
+          notificationListener.current
         );
       responseListener.current &&
         Notifications.removeNotificationSubscription(responseListener.current);
