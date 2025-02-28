@@ -30,10 +30,10 @@ const Header = ({
   status = "Status",
   paymentStatus = "Payment Status",
   deliverySubtypeId = "Subtype ID",
-  name = "Name",
+  name = "Delivery Subtype",
   rate = "Rate",
   businessName = "Business Name",
-  signatureImageUrl = "Signature Image",
+  signatureImageUrl,
 }: PropsType) => {
   return (
     <View style={styles.container}>
@@ -64,9 +64,11 @@ const Header = ({
       <Text style={[styles.textStyle, styles.column, style]}>
         {businessName}
       </Text>
-      <Text style={[styles.textStyle, styles.column, style]}>
-        {signatureImageUrl}
-      </Text>
+      {signatureImageUrl && (
+        <Text style={[styles.textStyle, styles.column, style]}>
+          {signatureImageUrl}
+        </Text>
+      )}
     </View>
   );
 };

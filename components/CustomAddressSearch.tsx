@@ -69,8 +69,7 @@ const CustomAddressSearch = ({
 
       setQuery(response.data.result.formatted_address);
       setSuggestions([]);
-      onChangeText(response.data.result.formatted_address || '')
-
+      onChangeText(response.data.result.formatted_address || "");
     } catch (error) {
       console.error("Error fetching place details:", error);
     }
@@ -106,30 +105,24 @@ const CustomAddressSearch = ({
                 fetchAddressSuggestions(text);
               }}
             />
-
           </View>
           {/* Dropdown Suggestions */}
-          {suggestions.length > 0 && (
-            <FlatList
-              data={suggestions}
-              keyExtractor={(item: any) => item.place_id}
-              className="bg-white rounded-lg shadow-md mt-2"
-              renderItem={({ item }) => (
+          {suggestions.length > 0 &&
+            suggestions.map((item) => {
+              return (
                 <TouchableOpacity
-                  onPress={() => handleSelect(item.place_id)}
+                  key={item.place_id}
+                  onPress={() => handleSelect(item?.place_id)}
                   className="p-3 border-b"
                 >
-                  <Text>{item.description}</Text>
+                  <Text>{item?.description}</Text>
                 </TouchableOpacity>
-              )}
-            />
-          )}
+              );
+            })}
           {error && <Text className="text-red-600 self-end">{error}</Text>}
         </View>
       </Pressable>
     </KeyboardAvoidingView>
-
-
   );
 };
 

@@ -14,21 +14,19 @@ import Spinner from "react-native-loading-spinner-overlay";
 import SearchBar from "@/components/SearchBar";
 import Header from "@/components/Header";
 import { getAssignedOrderSignaure } from "@/store/slice/deliveryslice";
-import OrderDeliveryItem from "@/components/OrderDeliveryItem";
-import Signaturelist from "@/components/signaturelist";
 import OrderItem from "@/components/OrderItem";
 
 const OrdersSignatureList = () => {
   const isFocused = useIsFocused();
   const dispatch = useAppDispatch();
   const { signatureOrders, loading } = useAppSelector(
-    (state: RootState) => state.delivery,
+    (state: RootState) => state.delivery
   );
   const [page, setPage] = useState(1);
   const [pageSize] = useState(15); // Number of items per page
   const [search, setSearch] = useState("");
   const [isFetchingMore, setIsFetchingMore] = useState(false);
-
+  console.log("signature Orders______", signatureOrders.orders);
   // Fetch orders for the current page
   const handleFetchOrders = async (reset = false) => {
     if (loading || isFetchingMore) return;
@@ -41,7 +39,7 @@ const OrdersSignatureList = () => {
           search,
           page: currentPage,
           pageSize,
-        }),
+        })
       );
 
       if (reset) {

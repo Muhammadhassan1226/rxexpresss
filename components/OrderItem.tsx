@@ -55,7 +55,13 @@ const OrderItem = ({
           style={[
             styles.textStyle,
             styles.column,
-            { backgroundColor: status == "Delivered" ? "green" : "#fff" },
+            {
+              color: "#fff",
+
+              backgroundColor: status == "Delivered" ? "green" : "lightclered",
+              fontWight: "bold",
+              borderRadius: 20,
+            },
           ]}
         >
           {status}

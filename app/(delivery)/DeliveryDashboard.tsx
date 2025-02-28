@@ -9,8 +9,9 @@ import { useIsFocused } from "@react-navigation/native";
 import { getTotalAssignedOrdersCount } from "@/store/slice/deliveryslice";
 const Delivery = () => {
   const deliveryCount = useAppSelector(
-    (state: RootState) => state.delivery.DashboardCount,
+    (state: RootState) => state.delivery.DashboardCount
   );
+
   const isFocused = useIsFocused(); // Detect if the page is in focus
   const dispatch = useAppDispatch();
   const loading = useAppSelector((state: RootState) => state.delivery.loading);

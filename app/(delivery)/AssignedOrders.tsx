@@ -20,8 +20,9 @@ const AssignedOrders = () => {
   const isFocused = useIsFocused();
   const dispatch = useAppDispatch();
   const { orders, loading } = useAppSelector(
-    (state: RootState) => state.delivery,
+    (state: RootState) => state.delivery
   );
+
   const [page, setPage] = useState(1);
   const [pageSize] = useState(15); // Number of items per page
   const [search, setSearch] = useState("");
@@ -39,7 +40,7 @@ const AssignedOrders = () => {
           search,
           page: currentPage,
           pageSize,
-        }),
+        })
       );
 
       if (reset) {
