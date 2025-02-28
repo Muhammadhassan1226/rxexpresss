@@ -147,7 +147,7 @@ const Signin = () => {
         {/* Forgot Password Section */}
         <View className="mt-10 justify-center items-center">
           <Link href="/forgot-password" className="mt-2">
-            <Text className="text-blue-600 text-base font-semibold">
+            <Text className="text-[#5893d4] text-base font-semibold">
               Reset your password →
             </Text>
           </Link>
