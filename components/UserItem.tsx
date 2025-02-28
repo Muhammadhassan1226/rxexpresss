@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     borderColor: "#ddd",
   },
   column: {
-    width: "10.3%", // Ensures 12 columns fit equally within 100% of the row
+    width: "7.14%", // Ensures 12 columns fit equally within 100% of the row
     paddingHorizontal: 4, // Optional: Add padding for spacing
     textAlign: "center", // Center text within the column
     fontSize: 14,

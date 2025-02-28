@@ -27,6 +27,7 @@ const AllOrders = () => {
   const [isFetchingMore, setIsFetchingMore] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
+  console.log("Check orders_____________", orders.orders);
 
   // Fetch orders for the current page
   const handleFetchOrders = async (reset = false) => {
@@ -40,7 +41,7 @@ const AllOrders = () => {
           search,
           page: currentPage,
           pageSize,
-        }),
+        })
       ).unwrap();
 
       // Update hasMore flag

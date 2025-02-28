@@ -58,7 +58,7 @@ const OrderItem = ({
             {
               color: "#fff",
 
-              backgroundColor: status == "Delivered" ? "green" : "lightclered",
+              backgroundColor: status == "Delivered" ? "green" : "red",
               fontWight: "bold",
               borderRadius: 20,
             },
@@ -66,12 +66,27 @@ const OrderItem = ({
         >
           {status}
         </Text>
-        <Text style={[styles.textStyle, styles.column]}>{paymentStatus}</Text>
+
         <Text style={[styles.textStyle, styles.column]}>
           {deliverySubtypeId}
         </Text>
         <Text style={[styles.textStyle, styles.column]}>{name}</Text>
         <Text style={[styles.textStyle, styles.column]}>{rate}$</Text>
+        <Text
+          style={[
+            styles.textStyle,
+            styles.column,
+            {
+              color: "#fff",
+
+              backgroundColor: paymentStatus == "Paid" ? "green" : "red",
+              fontWight: "bold",
+              borderRadius: 20,
+            },
+          ]}
+        >
+          {paymentStatus}
+        </Text>
         <Text style={[styles.textStyle, styles.column]}>{businessName}</Text>
         {signatureImageUrl && (
           <Image

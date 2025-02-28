@@ -53,17 +53,19 @@ const Header = ({
         {instructions}
       </Text>
       <Text style={[styles.textStyle, styles.column, style]}>{status}</Text>
-      <Text style={[styles.textStyle, styles.column, style]}>
-        {paymentStatus}
-      </Text>
+
       <Text style={[styles.textStyle, styles.column, style]}>
         {deliverySubtypeId}
       </Text>
       <Text style={[styles.textStyle, styles.column, style]}>{name}</Text>
       <Text style={[styles.textStyle, styles.column, style]}>{rate}</Text>
       <Text style={[styles.textStyle, styles.column, style]}>
+        {paymentStatus}
+      </Text>
+      <Text style={[styles.textStyle, styles.column, style]}>
         {businessName}
       </Text>
+
       {signatureImageUrl && (
         <Text style={[styles.textStyle, styles.column, style]}>
           {signatureImageUrl}
