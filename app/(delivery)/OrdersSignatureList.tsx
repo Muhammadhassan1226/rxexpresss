@@ -103,7 +103,9 @@ const OrdersSignatureList = () => {
       >
         <FlatList
           data={signatureOrders.orders}
-          ListHeaderComponent={() => <Header />}
+          ListHeaderComponent={() => (
+            <Header signatureImageUrl="Signature Image" />
+          )}
           keyExtractor={(item) => item.id.toString()}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (

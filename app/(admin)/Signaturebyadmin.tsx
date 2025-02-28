@@ -20,7 +20,7 @@ const Signature = () => {
   const isFocused = useIsFocused();
   const dispatch = useAppDispatch();
   const { SignatureOrders: orders, loading } = useAppSelector(
-    (state: RootState) => state.admin,
+    (state: RootState) => state.admin
   );
 
   const [page, setPage] = useState(1);
@@ -41,7 +41,7 @@ const Signature = () => {
           search,
           page: currentPage,
           pageSize,
-        }),
+        })
       ).unwrap();
 
       // Check if there is more data to load
@@ -109,7 +109,9 @@ const Signature = () => {
       >
         <FlatList
           data={orders.orders}
-          ListHeaderComponent={() => <Header />}
+          ListHeaderComponent={() => (
+            <Header signatureImageUrl="Signature Image" />
+          )}
           keyExtractor={(item) => item.id.toString()}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
