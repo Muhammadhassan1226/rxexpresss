@@ -1,7 +1,5 @@
-import { RootState } from "@/store";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { useAppDispatch } from "@/store/hooks";
 import { getAssignOrderDetails } from "@/store/slice/deliveryslice";
-import { getOrderDetails } from "@/store/slice/orderslice";
 import { OrderType } from "@/types/admin";
 import { router } from "expo-router";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -22,7 +20,6 @@ const OrderDeliveryItem = ({
   businessName,
   signatureImageUrl,
 }: OrderType) => {
-  const user = useAppSelector((state: RootState) => state.auth.user);
   const dispatch = useAppDispatch();
 
   const handleOrderDetails = async () => {
@@ -46,24 +43,50 @@ const OrderDeliveryItem = ({
         <Text style={[styles.textStyle, styles.column]}>{recipientName}</Text>
         <Text style={[styles.textStyle, styles.column]}>{phone}</Text>
         <Text style={[styles.textStyle, styles.column]}>{address}</Text>
-        <Text style={[styles.textStyle, styles.column]}>{deliveryMethods}</Text>
+
+        <Text style={[styles.textStyle, styles.column]}>
+          {deliveryMethods ? deliveryMethods : "----"}
+        </Text>
         <Text style={[styles.textStyle, styles.column]}>{dateToDeliver}</Text>
-        <Text style={[styles.textStyle, styles.column]}>{instructions}</Text>
+        <Text style={[styles.textStyle, styles.column]}>
+          {instructions ? instructions : "----"}
+        </Text>
         <Text
           style={[
             styles.textStyle,
             styles.column,
-            { backgroundColor: status == "Delivered" ? "green" : "#fff" },
+            {
+              color: "#fff",
+
+              backgroundColor: status == "Delivered" ? "green" : "red",
+              fontWeight: "bold",
+              borderRadius: 20,
+            },
           ]}
         >
           {status}
         </Text>
-        <Text style={[styles.textStyle, styles.column]}>{paymentStatus}</Text>
+
         <Text style={[styles.textStyle, styles.column]}>
           {deliverySubtypeId}
         </Text>
         <Text style={[styles.textStyle, styles.column]}>{name}</Text>
         <Text style={[styles.textStyle, styles.column]}>{rate}$</Text>
+        <Text
+          style={[
+            styles.textStyle,
+            styles.column,
+            {
+              color: "#fff",
+
+              backgroundColor: status == "Delivered" ? "green" : "red",
+              fontWeight: "bold",
+              borderRadius: 20,
+            },
+          ]}
+        >
+          {paymentStatus}
+        </Text>
         <Text style={[styles.textStyle, styles.column]}>{businessName}</Text>
         {signatureImageUrl && (
           <Image
@@ -94,7 +117,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   column: {
-    width: "7.14%", // Ensures 14 columns fit equally within the row (100% ÷ 14)
+    width: "7.7%", // Ensures 14 columns fit equally within the row (100% ÷ 14)
     textAlign: "center",
     paddingHorizontal: 4, // Adds spacing inside the column
   },

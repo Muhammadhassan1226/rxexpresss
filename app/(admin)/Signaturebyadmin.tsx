@@ -12,9 +12,8 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
 import Spinner from "react-native-loading-spinner-overlay";
 import SearchBar from "@/components/SearchBar";
-import Header from "@/components/Header";
 import { SignatureOrders } from "@/store/slice/adminslice";
-import OrderItem from "@/components/OrderItem";
+import { SignatureHeader, SignatureItem } from "@/components";
 
 const Signature = () => {
   const isFocused = useIsFocused();
@@ -93,7 +92,7 @@ const Signature = () => {
         textStyle={{ color: "white" }}
       />
       <StatusBar />
-      <Text className="font-bold text-center text-xl pb-4">
+      <Text className="font-bold text-center text-xl py-4">
         All Signature Orders From Admin
       </Text>
       <SearchBar
@@ -109,13 +108,11 @@ const Signature = () => {
       >
         <FlatList
           data={orders.orders}
-          ListHeaderComponent={() => (
-            <Header signatureImageUrl="Signature Image" />
-          )}
+          ListHeaderComponent={() => <SignatureHeader />}
           keyExtractor={(item) => item.id.toString()}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
-            <OrderItem
+            <SignatureItem
               id={item.id}
               recipientName={item.recipientName}
               phone={item.phone}

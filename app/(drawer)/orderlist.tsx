@@ -1,14 +1,12 @@
 import { Text, StatusBar, FlatList, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect, useState } from "react";
-import OrderItem from "@/components/OrderItem";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
 import { getMyOrder } from "@/store/slice/orderslice";
 import { useIsFocused } from "@react-navigation/native";
 import Spinner from "react-native-loading-spinner-overlay";
-import SearchBar from "@/components/SearchBar";
-import Header from "@/components/Header";
+import { Header, SearchBar, OrderItem } from "@/components";
 
 const OrderList = () => {
   const isFocused = useIsFocused();
@@ -54,7 +52,7 @@ const OrderList = () => {
         textStyle={{ color: "white" }}
       />
       <StatusBar />
-      <Text className="font-bold text-center text-xl pb-4">My Order</Text>
+      <Text className="font-bold text-center text-xl py-4">My Order</Text>
       <SearchBar
         value={search}
         onChangeText={(text) => setSearch(text)}

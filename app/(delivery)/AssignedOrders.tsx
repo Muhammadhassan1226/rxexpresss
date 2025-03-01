@@ -80,7 +80,7 @@ const AssignedOrders = () => {
         textStyle={{ color: "white" }}
       />
       <StatusBar />
-      <Text className="font-bold text-center text-xl pb-4">
+      <Text className="font-bold text-center text-xl py-4">
         All Delivery Orders
       </Text>
       <SearchBar

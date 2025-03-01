@@ -1,21 +1,16 @@
 import {
   Alert,
-  Button,
   Pressable,
   ScrollView,
   StatusBar,
   Text,
   TextInput,
-  TouchableOpacity,
   View,
 } from "react-native";
-import CustomInput from "@/components/CustomInput";
 import { icons } from "@/constants";
 import { Formik } from "formik";
 import { OrderinitialValues, OrderSchema } from "@/schemas/order";
 import { Picker } from "@react-native-picker/picker";
-import CustomButton from "@/components/CustomButton";
-import CustomAddressSearch from "@/components/CustomAddressSearch";
 import DatePicker from "@react-native-community/datetimepicker";
 import { useEffect, useState } from "react";
 import { formatDate } from "@/utils";
@@ -27,6 +22,7 @@ import {
   presentPaymentSheet,
 } from "@stripe/stripe-react-native";
 import { Fontisto, MaterialCommunityIcons } from "@expo/vector-icons";
+import { CustomInput, CustomButton, CustomAddressSearch } from "@/components";
 // import { CreateOrderPushNotification } from "@/config";
 
 const Profile = () => {
@@ -64,6 +60,7 @@ const Profile = () => {
         if (data.paymentStatus === "COD") {
           resetForm();
         } else {
+          //@ts-ignore
           openPaymentSheet(res.payload.clientSecret, resetForm);
         }
         console.log("SuccessFull Get My Order");
@@ -167,11 +164,13 @@ const Profile = () => {
                   <Fontisto name="date" size={20} color="black" />
                 </Pressable>
               }
+              //@ts-ignore
               value={values.dateToDeliver}
               labelStyle="mb-2"
               editable={false}
               onPress={() => toggleDateModal()}
               // onChangeText={handleChange("dateToDeliver")}
+              //@ts-ignore
               error={errors.dateToDeliver}
             />
             <Text className="font-bold ">Special Instructions</Text>

@@ -5,16 +5,14 @@ import { useIsFocused } from "@react-navigation/native";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
 import { getQueensOrders } from "@/store/slice/orderslice";
-import OrderItem from "@/components/OrderItem";
-import SearchBar from "@/components/SearchBar";
+import { Header, SearchBar, OrderItem } from "@/components";
 import Spinner from "react-native-loading-spinner-overlay";
-import Header from "@/components/Header";
 
 const Queens = () => {
   const isFocused = useIsFocused();
   const [search, setSearch] = useState("");
   const { queensOrders, loading } = useAppSelector(
-    (state: RootState) => state.order,
+    (state: RootState) => state.order
   );
   const dispatch = useAppDispatch();
   console.log("Loading", loading);
@@ -53,7 +51,7 @@ const Queens = () => {
         textStyle={{ color: "white" }}
       />
       <StatusBar />
-      <Text className="font-bold text-center text-xl pb-4">Queens Order</Text>
+      <Text className="font-bold text-center text-xl py-4">Queens Order</Text>
       <SearchBar
         value={search}
         onChangeText={(text) => setSearch(text)}
