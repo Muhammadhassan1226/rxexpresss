@@ -20,7 +20,7 @@ const AllQueens = () => {
   const isFocused = useIsFocused();
   const dispatch = useAppDispatch();
   const { QueensOrders, loading } = useAppSelector(
-    (state: RootState) => state.admin,
+    (state: RootState) => state.admin
   );
   const [page, setPage] = useState(1);
   const [pageSize] = useState(15); // Number of items per page
@@ -39,7 +39,7 @@ const AllQueens = () => {
           search,
           page: currentPage,
           pageSize,
-        }),
+        })
       );
 
       if (reset) {
@@ -83,7 +83,7 @@ const AllQueens = () => {
         textStyle={{ color: "white" }}
       />
       <StatusBar />
-      <Text className="font-bold text-center text-xl pb-4">
+      <Text className="font-bold text-center text-xl py-4">
         All Queens Orders
       </Text>
       <SearchBar

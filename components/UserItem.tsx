@@ -32,17 +32,17 @@ const UserItem = ({
   return (
     <View style={styles.container}>
       <Text style={styles.column}>{name}</Text>
+      <Text style={styles.column}>{email}</Text>
       <Text style={styles.column}>{phone}</Text>
       <Text style={styles.column}>{businessName}</Text>
-      <Text style={styles.column}>{state}</Text>
-      <Text style={styles.column}>{email}</Text>
       <Text style={styles.column}>{doingBussinessAs}</Text>
       <Text style={styles.column}>{address}</Text>
       <Text style={styles.column}>{city}</Text>
+      <Text style={styles.column}>{state}</Text>
       <Text style={styles.column}>{zipcode}</Text>
       <Text style={styles.column}>{apt}</Text>
-      <Text style={styles.column}>{facility}</Text>
-      <Text style={styles.column}>{role}</Text>
+      <Text style={styles.column}>{facility ? facility : "----"}</Text>
+      <Text style={styles.column}>{role ? role : "----"}</Text>
     </View>
   );
 };
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     borderColor: "#ddd",
   },
   column: {
-    width: "7.14%", // Ensures 12 columns fit equally within 100% of the row
+    width: "8.4%", // Ensures 12 columns fit equally within 100% of the row
     paddingHorizontal: 4, // Optional: Add padding for spacing
     textAlign: "center", // Center text within the column
     fontSize: 14,

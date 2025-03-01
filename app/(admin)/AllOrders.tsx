@@ -12,9 +12,7 @@ import { useIsFocused } from "@react-navigation/native";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
 import Spinner from "react-native-loading-spinner-overlay";
-import OrderItem from "@/components/OrderItem";
-import SearchBar from "@/components/SearchBar";
-import Header from "@/components/Header";
+import { Header, SearchBar, OrderItem } from "@/components";
 import { getOrder } from "@/store/slice/adminslice";
 
 const AllOrders = () => {
@@ -27,14 +25,10 @@ const AllOrders = () => {
   const [isFetchingMore, setIsFetchingMore] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
-  console.log("Check orders_____________", orders.orders);
-
   // Fetch orders for the current page
   const handleFetchOrders = async (reset = false) => {
     if ((loading && !isFetchingMore) || (!reset && !hasMore)) return;
-
     const currentPage = reset ? 1 : page;
-
     try {
       const result = await dispatch(
         getOrder({
@@ -103,7 +97,7 @@ const AllOrders = () => {
         textStyle={{ color: "white" }}
       />
       <StatusBar />
-      <Text className="font-bold text-center text-xl pb-4">
+      <Text className="font-bold text-center text-xl py-4">
         All Pharmacy Orders
       </Text>
       <SearchBar

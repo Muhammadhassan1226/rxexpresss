@@ -10,6 +10,7 @@ import UserItem from "@/components/UserItem";
 import { useIsFocused } from "@react-navigation/native";
 
 import { View } from "react-native";
+import { UserHeader } from "@/components";
 const User = () => {
   const users = useAppSelector((state: RootState) => state.admin.users) || [];
   const loading = useAppSelector((state: RootState) => state.admin.loading);
@@ -43,26 +44,13 @@ const User = () => {
         textStyle={{ color: "white" }}
       />
       <StatusBar />
-      <Text className="font-bold text-center text-xl pb-4">All Users</Text>
+      <Text className="font-bold text-center text-xl py-4">All Users</Text>
       <ScrollView showsHorizontalScrollIndicator={false} horizontal>
         {Array.isArray(users) && users.length === 0 ? (
           <Text className="text-center my-4">No records found</Text>
         ) : (
           <FlatList
-            ListHeaderComponent={() => (
-              <Header
-                id="Name"
-                recipientName="Phone"
-                phone="Business Name"
-                address="State"
-                deliveryMethods="Email"
-                dateToDeliver="Doing Business As"
-                instructions="Address"
-                status="City"
-                paymentStatus="Zipcode"
-                deliverySubtypeId="Apt"
-              />
-            )}
+            ListHeaderComponent={() => <UserHeader />}
             showsVerticalScrollIndicator={false}
             data={users}
             keyExtractor={(item, index) =>
