@@ -15,6 +15,7 @@ import SearchBar from "@/components/SearchBar";
 import Header from "@/components/Header";
 import { getAssignedOrderSignaure } from "@/store/slice/deliveryslice";
 import OrderItem from "@/components/OrderItem";
+import { SignatureHeader, SignatureItem } from "@/components";
 
 const OrdersSignatureList = () => {
   const isFocused = useIsFocused();
@@ -88,7 +89,7 @@ const OrdersSignatureList = () => {
         textStyle={{ color: "white" }}
       />
       <StatusBar />
-      <Text className="font-bold text-center text-xl pb-4">
+      <Text className="font-bold text-center text-xl py-4">
         All Signature Orders
       </Text>
       <SearchBar
@@ -103,13 +104,11 @@ const OrdersSignatureList = () => {
       >
         <FlatList
           data={signatureOrders.orders}
-          ListHeaderComponent={() => (
-            <Header signatureImageUrl="Signature Image" />
-          )}
+          ListHeaderComponent={() => <SignatureHeader />}
           keyExtractor={(item) => item.id.toString()}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
-            <OrderItem
+            <SignatureItem
               id={item.id}
               recipientName={item.recipientName}
               phone={item.phone}

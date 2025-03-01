@@ -1,4 +1,3 @@
-import { PRIVATE_API } from "@/config";
 import { RootState } from "@/store";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { getOrderDetails } from "@/store/slice/orderslice";
@@ -59,7 +58,7 @@ const OrderItem = ({
               color: "#fff",
 
               backgroundColor: status == "Delivered" ? "green" : "red",
-              fontWight: "bold",
+              fontWeight: "bold",
               borderRadius: 20,
             },
           ]}
@@ -80,7 +79,7 @@ const OrderItem = ({
               color: "#fff",
 
               backgroundColor: paymentStatus == "Paid" ? "green" : "red",
-              fontWight: "bold",
+              fontWeight: "bold",
               borderRadius: 20,
             },
           ]}
@@ -117,7 +116,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   column: {
-    width: "7.14%", // Ensures 14 columns fit equally within the row (100% ÷ 14)
+    width: "7.7%", // Ensures 14 columns fit equally within the row (100% ÷ 14)
     textAlign: "center",
     paddingHorizontal: 4, // Adds spacing inside the column
   },

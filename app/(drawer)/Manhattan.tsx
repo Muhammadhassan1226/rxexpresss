@@ -6,14 +6,13 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
 import { getManhattanOrders } from "@/store/slice/orderslice";
 import Spinner from "react-native-loading-spinner-overlay";
-import SearchBar from "@/components/SearchBar";
-import OrderItem from "@/components/OrderItem";
-import Header from "@/components/Header";
+import { Header, SearchBar, OrderItem } from "@/components";
+
 const Manhattan = () => {
   const isFocused = useIsFocused();
   const [search, setSearch] = useState("");
   const { manhattanOrders, loading } = useAppSelector(
-    (state: RootState) => state.order,
+    (state: RootState) => state.order
   );
   const dispatch = useAppDispatch();
   console.log("Loading", loading);
@@ -58,7 +57,7 @@ const Manhattan = () => {
         textStyle={{ color: "white" }}
       />
       <StatusBar />
-      <Text className="font-bold text-center text-xl pb-4">
+      <Text className="font-bold text-center text-xl py-4">
         Manhattan Order
       </Text>
       <SearchBar
