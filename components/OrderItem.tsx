@@ -47,9 +47,13 @@ const OrderItem = ({
         <Text style={[styles.textStyle, styles.column]}>{recipientName}</Text>
         <Text style={[styles.textStyle, styles.column]}>{phone}</Text>
         <Text style={[styles.textStyle, styles.column]}>{address}</Text>
-        <Text style={[styles.textStyle, styles.column]}>{deliveryMethods}</Text>
+        <Text style={[styles.textStyle, styles.column]}>
+          {deliveryMethods ? deliveryMethods : "----"}
+        </Text>
         <Text style={[styles.textStyle, styles.column]}>{dateToDeliver}</Text>
-        <Text style={[styles.textStyle, styles.column]}>{instructions}</Text>
+        <Text style={[styles.textStyle, styles.column]}>
+          {instructions ? instructions : "----"}
+        </Text>
         <Text
           style={[
             styles.textStyle,
@@ -69,7 +73,9 @@ const OrderItem = ({
         <Text style={[styles.textStyle, styles.column]}>
           {deliverySubtypeId}
         </Text>
-        <Text style={[styles.textStyle, styles.column]}>{name}</Text>
+        <Text style={[styles.textStyle, styles.column]}>
+          {name ? name : "----"}
+        </Text>
         <Text style={[styles.textStyle, styles.column]}>{rate}$</Text>
         <Text
           style={[

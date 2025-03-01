@@ -35,7 +35,7 @@ function CustomDrawerContent(props: any) {
           icon={({ color, size }) => (
             <MaterialCommunityIcons name="home" color={color} size={size} />
           )}
-          label="AdminDashboard"
+          label="Admin Dashboard"
           onPress={() => props.navigation.navigate("AdminDashboard")}
         />
         <PaperDrawer.Item
@@ -195,7 +195,7 @@ export default function Layout() {
             options={{
               drawerLabel: "AdminDashboard",
               title: "AdminDashboard",
-              headerTitle: "AdminDashboard",
+              headerTitle: "Admin Dashboard",
             }}
           />
           <Drawer.Screen
@@ -211,7 +211,7 @@ export default function Layout() {
             options={{
               drawerLabel: "AllOrders",
               title: "AllOrders",
-              headerTitle: "AllOrders",
+              headerTitle: "All Orders",
             }}
           />
           <Drawer.Screen
@@ -219,7 +219,7 @@ export default function Layout() {
             options={{
               drawerLabel: "AllManhattan",
               title: "AllManhattan",
-              headerTitle: "AllManhattan",
+              headerTitle: "All Manhattan",
             }}
           />
           <Drawer.Screen
@@ -259,7 +259,7 @@ export default function Layout() {
             options={{
               drawerLabel: "Deliveryusers",
               title: "Deliverey User",
-              headerTitle: "DelivereyUser",
+              headerTitle: "Deliverey User",
             }}
           />
           <Drawer.Screen

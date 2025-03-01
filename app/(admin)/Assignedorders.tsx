@@ -21,7 +21,7 @@ const Assignedord = () => {
   const isFocused = useIsFocused();
   const dispatch = useAppDispatch();
   const { AssignedOrders: orders, loading } = useAppSelector(
-    (state: RootState) => state.admin,
+    (state: RootState) => state.admin
   );
 
   const [page, setPage] = useState(1);
@@ -40,7 +40,7 @@ const Assignedord = () => {
             search,
             page: pageNum,
             pageSize,
-          }),
+          })
         ).unwrap();
 
         const totalReceived = shouldReset
@@ -59,7 +59,7 @@ const Assignedord = () => {
         setIsInitialLoad(false);
       }
     },
-    [dispatch, search, pageSize, orders?.orders?.length],
+    [dispatch, search, pageSize, orders?.orders?.length]
   );
 
   useEffect(() => {
@@ -129,7 +129,7 @@ const Assignedord = () => {
         textStyle={{ color: "white" }}
       />
       <StatusBar />
-      <Text className="font-bold text-center text-xl pb-4">
+      <Text className="font-bold text-center text-xl py-4">
         All Assigned Orders From Admin
       </Text>
 
