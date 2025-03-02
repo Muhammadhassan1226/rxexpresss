@@ -4,10 +4,10 @@
     "slug": "rxexpress",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/rx_icon.png",
+    "icon": "./assets/images/icon-rx.png",
     "splash": {
-      "backgroundColor": "#5893d4", 
-      "image": "./assets/images/rx_icon.png", 
+      "backgroundColor": "#37B9C5", 
+      "image": "./assets/images/icon-rx.png", 
       "resizeMode": "contain"
     },
     "scheme": "myapp",
@@ -25,24 +25,24 @@
         "ACCESS_FINE_LOCATION"
       ],
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/rx_icon.png",
-        "backgroundColor": "#5893d4"
+        "foregroundImage": "./assets/images/adaptiv-icon.png",
+        "backgroundColor": "#37B9C5"
       }
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/rx_icon.png"
+      "favicon": "./assets/images/adaptiv-icon.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/rx_icon.png",
+          "image": "./assets/images/icon-rx.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#5893d4"
+          "backgroundColor": "#37B9C5"
         }
       ]
 
