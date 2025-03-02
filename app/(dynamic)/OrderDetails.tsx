@@ -76,7 +76,14 @@ const orderDetails = () => {
 
           <View className="flex items-center justify-center mt-20 w-full">
             {showqr ? (
-              <View className="flex flex-row">
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                  width: "100%",
+                }}
+              >
                 <View>
                   <Text className="my-2">
                     Order Id: {""} {""} {""} {orderDetails?.id}

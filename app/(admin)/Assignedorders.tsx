@@ -30,7 +30,6 @@ const Assignedord = () => {
   const [isFetchingMore, setIsFetchingMore] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
-  const [lastContentOffset, setLastContentOffset] = useState(0);
 
   const fetchOrders = useCallback(
     async (pageNum: number, shouldReset = false) => {
@@ -149,6 +148,7 @@ const Assignedord = () => {
           keyExtractor={(item) => item.id.toString()}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
+            //@ts-ignore
             <OrderItem
               id={item.id}
               recipientName={item.recipientName}
@@ -160,8 +160,8 @@ const Assignedord = () => {
               status={item.status}
               paymentStatus={item.paymentStatus}
               deliverySubtypeId={item.deliverySubtypeId}
-              name={item.name}
-              rate={item.rate}
+              name={item.deliverySubtypeName}
+              rate={item.deliveryRate}
               businessName={item.businessName}
               signatureImageUrl={item.signatureImageUrl}
             />

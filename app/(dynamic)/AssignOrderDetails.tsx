@@ -1,4 +1,4 @@
-import { Text, View, Pressable, StyleSheet } from "react-native";
+import { Text, View, Pressable, StyleSheet, Alert } from "react-native";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
 import { useRef, useState } from "react";
@@ -19,7 +19,7 @@ const AssignOrdersDetails = () => {
   const [selectedType, setselectedType] = useState("");
   const [imageData, setImageData] = useState<string>("");
   const { orderAssignDetails } = useAppSelector(
-    (state: RootState) => state.delivery,
+    (state: RootState) => state.delivery
   );
   // Submit the function
   const onSubmit = async () => {
@@ -29,20 +29,29 @@ const AssignOrdersDetails = () => {
           saveOrderSignature({
             orderId: orderAssignDetails.id,
             signature: imageData,
-          }),
+          })
         );
-        console.log("Successfully saved signature");
-        router.back();
+        Alert.alert("Successfull", "Successfully saved signature", [
+          {
+            text: "Ok",
+            onPress: () => router.back(),
+          },
+        ]);
       } else {
         await dispatch(
           updateOrderStatusDelivery({
             orderId: orderAssignDetails.id,
             newStatus: selectedType,
-          }),
+          })
         );
         console.log("Successfully updated status");
+        Alert.alert("Successfull", "Successfully updated signature", [
+          {
+            text: "Ok",
+            onPress: () => router.back(),
+          },
+        ]);
       }
-      router.back();
     } catch (error) {
       console.log("Error____", error);
       alert("Failed to update order status");

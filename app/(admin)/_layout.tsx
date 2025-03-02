@@ -52,6 +52,17 @@ function CustomDrawerContent(props: any) {
         <PaperDrawer.Item
           icon={({ color, size }) => (
             <MaterialCommunityIcons
+              name="account-group"
+              color={color}
+              size={size}
+            />
+          )}
+          label="Registeration"
+          onPress={() => props.navigation.navigate("Registeration")}
+        />
+        <PaperDrawer.Item
+          icon={({ color, size }) => (
+            <MaterialCommunityIcons
               name="order-numeric-descending"
               color={color}
               size={size}
@@ -124,7 +135,7 @@ function CustomDrawerContent(props: any) {
           icon={({ color, size }) => (
             <MaterialCommunityIcons name="origin" color={color} size={size} />
           )}
-          label="Registeration"
+          label="Order Assigning"
           onPress={() => props.navigation.navigate("AssignedOrderss")}
         />
         <PaperDrawer.Item
@@ -204,6 +215,14 @@ export default function Layout() {
               drawerLabel: "AllRegisterUsers",
               title: "AllRegisterUsers",
               headerTitle: "All Registered Users",
+            }}
+          />
+          <Drawer.Screen
+            name="Registeration"
+            options={{
+              drawerLabel: "Registeration",
+              title: "Registeration",
+              headerTitle: "Registeration",
             }}
           />
           <Drawer.Screen
