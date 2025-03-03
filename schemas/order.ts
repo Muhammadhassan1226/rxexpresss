@@ -15,7 +15,7 @@ export const OrderSchema = yup.object().shape({
 
     address: yup.string().required("Address is required"),
     deliveryMethods: yup.string().required("Please enter the delivery Methods"),
-    instructions: yup.string().required("Please enter the spectial instruction"),
+    instructions: yup.string(),
     paymentMethod: yup.string().required("Please select the payement method")
 
 });

@@ -48,7 +48,7 @@ const Registeration = () => {
             <View className="py-3 px-6">
               <CustomInput
                 label="Name"
-                placeholder="Enter Delivery Boy Name"
+                placeholder="Enter Delivery Person Name"
                 expoIcon={
                   <icons.AntDesign name="user" size={24} color="black" />
                 }
@@ -188,13 +188,13 @@ const Registeration = () => {
               />
               <CustomInput
                 label="Facality"
-                placeholder="Facility"
+                placeholder="Facality"
                 expoIcon={
                   <icons.FontAwesome5 name="industry" size={24} color="black" />
                 }
-                value={values.facility}
+                value={values.Facality}
                 labelStyle="mb-2"
-                onChangeText={handleChange("facility")}
+                onChangeText={handleChange("Facality")}
                 error={errors.zipcode}
               />
               <CustomInput

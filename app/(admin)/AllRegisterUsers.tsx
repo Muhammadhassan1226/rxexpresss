@@ -68,7 +68,7 @@ const User = () => {
                 city={item.city}
                 zipcode={item.zipcode}
                 apt={item.apt}
-                facility={item.facility}
+                Facality={item.Facality}
                 role={item.role}
               />
             )}

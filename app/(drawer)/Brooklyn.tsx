@@ -70,6 +70,7 @@ const Brooklyn = () => {
           keyExtractor={(item) => item.id.toString()}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
+            // @ts-ignore
             <OrderItem
               id={item.id}
               recipientName={item.recipientName}

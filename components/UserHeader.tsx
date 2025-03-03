@@ -13,7 +13,7 @@ const UserHeader = () => {
       <Text style={[styles.textStyle, styles.column]}>State</Text>
       <Text style={[styles.textStyle, styles.column]}>Zipcode</Text>
       <Text style={[styles.textStyle, styles.column]}>Apt</Text>
-      <Text style={[styles.textStyle, styles.column]}>Facility</Text>
+      <Text style={[styles.textStyle, styles.column]}>Facality</Text>
       <Text style={[styles.textStyle, styles.column]}>Role</Text>
     </View>
   );

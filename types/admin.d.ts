@@ -7,7 +7,7 @@ interface OrderType {
   dateToDeliver: string;
   instructions: string;
   status: string;
-  paymentStatus: "Cash On Delivery" | "Paid" | string;
+  paymentStatus: "Cash On Delivery" | "Paid" | string | "COPAY" | "CoPay" | "copay";
   deliverySubtypeId: number;
   name: string;
   rate: number;

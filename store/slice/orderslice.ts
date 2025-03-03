@@ -16,7 +16,7 @@ export interface OrderState {
     message: string;
     orders: OrderListType[],
     manhattanOrders: OrderListType[],
-    nasauOrders: OrderListType[],
+    NassauOrders: OrderListType[],
     deliverySubtypes: DeliverySubtype[],
     queensOrders: OrderListType[],
     brooklynOrders: OrderListType[],
@@ -35,7 +35,7 @@ const initialState: OrderState = {
     message: "",
     orders: [],
     manhattanOrders: [],
-    nasauOrders: [],
+    NassauOrders: [],
     deliverySubtypes: [],
     queensOrders: [],
     brooklynOrders: [],
@@ -196,13 +196,13 @@ export const getManhattanOrders = createAsyncThunk<
     }
 );
 
-// Get Nasaua Order
-export const getNasauOrders = createAsyncThunk<
+// Get Nassaua Order
+export const getNassauOrders = createAsyncThunk<
     OrderListType[],
     { page?: number; pageSize?: number, search?: string },
     { rejectValue: string }
 >(
-    "api/Order/Nasau",
+    "api/Order/Nassau",
     async ({ page = 1, pageSize = 15, search }, { rejectWithValue }) => {
         try {
             // Dynamically construct query parameters
@@ -210,20 +210,20 @@ export const getNasauOrders = createAsyncThunk<
             if (page) params.append("page", page.toString());
             if (pageSize) params.append("pageSize", pageSize.toString());
             if (search) params.append("search", search.toString());
-            const res = await PRIVATE_API.get(`api/Order/Nasau?${params.toString()}`);
+            const res = await PRIVATE_API.get(`api/Order/Nassau?${params.toString()}`);
 
             if (res.status === 200) {
-                console.log("Nasau Order Success", res.data);
+                console.log("Nassau Order Success", res.data);
                 return res.data.orders;
             } else {
-                console.log("Nasau Order Rejected", res.status);
+                console.log("Nassau Order Rejected", res.status);
                 return rejectWithValue(res.data.message);
             }
         } catch (error: any) {
             if (error.response?.data?.message) {
                 return rejectWithValue(error.response.data.message);
             }
-            return rejectWithValue(error.message || "Nasau Order failed");
+            return rejectWithValue(error.message || "Nassau Order failed");
         }
     }
 );
@@ -385,21 +385,21 @@ export const orderSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload as string;
             });
-        // Nasau Order
+        // Nassau Order
         builder
-            .addCase(getNasauOrders.pending, (state) => {
+            .addCase(getNassauOrders.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
             .addCase(
-                getNasauOrders.fulfilled,
+                getNassauOrders.fulfilled,
                 (state, action: PayloadAction<OrderListType[]>) => {
                     state.loading = false;
-                    state.nasauOrders = action.payload;
+                    state.NassauOrders = action.payload;
                     state.error = null;
                 }
             )
-            .addCase(getNasauOrders.rejected, (state, action) => {
+            .addCase(getNassauOrders.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
             });

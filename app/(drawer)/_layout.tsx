@@ -66,8 +66,8 @@ function CustomDrawerContent(props: any) {
           icon={({ color, size }) => (
             <FontAwesome name="first-order" size={size} color={color} />
           )}
-          label="Nasau"
-          onPress={() => props.navigation.navigate("Nasau")}
+          label="Nassau"
+          onPress={() => props.navigation.navigate("Nassau")}
         />
         <PaperDrawer.Item
           icon={({ color, size }) => (
@@ -136,7 +136,7 @@ export default function Layout() {
             options={{
               drawerLabel: "neworder",
               title: "neworder",
-              headerTitle: "neworder",
+              headerTitle: "New Order",
             }}
           />
           <Drawer.Screen
@@ -156,11 +156,11 @@ export default function Layout() {
             }}
           />
           <Drawer.Screen
-            name="Nasau"
+            name="Nassau"
             options={{
-              drawerLabel: "Nasau",
-              title: "Nasau",
-              headerTitle: "Nasau",
+              drawerLabel: "Nassau",
+              title: "Nassau",
+              headerTitle: "Nassau",
             }}
           />
           <Drawer.Screen
@@ -184,7 +184,7 @@ export default function Layout() {
             options={{
               drawerLabel: "notification",
               title: "notification",
-              headerTitle: "notification",
+              headerTitle: "Notification",
             }}
           />
         </Drawer>

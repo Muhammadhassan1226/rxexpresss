@@ -27,7 +27,7 @@ const OrdersSignatureList = () => {
   const [pageSize] = useState(15); // Number of items per page
   const [search, setSearch] = useState("");
   const [isFetchingMore, setIsFetchingMore] = useState(false);
-  console.log("signature Orders______", signatureOrders.orders);
+
   // Fetch orders for the current page
   const handleFetchOrders = async (reset = false) => {
     if (loading || isFetchingMore) return;

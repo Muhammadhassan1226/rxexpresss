@@ -24,6 +24,7 @@ import {
 import { Fontisto, MaterialCommunityIcons } from "@expo/vector-icons";
 import { CustomInput, CustomButton, CustomAddressSearch } from "@/components";
 import { router } from "expo-router";
+// import { CreateOrderPushNotification } from "@/config";
 
 const Profile = () => {
   const [dateModal, setDateModal] = useState(false);
@@ -60,8 +61,7 @@ const Profile = () => {
         if (data.paymentStatus === "COD") {
           resetForm();
         } else {
-          //@ts-ignore
-          openPaymentSheet(res.payload.clientSecret, resetForm);
+          console.log("Submit the form");
         }
         Alert.alert(
           "Successfull",
@@ -69,44 +69,16 @@ const Profile = () => {
           [
             {
               text: "Ok",
-              onPress: () => router.replace("/(drawer)/orderlist"),
+              onPress: () => router.replace("/(admin)/AllOrders"),
             },
           ]
         );
-        console.log("SuccessFull Get My Order");
+        console.log("Your order has been submitted successfully");
       } else {
         console.log("Fail Get My order");
       }
     } catch (error: any) {
       console.log("Fail Get Get My order");
-    }
-  };
-
-  const openPaymentSheet = async (clientSecret: any, resetForm: () => void) => {
-    const { error } = await initPaymentSheet({
-      paymentIntentClientSecret: clientSecret,
-      merchantDisplayName: "rxexpress",
-    });
-
-    if (!error) {
-      const { error: paymentError } = await presentPaymentSheet();
-      if (paymentError) {
-        Alert.alert("Payment Failed", paymentError.message);
-      } else {
-        resetForm();
-        Alert.alert(
-          "Successfull",
-          "Your order has been submitted successfully",
-          [
-            {
-              text: "Ok",
-              onPress: () => router.replace("/(drawer)/orderlist"),
-            },
-          ]
-        );
-      }
-    } else {
-      Alert.alert("Error", error.message);
     }
   };
 
@@ -222,9 +194,9 @@ const Profile = () => {
               selectedValue={values.paymentMethod}
               onValueChange={handleChange("paymentStatus")}
             >
-              <Picker.Item label="COPAY / Cheque" value="COD" />
-              <Picker.Item label="Stripe" value="Stripe" />
+              <Picker.Item label="COPAY" value="COD" />
             </Picker>
+
             {/* <Button title="Pay Now" onPress={handlePayment} /> */}
             <CustomButton
               title="Submit"
