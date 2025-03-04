@@ -12,6 +12,8 @@ import SignatureItem from "./SignatureItems";
 import Signaturelist from "./signaturelist";
 import UserItem from "./UserItem";
 import UserHeader from "./UserHeader";
+import SubtypeItem from "./SubtypeItem";
+import AddSubtype from "./AddSubtype";
 export {
   CardItem,
   CustomAddressSearch,
@@ -27,4 +29,6 @@ export {
   OrderDeliveryItem,
   OrderItem,
   UserHeader,
+  SubtypeItem,
+  AddSubtype,
 };

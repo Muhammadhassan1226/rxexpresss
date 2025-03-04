@@ -25,7 +25,7 @@ interface User {
   state: string;
   zipcode: number;
   apt: string;
-  facility: null | string;
+  Facality: null | string;
   role: null | string;
   createdAt: string;
 }

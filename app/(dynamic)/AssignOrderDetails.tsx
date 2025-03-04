@@ -1,4 +1,4 @@
-import { Text, View, Pressable, StyleSheet, Alert } from "react-native";
+import { Text, View, Pressable, StyleSheet, Alert, ScrollView } from "react-native";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
 import { useRef, useState } from "react";
@@ -72,11 +72,10 @@ const AssignOrdersDetails = () => {
   };
 
   return (
-    <View className="flex-1 p-4 mt-10 bg-success-400">
+    <ScrollView className="flex-1 p-4 mt-10 bg-success-400">
       <Pressable onPress={() => router.back()}>
         <Text className="text-black-500 font-bold text-lg">Back</Text>
       </Pressable>
-
       <Text className="text-center text-lg font-bold">Order Details</Text>
       <View className="text-md">
         <Text className="my-2">
@@ -142,7 +141,7 @@ const AssignOrdersDetails = () => {
         onPress={onSubmit}
         className="mt-4"
       />
-    </View>
+    </ScrollView>
   );
 };
 

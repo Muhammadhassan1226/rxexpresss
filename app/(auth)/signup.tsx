@@ -12,7 +12,7 @@ const Signup = () => {
   const dispatch = useAppDispatch();
   const handleSignup = async (
     values: typeof SignupinitialValues,
-    { setSubmitting }: FormikHelpers<typeof SignupinitialValues>,
+    { setSubmitting }: FormikHelpers<typeof SignupinitialValues>
   ) => {
     console.log("SignUp Value__________________", values);
     try {
@@ -188,13 +188,13 @@ const Signup = () => {
               />
               <CustomInput
                 label="Facality"
-                placeholder="Facility"
+                placeholder="Facality"
                 expoIcon={
                   <icons.FontAwesome5 name="industry" size={24} color="black" />
                 }
-                value={values.facility}
+                value={values.Facality}
                 labelStyle="mb-2"
-                onChangeText={handleChange("facility")}
+                onChangeText={handleChange("Facality")}
                 error={errors.zipcode}
               />
               <CustomInput

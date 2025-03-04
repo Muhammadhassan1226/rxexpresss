@@ -11,7 +11,7 @@ interface propsType {
   city: string;
   zipcode: string | number;
   apt?: string;
-  facility: string | null;
+  Facality: string | null;
   role?: string | null;
 }
 
@@ -26,7 +26,7 @@ const UserItem = ({
   city,
   zipcode,
   apt,
-  facility,
+  Facality,
   role,
 }: propsType) => {
   return (
@@ -41,7 +41,7 @@ const UserItem = ({
       <Text style={styles.column}>{state}</Text>
       <Text style={styles.column}>{zipcode}</Text>
       <Text style={styles.column}>{apt}</Text>
-      <Text style={styles.column}>{facility ? facility : "----"}</Text>
+      <Text style={styles.column}>{Facality ? Facality : "----"}</Text>
       <Text style={styles.column}>{role ? role : "----"}</Text>
     </View>
   );

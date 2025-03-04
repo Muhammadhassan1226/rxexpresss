@@ -62,6 +62,13 @@ function CustomDrawerContent(props: any) {
         />
         <PaperDrawer.Item
           icon={({ color, size }) => (
+            <MaterialCommunityIcons name="account" color={color} size={size} />
+          )}
+          label="New Order"
+          onPress={() => props.navigation.navigate("neworder")}
+        />
+        <PaperDrawer.Item
+          icon={({ color, size }) => (
             <MaterialCommunityIcons
               name="order-numeric-descending"
               color={color}
@@ -98,6 +105,13 @@ function CustomDrawerContent(props: any) {
           )}
           label="All Brooklynns"
           onPress={() => props.navigation.navigate("AllBrooklyns")}
+        />
+        <PaperDrawer.Item
+          icon={({ color, size }) => (
+            <MaterialCommunityIcons name="origin" color={color} size={size} />
+          )}
+          label="Delivery Subtype"
+          onPress={() => props.navigation.navigate("DeliverySubtype")}
         />
         <PaperDrawer.Item
           icon={({ color, size }) => (
@@ -167,13 +181,9 @@ export default function Layout() {
   const responseListener = useRef<Notifications.EventSubscription>();
   useEffect(() => {
     notificationListener.current =
-      Notifications.addNotificationReceivedListener((notification) => {
-        console.log(notification);
-      });
+      Notifications.addNotificationReceivedListener((notification) => {});
     responseListener.current =
-      Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
-      });
+      Notifications.addNotificationResponseReceivedListener((response) => {});
 
     return () => {
       notificationListener.current &&
@@ -207,6 +217,22 @@ export default function Layout() {
               drawerLabel: "AdminDashboard",
               title: "AdminDashboard",
               headerTitle: "Admin Dashboard",
+            }}
+          />
+          <Drawer.Screen
+            name="neworder"
+            options={{
+              drawerLabel: "neworder",
+              title: "neworder",
+              headerTitle: "New Order",
+            }}
+          />
+          <Drawer.Screen
+            name="DeliverySubtype"
+            options={{
+              drawerLabel: "DeliverySubtype",
+              title: "DeliverySubtype",
+              headerTitle: "Delivery Subtype",
             }}
           />
           <Drawer.Screen
