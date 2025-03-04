@@ -110,6 +110,13 @@ function CustomDrawerContent(props: any) {
           icon={({ color, size }) => (
             <MaterialCommunityIcons name="origin" color={color} size={size} />
           )}
+          label="Delivery Subtype"
+          onPress={() => props.navigation.navigate("DeliverySubtype")}
+        />
+        <PaperDrawer.Item
+          icon={({ color, size }) => (
+            <MaterialCommunityIcons name="origin" color={color} size={size} />
+          )}
           label="All Orders without Delivered"
           onPress={() => props.navigation.navigate("AllOrderswithoutDelivered")}
         />
@@ -218,6 +225,14 @@ export default function Layout() {
               drawerLabel: "neworder",
               title: "neworder",
               headerTitle: "New Order",
+            }}
+          />
+          <Drawer.Screen
+            name="DeliverySubtype"
+            options={{
+              drawerLabel: "DeliverySubtype",
+              title: "DeliverySubtype",
+              headerTitle: "Delivery Subtype",
             }}
           />
           <Drawer.Screen

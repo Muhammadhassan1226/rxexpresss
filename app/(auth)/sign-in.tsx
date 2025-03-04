@@ -67,10 +67,14 @@ const Signin = () => {
         } else if (role === "Delivery") {
           router.replace("/DeliveryDashboard");
         } else {
-          router.replace("/Dashboard");
+          Alert.alert(
+            "Oops! There seems to be a network problem. Check your connection and log in again."
+          );
         }
       } else {
-        router.replace("/Dashboard"); // Default route if role not found
+        Alert.alert(
+          "Oops! There seems to be a network problem. Check your connection and log in again."
+        ); // Default route if role not found
       }
     } catch (error: any) {
       console.log("erorr", error);
