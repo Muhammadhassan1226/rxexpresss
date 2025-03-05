@@ -24,6 +24,8 @@ const Signup = () => {
         router.navigate("/otp");
         //@ts-ignore
         Alert.alert("Successfully", res?.payload);
+      } else {
+        Alert.alert("Error", "Email is already in use");
       }
       dispatch(setEmail(values.email));
     } catch (error: any) {
