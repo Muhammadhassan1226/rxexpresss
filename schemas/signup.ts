@@ -29,7 +29,7 @@ export const SignupSchema = yup.object().shape({
   Facality: yup.string().required("Facality is required"),
   role: yup
     .string()
-    .oneOf(["User", "Admin", "Delivery"], "Invalid role")
+    .oneOf(["User", "Admin", "Delivery", "PharmacyUser"], "Invalid role")
     .required("Role is required"),
 });
 
@@ -47,5 +47,5 @@ export const SignupinitialValues = {
   zipcode: "",
   apt: "",
   Facality: "",
-  role: "PharmacyUser",
+  role: "User",
 };
