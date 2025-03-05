@@ -67,9 +67,7 @@ const Signin = () => {
         } else if (role === "Delivery") {
           router.replace("/DeliveryDashboard");
         } else {
-          Alert.alert(
-            "Oops! There seems to be a network problem. Check your connection and log in again."
-          );
+          router.replace("/Dashboard");
         }
       } else {
         Alert.alert(
